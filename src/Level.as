@@ -1,0 +1,141 @@
+package  
+{
+	import bullets.PistolBullet;
+	import flash.utils.getDefinitionByName;
+	import net.flashpunk.Entity;
+	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Tilemap;
+	import net.flashpunk.masks.Grid;
+	import items.*;
+
+	public class Level extends Entity 
+	{		
+		protected var grid:Grid;
+		protected var tiles:Tilemap;
+		protected var decalTiles:Tilemap; //on top of all other tiles
+		
+		//reference to the loaded XML data of the level
+		public var data:XML;
+		
+		//items on the level
+		public var levelItems:Array = new Array();
+		
+		//set to true if the player has visited the tile
+		public var visited:Boolean;
+		
+		//width and height of the loaded level
+		public var levelWidth:uint; 
+		public var levelHeight:uint;
+		public var levelName:String;
+		
+		//references to the adjacent tiles
+		public var tileLeft:String; 
+		public var tileRight:String;
+		public var tileUp:String;
+		public var tileDown:String;
+		
+		/*
+		 * Makes a new level based off of the tile name passed
+		 * */
+		public function Level(targetTile:String) 
+		{
+			type = GC.LEVEL_TYPE;
+			
+			loadLevel(targetTile); //loads the level from file, sets this.data
+			
+			decalTiles = tiles = new Tilemap(GC.GFX_TILESET, levelWidth, levelHeight, 16, 16);
+			grid = 	new Grid(levelWidth, levelHeight, 16, 16);
+			
+			graphic = tiles;
+			mask = grid;
+			
+			for each( var item:XML in data.objects.item )
+			{
+				try
+				{
+					var classPath:String = 'items.' + item.@Class;
+					FP.console.log('*** Attempting to add item ' + classPath + '...');
+					
+					var itemClass:Class = getDefinitionByName(classPath) as Class;
+					levelItems.push(new itemClass(int(item.@x), int(item.@y)));
+				}
+				catch (e:Error) { FP.console.log("*** Unable to add " + classPath) }
+				/*
+				if ( item.@Class == 'Pistol' )
+				{
+					levelItems.push(new Pistol( int(item.@x), int(item.@y) ) );
+				}
+				*/
+			}
+			
+			for each( var rect:XML in data.tiles_bg_0.rect )
+			{
+				tiles.setRect(int(rect.@x) / 16, int(rect.@y) / 16, int(rect.w) / 16, int(rect.h) / 16, tiles.getIndex(int(rect.@tx) / 16, int(rect.@ty) / 16) );
+			}
+			
+			for each( var tile:XML in data.tiles_bg_1.tile )
+			{
+				tiles.setTile(int(tile.@x) / 16, int(tile.@y) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
+			}
+			
+			for each( tile in data.tiles_bg_2.tile )
+			{
+				tiles.setTile(int(tile.@x) / 16, int(tile.@y) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
+			}
+			
+			for each( tile in data.tiles_bg_3.tile )
+			{
+				tiles.setTile(int(tile.@x) / 16, int(tile.@y) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
+			}
+			
+			for each( tile in data.tiles.tile )
+			{
+				tiles.setTile(int(tile.@x) / 16, int(tile.@y) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
+			}
+			
+			for each( tile in data.decals.tile )
+			{
+				decalTiles.setTile(int(tile.@x) / 16, int(tile.@y) / 16, decalTiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
+			}
+			
+			for each( tile in data.tiles_fg.tile )
+			{
+				tiles.setTile(int(tile.@x) / 16, int(tile.@y) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
+			}
+			
+			for each( var solid:XML in data.solid.rect )
+			{
+				grid.setRect(int(solid.@x) / 16, int(solid.@y) / 16, int(solid.@w) / 16, int(solid.@h) / 16, true); 
+			}
+		}
+		
+		/*
+		 * Loads level from an oel (xml) file
+		 * */
+		protected function loadLevel(targetTile:String):void
+		{
+			try 
+			{
+				//tries to load the tile from GC. returns null if not present
+				var tileRef:Class = getDefinitionByName( 'GC_' + targetTile ) as Class;
+				data = FP.getXML(tileRef);
+				
+				levelName		= data.@tile_name;
+				levelWidth 		= data.width;
+				levelHeight		= data.height;
+				tileLeft 		= data.@tile_left;
+				tileRight 		= data.@tile_right;
+				tileUp			= data.@tile_up;
+				tileDown		= data.@tile_down;
+			}
+			catch (e:Error)
+			{
+				//FP.console.log('WARNING: Unable to load tile:',targetTile);
+				return;
+			}
+			FP.console.log('Loaded tile:',targetTile);
+		}
+		
+	}
+
+}
