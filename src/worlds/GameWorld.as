@@ -116,7 +116,7 @@ package worlds
 		}
 		
 		private function switchLevel(targetTile:String):void
-		{		
+		{				
 			FP.console.log('Setting up tile: ' + targetTile + '...');
 			try
 			{

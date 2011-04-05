@@ -2,6 +2,7 @@ package
 {
 	import bullets.PistolBullet;
 	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Tilemap;
@@ -53,19 +54,17 @@ package
 			{
 				try
 				{
-					var classPath:String = 'items.' + item.@Class;
-					FP.console.log('*** Attempting to add item ' + classPath + '...');
+					FP.console.log('*** Attempting to add item ' + item.@Class + '...');
+					if (item.@Class == 'none') throw new Error('Item not assigned a class name in Ogmo!');
 					
-					var itemClass:Class = getDefinitionByName(classPath) as Class;
-					levelItems.push(new itemClass(int(item.@x), int(item.@y)));
+					var itemRef:Class = getDefinitionByName('items.' + item.@Class) as Class;
+					var itemObj:Entity = new itemRef(int(item.@x), int(item.@y));
+					
+					levelItems.push(itemObj);
+					
+					FP.console.log('\t' + item.@Class + ' added!');
 				}
-				catch (e:Error) { FP.console.log("*** Unable to add " + classPath) }
-				/*
-				if ( item.@Class == 'Pistol' )
-				{
-					levelItems.push(new Pistol( int(item.@x), int(item.@y) ) );
-				}
-				*/
+				catch (e:Error) { FP.console.log('\tUnable to add ' + item.@Class + '\n\t' + e) }
 			}
 			
 			for each( var rect:XML in data.tiles_bg_0.rect )
@@ -117,7 +116,7 @@ package
 			try 
 			{
 				//tries to load the tile from GC. returns null if not present
-				var tileRef:Class = getDefinitionByName( 'GC_' + targetTile ) as Class;
+				var tileRef:Class = getDefinitionByName( 'GC_' + targetTile.toLowerCase() ) as Class;
 				data = FP.getXML(tileRef);
 				
 				levelName		= data.@tile_name;

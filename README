@@ -1,0 +1,20 @@
+BotSec version 0.1
+
+Welcome!
+
+This is my my final project for a Flash Game Programming class, but maybe I'll add more to it after that.
+
+The game is definitely a work in progress, and I'm sure its full of inefficiency and WTF, but DEAL WITH IT HOMIE!
+
+TODO:
+-Guns and melee weapons.
+-Weapon rotation
+-Ability to create items from arbitrary string values (assuming that there are matching Class definitions)
+-Pause menu functionality
+	-inventory
+	-equip slots or something like that
+	-minimap
+-Plenty of other things as I find them
+
+CHANGLOG:
+[0.1] -Initial release

@@ -1448,7 +1448,8 @@
     <tile set="tileset" tx="208" ty="16" x="192" y="512"/>
   </decals>
   <objects>
-    <player x="48" y="544"/>
-    <item x="608" y="256" Class="Pistol"/>
+    <item x="624" y="256" Class="Pistol"/>
+    <player x="256" y="544"/>
+    <item x="448" y="576" Class="none"/>
   </objects>
 </level>

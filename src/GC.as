@@ -6,6 +6,7 @@ package
 {
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
+	import items.*;
 	public class GC 
 	{
 		/*
@@ -59,6 +60,7 @@ package
 		 * ITEM CONSTANTS
 		 * */
 		//PISTOL
+		public static const PISTOL_CLASS_REF:Class 		= Pistol;
 		public static const PISTOL_BULLET_SPEED:Number	= 1200;
 		public static const PISTOL_BULLET_DAMAGE:Number	= 1;
 		public static const ITEM_MOVE_HEIGHT:Number		= 10;
@@ -106,11 +108,9 @@ package
 		 * LEVEL XML DATA
 		 * */
 		[Embed(source = '../map/d9.oel', mimeType = 'application/octet-stream')]
-		public static const d9:Class;
-		
+		public static const d9:Class;		
 		[Embed(source = '../map/d8.oel', mimeType = 'application/octet-stream')]
-		public static const d8:Class;
-		
+		public static const d8:Class;		
 		[Embed(source = '../map/d7.oel', mimeType = 'application/octet-stream')]
 		public static const d7:Class;
 	}

@@ -4,7 +4,7 @@ package items
 	import net.flashpunk.graphics.Image;
 	import bullets.PistolBullet;
 	
-	public class Pistol extends RangedWeapon 
+	public class Pistol extends RangedWeapon
 	{
 		public function Pistol(x:int = 0, y:int = 0 ) 
 		{

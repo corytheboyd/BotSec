@@ -1,11 +1,9 @@
 package items
 {
-	import flash.geom.Vector3D;
 	import net.bloom.BloomWrapper;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
-	import flash.utils.getDefinitionByName;
 	import flash.utils.getTimer;
 
 	public class Item extends Entity 
@@ -15,6 +13,7 @@ package items
 		public var spawn:Boolean = true; //true if the item can spawn.
 		public var animated:Boolean = true; //true if the item is animated on the world
 		protected var startY:int; //the starting position
+		protected var animOffset:Number = Math.random() * 3; //offsets the animation so that all animated things are a little different
 		
 		public function Item( x:int=0, y:int=0 )
 		{
@@ -51,7 +50,7 @@ package items
 		
 		protected function animate():void
 		{			
-			y = GC.ITEM_MOVE_HEIGHT * Math.cos(getTimer() / GC.ITEM_MOVE_RATE + Math.PI) - GC.ITEM_MOVE_HEIGHT + startY;
+			y = GC.ITEM_MOVE_HEIGHT * Math.cos( getTimer() / GC.ITEM_MOVE_RATE + Math.PI + animOffset ) - GC.ITEM_MOVE_HEIGHT + startY;
 		}
 	}
 
