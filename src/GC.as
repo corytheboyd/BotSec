@@ -116,6 +116,13 @@ package
 		public static const d8:Class;		
 		[Embed(source = '../map/d7.oel', mimeType = 'application/octet-stream')]
 		public static const d7:Class;
+		[Embed(source = '../map/d6.oel', mimeType = 'application/octet-stream')]
+		public static const d6:Class;
+		
+		[Embed(source = '../map/e6.oel', mimeType = 'application/octet-stream')]
+		public static const e6:Class;
+		[Embed(source = '../map/e7.oel', mimeType = 'application/octet-stream')]
+		public static const e7:Class;
 	}
 
 }

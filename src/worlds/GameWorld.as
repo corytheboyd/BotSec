@@ -25,7 +25,7 @@ package worlds
 		}
 		
 		override public function begin():void 
-		{			
+		{	
 			buildWorld(); //builds all world tiles
 			switchLevel(GC.START_TILE); //changes to starting tile
 			GV.PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y) );
@@ -122,7 +122,7 @@ package worlds
 				remove(GV.CURRENT_LEVEL);
 				removeList(GV.CURRENT_LEVEL.levelItems);
 			}
-			catch (e:Error) { FP.console.log('HAY, YOU: Tried to remove something nonexistant from this level'); }
+			catch (e:Error) { FP.console.log('HAY, YOU: Tried to remove something that does not exist'); }
 			
 			for (var i:uint = 0; i < GV.WORLD.length; i++ )
 			{

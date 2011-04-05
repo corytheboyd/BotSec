@@ -16,7 +16,7 @@ package
 			FP.console.enable();
 			Text.font = 'MyFont';
 			
-			FP.world = GV.GAME_WORLD;
+			FP.world = new GameWorld;
 			
 			/*			
 			var s:Splash = new Splash;

@@ -84,7 +84,7 @@ package
 			
 			if ( Input.check("Right") ) 
 			{
-				if (isFlipped) 
+				if (isFlipped && isOnGround) 
 				{
 					velocity.x += moveSpeed * FP.elapsed * GC.BACKWARDS_SPEED_MOD;
 					maxHSpeed = GC.MAX_H_SPEED * GC.BACKWARDS_SPEED_MOD;
@@ -96,7 +96,7 @@ package
 			}
 			else if ( Input.check("Left") )
 			{
-				if (!isFlipped)
+				if (!isFlipped && isOnGround)
 				{
 					velocity.x -= moveSpeed * FP.elapsed * GC.BACKWARDS_SPEED_MOD;
 					maxHSpeed = GC.MAX_H_SPEED * GC.BACKWARDS_SPEED_MOD;
