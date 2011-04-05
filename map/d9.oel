@@ -1450,6 +1450,5 @@
   <objects>
     <item x="624" y="256" Class="Pistol"/>
     <player x="256" y="544"/>
-    <item x="448" y="576" Class="none"/>
   </objects>
 </level>

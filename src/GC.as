@@ -107,6 +107,8 @@ package
 		/*
 		 * LEVEL XML DATA
 		 * */
+		[Embed(source = '../map/d10.oel', mimeType = 'application/octet-stream')]
+		public static const d10:Class;	
 		[Embed(source = '../map/d9.oel', mimeType = 'application/octet-stream')]
 		public static const d9:Class;		
 		[Embed(source = '../map/d8.oel', mimeType = 'application/octet-stream')]

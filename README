@@ -8,7 +8,9 @@ The game is definitely a work in progress, and I'm sure its full of inefficiency
 
 TODO:
 -Guns and melee weapons.
--Add doors
+-Doors
+-Moving platforms
+-Popup notifications, like when picking up new item.
 -Weapon rotation
 -Pause menu functionality
 	-inventory
