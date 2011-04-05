@@ -1,4 +1,4 @@
-BotSec version 0.1
+BotSec version 0.1.1
 
 Welcome!
 
@@ -9,7 +9,6 @@ The game is definitely a work in progress, and I'm sure its full of inefficiency
 TODO:
 -Guns and melee weapons.
 -Weapon rotation
--Ability to create items from arbitrary string values (assuming that there are matching Class definitions)
 -Pause menu functionality
 	-inventory
 	-equip slots or something like that
@@ -17,4 +16,5 @@ TODO:
 -Plenty of other things as I find them
 
 CHANGLOG:
-[0.1] -Initial release
+[0.1.1] - Added support for arbitrary items, but need to create references in GC first.
+[0.1.0] - Initial release.
