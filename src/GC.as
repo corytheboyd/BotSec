@@ -32,6 +32,7 @@ package
 		 * */
 		public static const BLOOM_AMOUNT:Number = 15;
 		public static const BLOOM_QUALITY:Number = 1;
+		public static const BLOOM_COLOR:uint = 0xfeff9e;
 		
 		/*
 		 * INPUT CONSTANTS

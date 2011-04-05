@@ -12,7 +12,7 @@ package
 		public function Main()
 		{
 			super(960, 480, 60);
-			Mouse.hide();
+			//Mouse.hide();
 			FP.console.enable();
 			Text.font = 'MyFont';
 			

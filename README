@@ -7,10 +7,11 @@ This is my my final project for a Flash Game Programming class, but maybe I'll a
 The game is definitely a work in progress, and I'm sure its full of inefficiency and WTF, but DEAL WITH IT HOMIE!
 
 TODO:
--Guns and melee weapons.
+-Main menu
+-Guns and melee weapons
 -Doors
 -Moving platforms
--Popup notifications, like when picking up new item.
+-Popup notifications, like when picking up new item
 -Weapon rotation
 -Pause menu functionality
 	-inventory

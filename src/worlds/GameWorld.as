@@ -29,16 +29,15 @@ package worlds
 			buildWorld(); //builds all world tiles
 			switchLevel(GC.START_TILE); //changes to starting tile
 			GV.PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y) );
-
 			cursor.graphic = new BlurredGraphic(new Image(GC.GFX_CURSOR_DEFAULT), GV.BLUR_CANVAS);
 			
 			cursor.layer 					= -1;
-			GV.ITEM_BLOOM_LIGHTING.layer 	= 1;
+			GV.ITEM_BLOOM_LIGHTING.layer 	= 0;
 			GV.BLUR_CANVAS.layer			= 1;
 			GV.PLAYER.layer 				= 0;
 			GV.CURRENT_LEVEL.layer 			= 3;
 			
-			GV.ITEM_BLOOM_LIGHTING.color 	= 0xfeda4a;
+			GV.ITEM_BLOOM_LIGHTING.color 	= GC.BLOOM_COLOR;
 			
 			add(GV.PLAYER);
 			add(GV.CURRENT_LEVEL);

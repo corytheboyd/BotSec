@@ -25,6 +25,5 @@ package
 		
 		public static var BLUR_CANVAS:BlurCanvas = new BlurCanvas(GC.CURSOR_BLUR_LEVEL);
 		public static var ITEM_BLOOM_LIGHTING:BloomLighting = new BloomLighting(GC.BLOOM_AMOUNT, GC.BLOOM_QUALITY);
-		
 	}
 }
