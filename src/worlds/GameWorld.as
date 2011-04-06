@@ -22,6 +22,7 @@ package worlds
 		
 		public function GameWorld() 
 		{
+			FP.console.enable();
 			//nuthin
 		}
 		

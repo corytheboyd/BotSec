@@ -14,11 +14,11 @@
     <rect x="544" y="240" w="16" h="64"/>
     <rect x="544" y="320" w="112" h="16"/>
     <rect x="576" y="192" w="304" h="32"/>
-    <rect x="576" y="240" w="16" h="64"/>
-    <rect x="592" y="288" w="80" h="16"/>
+    <rect x="576" y="240" w="16" h="80"/>
+    <rect x="592" y="304" w="96" h="16"/>
     <rect x="640" y="336" w="16" h="144"/>
     <rect x="656" y="464" w="224" h="16"/>
-    <rect x="672" y="304" w="16" h="96"/>
+    <rect x="672" y="320" w="16" h="80"/>
     <rect x="688" y="384" w="272" h="16"/>
     <rect x="864" y="0" w="16" h="64"/>
     <rect x="864" y="224" w="16" h="64"/>
@@ -187,7 +187,6 @@
     <tile set="tileset" tx="0" ty="128" x="752" y="224"/>
     <tile set="tileset" tx="0" ty="128" x="768" y="224"/>
     <tile set="tileset" tx="0" ty="128" x="784" y="224"/>
-    <tile set="tileset" tx="0" ty="128" x="672" y="288"/>
     <tile set="tileset" tx="0" ty="128" x="624" y="224"/>
     <tile set="tileset" tx="0" ty="128" x="608" y="224"/>
     <tile set="tileset" tx="0" ty="128" x="592" y="224"/>
@@ -728,6 +727,15 @@
     <tile set="tileset" tx="208" ty="128" x="304" y="448"/>
     <tile set="tileset" tx="208" ty="128" x="32" y="448"/>
     <tile set="tileset" tx="160" ty="128" x="112" y="448"/>
+    <tile set="tileset" tx="0" ty="128" x="672" y="288"/>
+    <tile set="tileset" tx="0" ty="128" x="656" y="288"/>
+    <tile set="tileset" tx="0" ty="128" x="640" y="288"/>
+    <tile set="tileset" tx="0" ty="128" x="624" y="288"/>
+    <tile set="tileset" tx="0" ty="128" x="608" y="288"/>
+    <tile set="tileset" tx="0" ty="128" x="592" y="288"/>
+    <tile set="tileset" tx="0" ty="128" x="672" y="304"/>
+    <tile set="tileset" tx="0" ty="128" x="576" y="240"/>
+    <tile set="tileset" tx="0" ty="128" x="576" y="208"/>
   </tiles_bg_2>
   <tiles_bg_3>
     <tile set="tileset" tx="0" ty="80" x="576" y="336"/>
@@ -1002,10 +1010,6 @@
     <tile set="tileset" tx="0" ty="32" x="576" y="256"/>
     <tile set="tileset" tx="0" ty="32" x="576" y="272"/>
     <tile set="tileset" tx="0" ty="32" x="576" y="288"/>
-    <tile set="tileset" tx="0" ty="32" x="592" y="288"/>
-    <tile set="tileset" tx="0" ty="32" x="608" y="288"/>
-    <tile set="tileset" tx="0" ty="32" x="624" y="288"/>
-    <tile set="tileset" tx="0" ty="32" x="640" y="288"/>
     <tile set="tileset" tx="0" ty="32" x="672" y="320"/>
     <tile set="tileset" tx="0" ty="32" x="672" y="336"/>
     <tile set="tileset" tx="0" ty="32" x="672" y="352"/>
@@ -1261,7 +1265,6 @@
     <tile set="tileset" tx="0" ty="32" x="16" y="624"/>
     <tile set="tileset" tx="0" ty="32" x="0" y="624"/>
     <tile set="tileset" tx="48" ty="0" x="688" y="368"/>
-    <tile set="tileset" tx="48" ty="0" x="592" y="272"/>
     <tile set="tileset" tx="48" ty="16" x="592" y="208"/>
     <tile set="tileset" tx="32" ty="16" x="848" y="208"/>
     <tile set="tileset" tx="32" ty="16" x="848" y="480"/>
@@ -1272,9 +1275,7 @@
     <tile set="tileset" tx="0" ty="16" x="864" y="272"/>
     <tile set="tileset" tx="0" ty="0" x="544" y="160"/>
     <tile set="tileset" tx="0" ty="16" x="864" y="48"/>
-    <tile set="tileset" tx="16" ty="0" x="656" y="288"/>
     <tile set="tileset" tx="16" ty="0" x="672" y="304"/>
-    <tile set="tileset" tx="48" ty="0" x="672" y="288"/>
     <tile set="tileset" tx="0" ty="0" x="544" y="240"/>
     <tile set="tileset" tx="16" ty="0" x="576" y="240"/>
     <tile set="tileset" tx="16" ty="16" x="576" y="208"/>
@@ -1399,6 +1400,7 @@
     <tile set="tileset" tx="96" ty="32" x="480" y="304"/>
     <tile set="tileset" tx="96" ty="32" x="496" y="304"/>
     <tile set="tileset" tx="96" ty="32" x="512" y="304"/>
+    <tile set="tileset" tx="48" ty="0" x="592" y="288"/>
   </tiles>
   <decals>
     <tile set="tileset" tx="144" ty="16" x="528" y="208"/>
@@ -1448,9 +1450,9 @@
     <tile set="tileset" tx="208" ty="16" x="192" y="512"/>
   </decals>
   <objects>
-    <item x="624" y="256" Class="Pistol"/>
-    <player x="256" y="544"/>
+    <item x="624" y="272" Class="Pistol"/>
     <door x="896" y="512" locked="false" id="d9_door1"/>
     <door x="896" y="64" locked="true" id="d9_door2"/>
+    <player x="256" y="384"/>
   </objects>
 </level>

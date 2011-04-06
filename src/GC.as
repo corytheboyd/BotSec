@@ -110,6 +110,16 @@ package
 		public static const	GFX_RETICLE1:Class;
 		[Embed(source = '../assets/gfx/pause_menu.png')]
 		public static const	GFX_PAUSE_MENU:Class;
+		[Embed(source = '../assets/gfx/main_menu/main_menu_bg.png')]
+		public static const	GFX_MAIN_MENU_BG:Class;
+		[Embed(source = '../assets/gfx/main_menu/instructions_normal.png')]
+		public static const	GFX_INSTRUCTIONS_NORMAL:Class;
+		[Embed(source = '../assets/gfx/main_menu/options_normal.png')]
+		public static const	GFX_OPTIONS_NORMAL:Class;
+		[Embed(source = '../assets/gfx/main_menu/start_normal.png')]
+		public static const	GFX_START_NORMAL:Class;
+		[Embed(source = '../assets/gfx/main_menu/title.png')]
+		public static const	GFX_TITLE:Class;
 		[Embed(source = '../assets/gfx/minimap/tile_dark.png')]
 		public static const	GFX_MINIMAP_DARK:Class;
 		[Embed(source = '../assets/gfx/minimap/tile_visited.png')]

@@ -1,4 +1,4 @@
-package 
+package buttons
 {
 	import flash.events.MouseEvent;
 	
@@ -177,3 +177,4 @@ package
 		 */		
 		public function get inactive():Graphic{ return _inactive; }
 	}
+}
