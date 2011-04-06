@@ -20,7 +20,7 @@ package doors
 			image.add('close', [5, 4, 3, 2, 1], GC.DOOR_OPEN_SPEED, false);
 			
 			graphic = image;
-			setHitbox(32, 64);
+			setHitbox(32, 96);
 			
 			this.x = x;
 			this.y = y;

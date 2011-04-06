@@ -6,6 +6,7 @@ package
 	import net.flashpunk.graphics.Text;
 	import worlds.GameWorld;
 	import splash.Splash;
+	import worlds.MainMenu;
 	
 	public class Main extends Engine
 	{
@@ -13,16 +14,16 @@ package
 		{
 			super(960, 480, 60);
 			//Mouse.hide();
-			FP.console.enable();
 			Text.font = 'MyFont';
 			
-			FP.world = new GameWorld;
+			//FP.world = new GameWorld;
+			//FP.world = new MainMenu;
 			
-			/*			
+			///*
 			var s:Splash = new Splash;
 			FP.world.add(s);
-			s.start( GV.GAME_WORLD );
-			*/	
+			s.start( new GameWorld );
+			//*/	
 		}
 	}
 
