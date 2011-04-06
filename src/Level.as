@@ -1,6 +1,7 @@
 package  
 {
 	import bullets.PistolBullet;
+	import doors.Door;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	import net.flashpunk.Entity;
@@ -18,8 +19,9 @@ package
 		//reference to the loaded XML data of the level
 		public var data:XML;
 		
-		//items on the level
+		//objects on level
 		public var levelItems:Array = new Array();
+		public var levelDoors:Array = new Array();
 		
 		//set to true if the player has visited the tile
 		public var visited:Boolean;
@@ -65,6 +67,16 @@ package
 					FP.console.log('\t' + item.@Class + ' added!');
 				}
 				catch (e:Error) { FP.console.log('\tUnable to add ' + item.@Class + '\n\t' + e) }
+			}
+			
+			for each( var door:XML in data.objects.door )
+			{
+				var tdoor:Door = new Door( int(door.@x), int(door.@y) );
+				
+				if (door.@locked == 'true') tdoor.locked = true;
+				else tdoor.locked = false;
+				
+				levelDoors.push( tdoor );
 			}
 			
 			for each( var rect:XML in data.tiles_bg_0.rect )

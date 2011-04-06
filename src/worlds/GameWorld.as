@@ -1,5 +1,6 @@
 package worlds 
 {
+	import doors.Door;
 	import flash.filters.BlurFilter;
 	import net.blur.BlurredGraphic;
 	import net.flashpunk.Entity;
@@ -121,6 +122,7 @@ package worlds
 			{
 				remove(GV.CURRENT_LEVEL);
 				removeList(GV.CURRENT_LEVEL.levelItems);
+				removeList(GV.CURRENT_LEVEL.levelDoors);
 			}
 			catch (e:Error) { FP.console.log('HAY, YOU: Tried to remove something that does not exist'); }
 			
@@ -128,7 +130,7 @@ package worlds
 			{
 				if ( GV.WORLD[i].levelName == targetTile )
 				{
-					FP.console.log('...' + targetTile + ' loaded!\n');
+					FP.console.log('...' + targetTile + ' loaded!');
 					GV.CURRENT_LEVEL = GV.WORLD[i];
 					GV.CURRENT_LEVEL.layer = 2;
 					if(!GV.CURRENT_LEVEL.visited) GV.CURRENT_LEVEL.visited = true;
@@ -145,6 +147,13 @@ package worlds
 						FP.console.log('Added ' + item + ' to world');
 						item.layer = 1;
 						add(item);
+					}
+					
+					for each ( var door:Door in GV.CURRENT_LEVEL.levelDoors )
+					{
+						FP.console.log('Added Door to world');
+						door.layer = 2;
+						add(door);
 					}
 					
 					return;
@@ -169,7 +178,7 @@ package worlds
 				}
 			}
 			
-			FP.console.log('...World loaded!\n');
+			FP.console.log('...World loaded!');
 		}		
 	}
 

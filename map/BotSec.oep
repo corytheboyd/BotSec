@@ -23,9 +23,15 @@
 	
 	<objects>
 		<object name="player" image="player.png" width="64" height="64" limit="1"/>
+		<object name="door" image="door.png" width="32" height="96">
+			<values>
+				<boolean name='locked' defualt='false' />
+				<string name='id' default='none' />
+			</values>
+		</object>
 		<object name="item" image="item_default.png" width="32" height="32">
 			<values>
-				<string name='Class' default='none' maxChars='24' />
+				<string name='Class' default='none' />
 			</values>
 		</object>
 	</objects>

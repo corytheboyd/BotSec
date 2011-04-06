@@ -21,8 +21,6 @@ package
 		public static var INVENTORY:Array = new Array();
 		public static var EQUIPPED_WEAPON:Entity = null;
 		
-		//public static var GAME_WORLD:World = new GameWorld;
-		
 		public static var BLUR_CANVAS:BlurCanvas = new BlurCanvas(GC.CURSOR_BLUR_LEVEL);
 		public static var ITEM_BLOOM_LIGHTING:BloomLighting = new BloomLighting(GC.BLOOM_AMOUNT, GC.BLOOM_QUALITY);
 	}

@@ -1450,5 +1450,7 @@
   <objects>
     <item x="624" y="256" Class="Pistol"/>
     <player x="256" y="544"/>
+    <door x="896" y="512" locked="false" id="d9_door1"/>
+    <door x="896" y="64" locked="true" id="d9_door2"/>
   </objects>
 </level>

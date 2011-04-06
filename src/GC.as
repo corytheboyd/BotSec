@@ -74,6 +74,7 @@ package
 		public static const PLAYER_TYPE:String			= 'player';
 		public static const LEVEL_TYPE:String			= 'level';
 		public static const ITEM_TYPE:String			= 'item';
+		public static const DOOR_TYPE:String			= 'door';
 		public static const RANGED_WEAPON_TYPE:String	= 'rangedWeapon';
 		
 		/*
@@ -94,6 +95,8 @@ package
 		public static const GFX_BULLET_DEFAULT:Class;		
 		[Embed(source = '../assets/gfx/cursor_default.png')]
 		public static const GFX_CURSOR_DEFAULT:Class;
+		[Embed(source = '../assets/gfx/tileset_door.png')]
+		public static const GFX_DOOR_TILESET:Class;
 		[Embed(source = '../assets/gfx/cursor_menu.png')]
 		public static const GFX_CURSOR_MENU:Class;
 		[Embed(source='../assets/gfx/reticle1.png')]
