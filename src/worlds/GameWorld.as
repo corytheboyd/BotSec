@@ -144,16 +144,18 @@ package worlds
 						//pass if the item isn't set to spawn
 						if ( !item.spawn ) continue;
 						
-						FP.console.log('Added ' + item + ' to world');
 						item.layer = 1;
 						add(item);
+						
+						FP.console.log('Added ' + item + ' to world');
 					}
 					
-					for each ( var door:Door in GV.CURRENT_LEVEL.levelDoors )
+					for each ( var door:Entity in GV.CURRENT_LEVEL.levelDoors )
 					{
-						FP.console.log('Added Door to world');
 						door.layer = 2;
 						add(door);
+						
+						FP.console.log('Added Door to world');
 					}
 					
 					return;

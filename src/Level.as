@@ -1,7 +1,7 @@
 package  
 {
 	import bullets.PistolBullet;
-	import doors.Door;
+	import doors.*;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	import net.flashpunk.Entity;
@@ -73,10 +73,18 @@ package
 			{
 				var tdoor:Door = new Door( int(door.@x), int(door.@y) );
 				
-				if (door.@locked == 'true') tdoor.locked = true;
-				else tdoor.locked = false;
+				tdoor.locked = (door.@locked == 'true') ? true : false;
 				
 				levelDoors.push( tdoor );
+			}
+			
+			for each( var doorH:XML in data.objects.doorH )
+			{
+				var tdoorH:DoorH = new DoorH( int(doorH.@x), int(doorH.@y) );
+				
+				tdoorH.locked = (doorH.@locked == 'true') ? true : false;
+				
+				levelDoors.push( tdoorH );
 			}
 			
 			for each( var rect:XML in data.tiles_bg_0.rect )

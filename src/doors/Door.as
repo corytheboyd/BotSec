@@ -16,8 +16,8 @@ package doors
 			//add animations
 			image.add('locked', [0], 0, true);
 			image.add('unlocked', [1], 0, true);
-			image.add('open', [2, 3, 4, 5], 20, false);
-			image.add('close', [5, 4, 3, 2, 1], 20, false);
+			image.add('open', [2, 3, 4, 5], GC.DOOR_OPEN_SPEED, false);
+			image.add('close', [5, 4, 3, 2, 1], GC.DOOR_OPEN_SPEED, false);
 			
 			graphic = image;
 			setHitbox(32, 64);

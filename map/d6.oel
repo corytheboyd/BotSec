@@ -2484,4 +2484,7 @@
     <tile set="tileset" tx="208" ty="0" x="416" y="560"/>
     <tile set="tileset" tx="224" ty="0" x="304" y="544"/>
   </decals>
+  <objects>
+    <doorH x="320" y="592" locked="false" id="d6_door1"/>
+  </objects>
 </level>

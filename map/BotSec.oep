@@ -29,6 +29,12 @@
 				<string name='id' default='none' />
 			</values>
 		</object>
+		<object name="doorH" image="doorH.png" width="96" height="32">
+			<values>
+				<boolean name='locked' defualt='false' />
+				<string name='id' default='none' />
+			</values>
+		</object>
 		<object name="item" image="item_default.png" width="32" height="32">
 			<values>
 				<string name='Class' default='none' />

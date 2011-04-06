@@ -68,6 +68,11 @@ package
 		public static const ITEM_MOVE_RATE:Number		= 350;
 		
 		/*
+		 * DOOR CONSTANTS
+		 * */
+		public static const DOOR_OPEN_SPEED:uint		= 20; //fps of the door open/close animation
+		
+		/*
 		 * ENTITY TYPES
 		 * */
 		public static const SOLID_TYPE:String			= 'solid';
@@ -97,6 +102,8 @@ package
 		public static const GFX_CURSOR_DEFAULT:Class;
 		[Embed(source = '../assets/gfx/tileset_door.png')]
 		public static const GFX_DOOR_TILESET:Class;
+		[Embed(source = '../assets/gfx/tileset_doorH.png')]
+		public static const GFX_DOORH_TILESET:Class;
 		[Embed(source = '../assets/gfx/cursor_menu.png')]
 		public static const GFX_CURSOR_MENU:Class;
 		[Embed(source='../assets/gfx/reticle1.png')]
