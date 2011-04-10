@@ -16,14 +16,14 @@ package
 			//Mouse.hide();
 			Text.font = 'MyFont';
 			
-			//FP.world = new GameWorld;
+			FP.world = new GameWorld;
 			//FP.world = new MainMenu;
 			
-			///*
+			/*
 			var s:Splash = new Splash;
 			FP.world.add(s);
 			s.start( new GameWorld );
-			//*/	
+			*/	
 		}
 	}
 

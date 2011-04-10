@@ -175,7 +175,8 @@ package worlds
 				{
 					try
 					{
-						GV.WORLD.push( new Level( alphabet[i] + String(j) ) );
+						var newLevel:Level = new Level( alphabet[i] + String(j) )						
+						GV.WORLD.push( newLevel );
 					}
 					catch(e:Error) {/*Level has its own error checking*/}
 				}

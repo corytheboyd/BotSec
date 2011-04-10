@@ -1,0 +1,4 @@
+<level tile_name="b1" tile_left="b0" tile_right="b2" tile_up="a1" tile_down="c1">
+  <width>960</width>
+  <height>640</height>
+</level>

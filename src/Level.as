@@ -30,6 +30,7 @@ package
 		public var levelWidth:uint; 
 		public var levelHeight:uint;
 		public var levelName:String;
+		public var index:int;
 		
 		//references to the adjacent tiles
 		public var tileLeft:String; 
