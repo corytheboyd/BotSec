@@ -39,7 +39,7 @@ package doors
 				image.play('unlocked');
 			}
 			
-			if ( collide(GC.PLAYER_TYPE, x, y) )
+			if ( collide(GC.PLAYER_TYPE, x + 45, y) || collide(GC.PLAYER_TYPE, x - 45, y) )
 			{
 				if ( !locked )
 				{

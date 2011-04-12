@@ -128,7 +128,7 @@ package
 				grid.setRect(int(solid.@x) / 16, int(solid.@y) / 16, int(solid.@w) / 16, int(solid.@h) / 16, true); 
 			}
 		}
-		
+			
 		/*
 		 * Loads level from an oel (xml) file
 		 * */

@@ -24,7 +24,29 @@ package doors
 		
 		override public function update():void 
 		{
-			super.update();
+			if (locked && !open) 
+			{
+				type = GC.LEVEL_TYPE;
+				image.play('locked');
+			}
+			else if(!locked && !open)
+			{
+				type = GC.DOOR_TYPE;
+				image.play('unlocked');
+			}
+			
+			if ( collide(GC.PLAYER_TYPE, x, y + 45) || collide(GC.PLAYER_TYPE, x, y -45) )
+			{
+				if ( !locked )
+				{
+					image.play('open');
+					open = true;
+				}
+			}
+			else if ( open )
+			{
+				image.play('close');
+			}
 		}
 		
 	}

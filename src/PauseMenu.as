@@ -10,10 +10,7 @@ package
 	import net.flashpunk.World;
 	
 	public class PauseMenu extends Entity
-	{	
-		//The tiles to populate minimap with. [0] is dark, [1] is vistied
-		protected var minimap:Tilemap = new Tilemap(GC.GFX_MINIMAP_TILESET, 28, 14, 14, 14);
-		
+	{		
 		public function PauseMenu() 
 		{
 			graphic =  new Image(GC.GFX_PAUSE_MENU);
@@ -24,33 +21,36 @@ package
 		override public function added():void 
 		{
 			FP.console.log('PAUSED');
-			
-			super.added();
+			buildMinimap();
 		}
 		
 		override public function removed():void 
 		{
 			FP.console.log('UNPAUSED\n');
-			
-			//super.removed();
 		}
 		
 		protected function buildMinimap():void
 		{
 			FP.console.log('Loading minimap...');
 			
-			var alphabet:Array = ("abcdefghijklmnopqrstuvwxyz").split("");
-			for ( var i:uint = 0; i < alphabet.length; i++ )
+			//creates minimap entity, offset to fit the pause menu graphic
+			var minimap:Entity = new Entity(16, 48);
+			var tiles:Tilemap = new Tilemap(GC.GFX_MINIMAP_TILESET, 28, 14, 14, 14);
+			minimap.graphic = tiles;
+			minimap.layer = -1;
+			
+			const ROW_SIZE	:uint = 20; //how many rows on map
+			var count		:uint = 0;
+			var index		:uint;		//which tile to use
+			
+			for each ( var level:Level in GV.WORLD )
 			{
-				for ( var j:uint = 1; j <= 20; j++ )
-				{
-					try
-					{
-						GV.WORLD.push( new Level( alphabet[i] + String(j) ) );
-					}
-					catch(e:Error) {/*Level has its own error checking*/}
-				}
+				 index = level.visited? 1 : 0;
+				 tiles.setTile( 0, 0, 1 );
+				 count++;
 			}
+			
+			world.add(minimap);
 			
 			FP.console.log('...Minimap loaded!');
 		}

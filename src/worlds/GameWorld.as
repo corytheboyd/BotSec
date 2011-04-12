@@ -2,6 +2,7 @@ package worlds
 {
 	import doors.Door;
 	import flash.filters.BlurFilter;
+	import flash.utils.getTimer;
 	import net.blur.BlurredGraphic;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
@@ -22,7 +23,7 @@ package worlds
 		
 		public function GameWorld() 
 		{
-			FP.console.enable();
+			//FP.console.enable();
 			//nuthin
 		}
 		
@@ -51,7 +52,7 @@ package worlds
 		}
 				
 		override public function update():void 
-		{				
+		{
 			//pause menu
 			if ( Input.pressed("PauseMenu") )
 			{				
