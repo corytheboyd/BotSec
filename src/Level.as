@@ -77,6 +77,7 @@ package
 				tdoor.locked = (door.@locked == 'true') ? true : false;
 				
 				levelDoors.push( tdoor );
+				FP.console.log('Door added!')
 			}
 			
 			for each( var doorH:XML in data.objects.doorH )

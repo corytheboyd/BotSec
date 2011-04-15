@@ -9,14 +9,14 @@ package
 	import items.*;
 	
 	public class GC 
-	{
+	{		
 		/*
 		 * PYSICS CONSTANTS
 		 * all in px/s
 		 * */
 		public static const	GRAVITY:Number			= 800;
-		public static const	FRICTION:Number			= 1200;
-		public static const	DRAG:Number				= 100;
+		public static const	FRICTION:Number			= 2200;
+		public static const	DRAG:Number				= 300;
 		
 		/*
 		 * UI CONSTANTS
@@ -55,7 +55,7 @@ package
 		public static const	JUMP_SPEED:Number			= -340;
 		public static const	DBL_JUMP_SPEED:Number		= -295;
 		public static const	DBL_JUMP_LIMIT:Number		= 215;
-		public static const	LEAP:Number					= 1.5;
+		public static const	LEAP:Number					= 1.25;
 		public static const BACKWARDS_SPEED_MOD:Number	= 0.85;
 		
 		/*

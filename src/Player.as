@@ -19,8 +19,8 @@ package
 		protected var	maxVSpeed:Number		= GC.MAX_V_SPEED; //the maximum horizontal speed
 		protected var	moveSpeed:Number		= GC.MOVE_SPEED; //the current value
 		protected var	velocity:Vector3D		= new Vector3D(); //the instantaneous velocity vector
-		protected var	px:Number; //previous x position
-		protected var	py:Number; //previous y position
+
+		public var		currentTile:String		= GC.START_TILE;
 		
 		public function Player( x:Number=0, y:Number=0 )
 		{			
@@ -172,10 +172,13 @@ package
 			{
 				maxHSpeed  = GC.MAX_H_SPEED + GC.DASH_SPEED_MOD;
 			}
+			//else maxHSpeed  = GC.MAX_H_SPEED; //back to default
+			/*
 			if ( Input.released("Dash") )
 			{
 				maxHSpeed  = GC.MAX_H_SPEED; //back to default
 			}
+			*/
 		}
 		
 		private function animate():void
