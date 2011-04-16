@@ -77,7 +77,6 @@ package
 				tdoor.locked = (door.@locked == 'true') ? true : false;
 				
 				levelDoors.push( tdoor );
-				FP.console.log('Door added!')
 			}
 			
 			for each( var doorH:XML in data.objects.doorH )
@@ -129,7 +128,7 @@ package
 				grid.setRect(int(solid.@x) / 16, int(solid.@y) / 16, int(solid.@w) / 16, int(solid.@h) / 16, true); 
 			}
 		}
-			
+		
 		/*
 		 * Loads level from an oel (xml) file
 		 * */

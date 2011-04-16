@@ -1450,7 +1450,7 @@
     <tile set="tileset" tx="208" ty="16" x="192" y="512"/>
   </decals>
   <objects>
-    <item x="624" y="272" Class="Pistol"/>
+    <item x="416" y="576" Class="Pistol"/>
     <door x="896" y="512" locked="false" id="d9_door1"/>
     <door x="896" y="64" locked="true" id="d9_door2"/>
     <player x="256" y="544"/>

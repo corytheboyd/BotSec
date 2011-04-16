@@ -34,7 +34,7 @@ package items
 			if ( collide(GC.PLAYER_TYPE, x, y) ) 
 			{
 				FP.console.log('COLLECTED ITEM:', this);
-				GV.INVENTORY.push(this);
+				GV.INVENTORY.push(this); //add to players inventory
 				world.remove(this);
 				
 				if(!respawns)

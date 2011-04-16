@@ -7,15 +7,13 @@ package
 	import worlds.GameWorld;
 	import splash.Splash;
 	import worlds.MainMenu;
-	import worlds.PauseMenu;
 	
 	public class Main extends Engine
-	{
+	{		
 		public function Main()
 		{
 			super(960, 480, 60);
 			//Mouse.hide();
-			FP.console.enable();
 			Text.font = 'MyFont';
 			
 			FP.world = new GameWorld;

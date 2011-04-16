@@ -18,9 +18,8 @@ package
 		protected var	maxHSpeed:Number		= GC.MAX_H_SPEED; //the maximum horizontal speed
 		protected var	maxVSpeed:Number		= GC.MAX_V_SPEED; //the maximum horizontal speed
 		protected var	moveSpeed:Number		= GC.MOVE_SPEED; //the current value
-		protected var	velocity:Vector3D		= new Vector3D(); //the instantaneous velocity vector
-
-		public var		currentTile:String		= GC.START_TILE;
+		
+		public var velocity:Vector3D	= new Vector3D(); //the instantaneous velocity vector
 		
 		public function Player( x:Number=0, y:Number=0 )
 		{			
@@ -44,10 +43,20 @@ package
 			floorCollision();
 			changeVelocity();
 			acceleration();
-			dash();
 			jump();
 			animate();
 			move( Math.round(velocity.x * FP.elapsed), Math.round(velocity.y * FP.elapsed) );
+			shoot();
+		}
+		
+		private function shoot():void
+		{
+			if (!GV.EQUIPPED_WEAPON) return;
+			
+			if ( Input.pressed('Shoot') )
+			{
+				GV.EQUIPPED_WEAPON.fire(isFlipped, x, y);
+			}
 		}
 		
 		private function floorCollision():void
@@ -84,26 +93,24 @@ package
 			
 			if ( Input.check("Right") ) 
 			{
-				if (isFlipped && isOnGround) 
-				{
-					velocity.x += moveSpeed * FP.elapsed * GC.BACKWARDS_SPEED_MOD;
-					maxHSpeed = GC.MAX_H_SPEED * GC.BACKWARDS_SPEED_MOD;
-				}
-				else 
+				if (isOnGround)
 				{
 					velocity.x += moveSpeed * FP.elapsed;
+				}
+				else
+				{
+					velocity.x += moveSpeed * GC.AIR_DRAG * FP.elapsed;
 				}
 			}
 			else if ( Input.check("Left") )
 			{
-				if (!isFlipped && isOnGround)
-				{
-					velocity.x -= moveSpeed * FP.elapsed * GC.BACKWARDS_SPEED_MOD;
-					maxHSpeed = GC.MAX_H_SPEED * GC.BACKWARDS_SPEED_MOD;
-				}
-				else 
+				if (isOnGround)
 				{
 					velocity.x -= moveSpeed * FP.elapsed;
+				}
+				else
+				{
+					velocity.x -= moveSpeed * GC.AIR_DRAG * FP.elapsed;
 				}
 			}
 			
@@ -166,30 +173,15 @@ package
 			}
 		}
 		
-		private function dash():void
-		{
-			if ( Input.check("Dash") && isOnGround )
-			{
-				maxHSpeed  = GC.MAX_H_SPEED + GC.DASH_SPEED_MOD;
-			}
-			//else maxHSpeed  = GC.MAX_H_SPEED; //back to default
-			/*
-			if ( Input.released("Dash") )
-			{
-				maxHSpeed  = GC.MAX_H_SPEED; //back to default
-			}
-			*/
-		}
-		
 		private function animate():void
 		{
 			// control facing direction
-			if ( world.mouseX < x + width/2) 
+			if ( velocity.x < 0 ) 
 			{
 				image.flipped = true;
 				isFlipped = true;
 			}
-			else
+			else if ( velocity.x != 0 )
 			{
 				image.flipped = false;
 				isFlipped = false;
