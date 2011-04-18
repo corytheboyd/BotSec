@@ -1,4 +1,4 @@
-package  
+package ui
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;

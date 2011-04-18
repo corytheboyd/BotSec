@@ -38,6 +38,7 @@
 		<object name="item" image="item_default.png" width="32" height="32">
 			<values>
 				<string name='Class' default='none' />
+				<string name='id' default='none' />
 			</values>
 		</object>
 	</objects>

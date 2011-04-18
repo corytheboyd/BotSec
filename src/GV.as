@@ -5,6 +5,7 @@
 package  
 {
 	import flash.filters.BlurFilter;
+	import flash.utils.Dictionary;
 	import items.RangedWeapon;
 	import net.bloom.BloomLighting;
 	import net.blur.BlurCanvas;
@@ -17,7 +18,7 @@ package
 	public class GV 
 	{
 		public static var CURRENT_LEVEL:Level; //the currently loaded world tile
-		//public static var PLAYER:Player; //the player
+		public static var WORLD_ITEMS:Object = {}; //keeps track of which items have been collected. use like a Hash: WORLD_ITEMS['door1'] = new Door
 		public static var INVENTORY:Array = new Array();
 		public static var EQUIPPED_WEAPON:RangedWeapon = null;
 		

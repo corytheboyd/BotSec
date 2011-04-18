@@ -10,9 +10,12 @@ package bullets
 			super(flipped);
 			
 			speed = GC.PISTOL_BULLET_SPEED;
-			hasGravity = true;
+			hasGravity = false;
 			damage = GC.PISTOL_BULLET_DAMAGE;			
 			graphic = image;
+			
+			spread = 15.0;
+			dy = getSpread(); //the spread of the bullet, initial dy
 		}
 		
 		override public function update():void 
@@ -22,11 +25,12 @@ package bullets
 			
 			//movement
 			x += speed * FP.elapsed * dir;
+			y += dy * FP.elapsed;
 			
 			//gravity
 			if (hasGravity)
 			{
-				y += GC.GRAVITY * FP.elapsed / 1000;
+				dy += GC.GRAVITY * FP.elapsed;
 			}
 			
 			//hit checking

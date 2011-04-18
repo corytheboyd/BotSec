@@ -15,8 +15,21 @@ package
 		 * all in px/s
 		 * */
 		public static const	GRAVITY:Number			= 800;
-		public static const	FRICTION:Number			= 1200;
+		public static const	FRICTION:Number			= 1800;
 		public static const	DRAG:Number				= 100;
+		
+		/*
+		 * PLAYER CONSTANTS
+		 * */
+		public static const	START_TILE:String 			= 'd9';		
+		public static const	MAX_H_SPEED:Number			= 300;
+		public static const	MAX_V_SPEED:Number			= 600;
+		public static const	MOVE_SPEED:Number			= 2000;
+		public static const	JUMP_SPEED:Number			= -340;
+		public static const	DBL_JUMP_SPEED:Number		= -295;
+		public static const	DBL_JUMP_LIMIT:Number		= 300;
+		public static const	LEAP:Number					= 1.5;
+		public static const AIR_DRAG:Number				= 0.35;
 		
 		/*
 		 * UI CONSTANTS
@@ -24,9 +37,8 @@ package
 		public static const CURSOR_BLUR_LEVEL:Number	= 0.75;
 		public static const CURSOR_HEIGHT:Number		= 24;
 		public static const CURSOR_WIDTH:Number			= 24;
-		[Embed(source = '../assets/font/AlphaQuadrant.ttf', embedAsCFF = "false", fontFamily = 'MyFont')]
-		public static const MY_FONT:Class;
-		
+		public static const MSG_FADE_RATE:Number		= 0.1;
+		public static const MSG_DURATION:Number			= 1.5;
 		
 		/*
 		 * BLOOM SETTINGS
@@ -43,26 +55,13 @@ package
 		Input.define('Left', Key.LEFT);
 		Input.define('Right', Key.RIGHT);
 		Input.define('Shoot', Key.Z);
-		
-		/*
-		 * PLAYER CONSTANTS
-		 * */
-		public static const	START_TILE:String 			= 'd9';		
-		public static const	MAX_H_SPEED:Number			= 300;
-		public static const	MAX_V_SPEED:Number			= 600;
-		public static const	MOVE_SPEED:Number			= 2000;
-		public static const	JUMP_SPEED:Number			= -340;
-		public static const	DBL_JUMP_SPEED:Number		= -295;
-		public static const	DBL_JUMP_LIMIT:Number		= 215;
-		public static const	LEAP:Number					= 1.5;
-		public static const AIR_DRAG:Number				= 0.45;
-		
+			
 		/*
 		 * ITEM CONSTANTS
 		 * */
 		//PISTOL
 		public static const PISTOL_CLASS_REF:Class 		= Pistol; //needed for getDefByName... otherwise it wont be in namespace
-		public static const PISTOL_BULLET_SPEED:Number	= 900;
+		public static const PISTOL_BULLET_SPEED:Number	= 650;
 		public static const PISTOL_BULLET_DAMAGE:Number	= 1;
 		public static const ITEM_MOVE_HEIGHT:Number		= 10;
 		public static const ITEM_MOVE_RATE:Number		= 350;
@@ -123,6 +122,8 @@ package
 		public static const	GFX_START_NORMAL:Class;
 		[Embed(source = '../assets/gfx/main_menu/title.png')]
 		public static const	GFX_TITLE:Class;
+		[Embed(source = '../assets/gfx/message/message.png')]
+		public static const	GFX_MESSAGE:Class;
 		
 		/*
 		* MAP FILES

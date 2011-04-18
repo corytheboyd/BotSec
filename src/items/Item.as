@@ -5,6 +5,7 @@ package items
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	import flash.utils.getTimer;
+	import ui.*;
 
 	public class Item extends Entity 
 	{
@@ -29,10 +30,12 @@ package items
 		
 		override public function update():void 
 		{
-			if( animated ) animate(); //idle animation of item
+			if ( animated ) animate(); //idle animation of item
 			
 			if ( collide(GC.PLAYER_TYPE, x, y) ) 
 			{
+				world.add( new Message(this + ' added to inventory!', GC.MSG_DURATION) );
+				
 				FP.console.log('COLLECTED ITEM:', this);
 				GV.INVENTORY.push(this); //add to players inventory
 				world.remove(this);

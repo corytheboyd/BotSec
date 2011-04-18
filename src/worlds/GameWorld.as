@@ -1,10 +1,6 @@
 package worlds 
 {
 	import doors.Door;
-	import flash.filters.BlurFilter;
-	import flash.geom.Vector3D;
-	import flash.utils.ByteArray;
-	import net.blur.BlurredGraphic;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
@@ -13,9 +9,9 @@ package worlds
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.World;
-	import net.blur.BlurCanvas;
 	import items.Item;
-
+	import ui.*;
+	
 	public class GameWorld extends World 
 	{
 		protected var levelsVisited:Array = new Array;
@@ -122,7 +118,7 @@ package worlds
 			add(GV.CURRENT_LEVEL);
 			
 			//get the player out of the level if they get stuck
-			//if( PLAYER ) unstuckPlayer();
+			if( PLAYER ) unstuckPlayer();
 			
 			//add all items to world
 			for each ( var item:Item in GV.CURRENT_LEVEL.levelItems )
@@ -157,38 +153,10 @@ package worlds
 		 * */
 		protected function unstuckPlayer():void
 		{
-			//how much to move player
-			var dx:int = 0;
-			var dy:int = 0;
-			
-			//left of player clear?
-			if ( PLAYER.collide(GC.LEVEL_TYPE, PLAYER.x - 30, PLAYER.y) )
+			if ( PLAYER.collide(GC.SOLID_TYPE, PLAYER.x, PLAYER.y + 10) )
 			{
-				dx = -1;
+				trace('stuck');
 			}
-			//right of player clear?
-			else if ( PLAYER.collide(GC.LEVEL_TYPE, PLAYER.x + 30, PLAYER.y) )
-			{
-				dx = 1;
-			}
-			//top of player clear?
-			else if ( PLAYER.collide(GC.LEVEL_TYPE, PLAYER.x, PLAYER.y - 30) )
-			{
-				dy = -1;
-			}
-			//bottom of player clear?
-			else if ( PLAYER.collide(GC.LEVEL_TYPE, PLAYER.x, PLAYER.y + 30))
-			{
-				dy = 1;
-			}
-			
-			FP.console.log('UNSTUCKING PLAYER....');
-			while ( PLAYER.collide(GC.LEVEL_TYPE, PLAYER.x, PLAYER.y) )
-			{
-				PLAYER.x += dx;
-				PLAYER.y += dy;
-			}
-			FP.console.log('PLAYER UNSTUCK!');
 		}
   
 	}

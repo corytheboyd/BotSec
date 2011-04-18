@@ -14,7 +14,6 @@ package
 		{
 			super(960, 480, 60);
 			//Mouse.hide();
-			Text.font = 'MyFont';
 			
 			FP.world = new GameWorld;
 			//FP.world = new MainMenu;

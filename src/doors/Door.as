@@ -27,13 +27,13 @@ package doors
 		}
 		
 		override public function update():void 
-		{
-			if (locked && !open) 
+		{			
+			if (locked && !open && image.currentAnim != 'open') 
 			{
 				type = GC.LEVEL_TYPE;
 				image.play('locked');
 			}
-			else if(!locked && !open)
+			else if(!locked && !open && image.currentAnim != 'close')
 			{
 				type = GC.DOOR_TYPE;
 				image.play('unlocked');
@@ -50,6 +50,7 @@ package doors
 			else if ( open )
 			{
 				image.play('close');
+				open = false;
 			}
 		}
 		

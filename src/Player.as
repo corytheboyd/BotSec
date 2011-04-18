@@ -4,7 +4,7 @@ package
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.utils.Input;
-	import net.flashpunk.utils.Key;	
+	import net.flashpunk.utils.Key;
 	import flash.geom.Vector3D;
 	
 	public class Player extends Moveable
@@ -176,12 +176,12 @@ package
 		private function animate():void
 		{
 			// control facing direction
-			if ( velocity.x < 0 ) 
+			if ( Input.check('Left') ) 
 			{
 				image.flipped = true;
 				isFlipped = true;
 			}
-			else if ( velocity.x != 0 )
+			else if ( Input.check('Right') )
 			{
 				image.flipped = false;
 				isFlipped = false;

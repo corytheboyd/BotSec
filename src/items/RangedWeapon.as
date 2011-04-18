@@ -32,21 +32,25 @@ package items
 		 * */
 		public function fire(flipped:Boolean, x:Number, y:Number):void
 		{
-			var bullet:Bullet = new bulletType(flipped);
-			
-			if (flipped)
+			if (!fireTimer.running)
 			{
-				bullet.x = x;
-				bullet.y = y + 32;
+				fireTimer.reset();
+				var bullet:Bullet = new bulletType(flipped);
+				
+				if (flipped)
+				{
+					bullet.x = x;
+					bullet.y = y + 32;
+				}
+				else 
+				{
+					bullet.x = x + 64;
+					bullet.y = y + 32;
+				}
+				
+				GV.CURRENT_LEVEL.world.add(bullet);
 			}
-			else 
-			{
-				bullet.x = x + 64;
-				bullet.y = y + 32;
-			}
-			
-			GV.CURRENT_LEVEL.world.add(bullet);		
-			
+			else fireTimer.start();
 		}
 	}
 
