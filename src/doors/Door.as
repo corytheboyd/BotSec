@@ -4,6 +4,7 @@ package doors
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Spritemap;
+	import net.flashpunk.utils.Input;
 
 	public class Door extends Entity 
 	{
@@ -21,6 +22,7 @@ package doors
 			
 			graphic = image;
 			setHitbox(32, 96);
+			type = GC.LEVEL_TYPE;
 			
 			this.x = x;
 			this.y = y;
@@ -29,28 +31,44 @@ package doors
 		override public function update():void 
 		{			
 			if (locked && !open && image.currentAnim != 'open') 
-			{
-				type = GC.LEVEL_TYPE;
+			{				
 				image.play('locked');
 			}
 			else if(!locked && !open && image.currentAnim != 'close')
 			{
-				type = GC.DOOR_TYPE;
 				image.play('unlocked');
 			}
 			
-			if ( collide(GC.PLAYER_TYPE, x, y) || collide(GC.PLAYER_TYPE, x - 45, y) || collide(GC.PLAYER_TYPE, x + 45, y) )
+			if ( collide(GC.PLAYER_TYPE, x, y) || collide(GC.PLAYER_TYPE, x - 35, y) || collide(GC.PLAYER_TYPE, x + 35, y) )
 			{
-				if ( !locked )
+				if ( !locked ) //door is unlocked
 				{
-					image.play('open');
-					open = true;
+					GV.CONTEXT_MESSAGE.changeMsg('OPEN');
+					GV.CONTEXT_MESSAGE.isActive = open ? false : true;
+					
+					if ( Input.pressed('Action') )
+					{
+						type = GC.DOOR_TYPE; //make door uncollidable
+						image.play('open');
+						open = true;
+					}
+				}
+				else //door is locked
+				{	
+					GV.CONTEXT_MESSAGE.changeMsg('LOCKED');
+					GV.CONTEXT_MESSAGE.isActive = true;
 				}
 			}
-			else if ( open )
+			else
 			{
-				image.play('close');
-				open = false;
+				GV.CONTEXT_MESSAGE.isActive = false;
+				
+				if ( open )
+				{
+					type = GC.LEVEL_TYPE;
+					image.play('close');
+					open = false;
+				}				
 			}
 		}
 		

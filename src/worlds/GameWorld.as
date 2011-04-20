@@ -1,6 +1,7 @@
 package worlds 
 {
 	import doors.Door;
+	import flash.ui.ContextMenu;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
@@ -24,7 +25,6 @@ package worlds
 		
 		public function GameWorld() 
 		{
-			FP.console.enable();
 			//nuthin
 		}
 		
@@ -37,6 +37,7 @@ package worlds
 			GV.ITEM_BLOOM_LIGHTING.color 	= GC.BLOOM_COLOR;
 			
 			add(PLAYER);
+			add(GV.CONTEXT_MESSAGE);
 			add(GV.CURRENT_LEVEL);
 			
 			super.begin();

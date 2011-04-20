@@ -1,6 +1,7 @@
 package doors 
 {
 	import net.flashpunk.graphics.Spritemap;
+	import net.flashpunk.utils.Input;
 	
 	/*
 	 * Horizontal door, acts the same as Door but sideways!
@@ -17,6 +18,7 @@ package doors
 			
 			graphic = image;
 			setHitbox(96, 32);
+			type = GC.LEVEL_TYPE;
 			
 			this.x = x;
 			this.y = y;
@@ -26,26 +28,36 @@ package doors
 		{
 			if (locked && !open) 
 			{
-				type = GC.LEVEL_TYPE;
 				image.play('locked');
 			}
 			else if(!locked && !open)
 			{
-				type = GC.DOOR_TYPE;
 				image.play('unlocked');
 			}
 			
-			if ( collide(GC.PLAYER_TYPE, x, y) || collide(GC.PLAYER_TYPE, x, y - 45) || collide(GC.PLAYER_TYPE, x, y + 45) )
+			if ( collide(GC.PLAYER_TYPE, x, y) || collide(GC.PLAYER_TYPE, x, y - 35) || collide(GC.PLAYER_TYPE, x, y + 35) )
 			{
 				if ( !locked )
 				{
-					image.play('open');
-					open = true;
+					GV.CONTEXT_MESSAGE.changeMsg('Open');
+					GV.CONTEXT_MESSAGE.isActive = true;
+					
+					if ( Input.pressed('Action') )
+					{
+						type = GC.DOOR_TYPE; //make door uncollidable
+						image.play('open');
+						open = true;
+					}
 				}
 			}
-			else if ( open )
+			else
 			{
-				image.play('close');
+				GV.CONTEXT_MESSAGE.isActive = false;
+				
+				if ( open )
+				{
+					image.play('close');
+				}
 			}
 		}
 		

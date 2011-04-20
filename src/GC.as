@@ -50,11 +50,12 @@ package
 		/*
 		 * INPUT CONSTANTS
 		 * */
-		Input.define("PauseMenu", Key.ENTER);
+		Input.define("PauseMenu", Key.ENTER, Key.P);
 		Input.define('Jump', Key.SPACE, Key.UP);
 		Input.define('Left', Key.LEFT);
 		Input.define('Right', Key.RIGHT);
 		Input.define('Shoot', Key.Z);
+		Input.define('Action', Key.X);
 			
 		/*
 		 * ITEM CONSTANTS
@@ -124,6 +125,8 @@ package
 		public static const	GFX_TITLE:Class;
 		[Embed(source = '../assets/gfx/message/message.png')]
 		public static const	GFX_MESSAGE:Class;
+		[Embed(source = '../assets/gfx/message/mini_message.png')]
+		public static const	GFX_MINI_MESSAGE:Class;
 		
 		/*
 		* MAP FILES

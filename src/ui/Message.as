@@ -9,10 +9,6 @@ package ui
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Text;
-	import flash.utils.Timer;
-	import flash.events.Event;
-	import flash.events.TimerEvent;
-	import net.flashpunk.tweens.misc.VarTween;
 	
 	public class Message extends Entity 
 	{
@@ -27,10 +23,9 @@ package ui
 			msg.alpha = 0.0001;
 			image.alpha = 0.0001;
 			graphic = image;
-			this.duration = duration;
-			
+			this.duration = duration;			
 			setHitbox(560, 48);
-			layer = 1;
+			layer = 0;
 			
 			msg.text = msgText; //adds the text to message
 			msg.size = 24;
@@ -47,7 +42,7 @@ package ui
 			x = FP.camera.x + FP.screen.width / 2 - width / 2;
 			y = FP.camera.y;
 			msg.x = FP.camera.x + FP.screen.width / 2 - msg.width / 2;
-			msg.y = FP.camera.y + height / 2;
+			msg.y = FP.camera.y + 10;
 			
 			//updates timer
 			timeElapsed += FP.elapsed;

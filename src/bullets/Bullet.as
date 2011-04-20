@@ -15,11 +15,13 @@ package bullets
 		public var damage:Number; //amount of damage to impart upon its foe
 		public var image:Image = new Image(GC.GFX_BULLET_DEFAULT); //the image of the bullet
 		public var flipped:Boolean;
+		public var spawnRoom:String; //the room that the bullet was spawned in
 		
 		public function Bullet(flipped:Boolean)
 		{
 			type = GC.BULLET_TYPE;
 			this.flipped = flipped;
+			spawnRoom = GV.CURRENT_LEVEL.levelName;
 			
 			setHitbox(6, 6);
 			
@@ -34,6 +36,8 @@ package bullets
 		
 		override public function update():void 
 		{
+			if( GV.CURRENT_LEVEL.levelName != spawnRoom ) world.remove(this);
+			
 			//check stage bounds for removal
 			if (x < 0 || x > GV.CURRENT_LEVEL.levelWidth || y < 0 || y > GV.CURRENT_LEVEL.levelHeight)
 			{
