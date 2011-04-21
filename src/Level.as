@@ -2,6 +2,7 @@ package
 {
 	import bullets.PistolBullet;
 	import doors.*;
+	import enemies.E1;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	import net.flashpunk.Entity;
@@ -20,8 +21,9 @@ package
 		public var data:XML;
 		
 		//objects on level
-		public var levelItems:Array = new Array();
-		public var levelDoors:Array = new Array();
+		public var levelItems:Array = new Array;
+		public var levelDoors:Array = new Array;
+		public var levelEnemies:Array = new Array;
 		
 		//set to true if the player has visited the tile
 		public var visited:Boolean;
@@ -52,6 +54,18 @@ package
 			
 			graphic = tiles;
 			mask = grid;
+			
+			for each( var e:XML in data.objects.E1 )
+			{
+				try
+				{
+					FP.console.log('Adding E1');
+					var tenemy:E1 = new E1( int(e.@x), int(e.@y) );
+					
+					levelEnemies.push(tenemy);
+				}
+				catch(e:Error) { FP.console.log('Unable to add E1\n' + e) }
+			}
 			
 			for each( var item:XML in data.objects.item )
 			{

@@ -40,7 +40,7 @@ package doors
 			}
 			
 			if ( collide(GC.PLAYER_TYPE, x, y) || collide(GC.PLAYER_TYPE, x - 35, y) || collide(GC.PLAYER_TYPE, x + 35, y) )
-			{
+			{				
 				if ( !locked ) //door is unlocked
 				{
 					GV.CONTEXT_MESSAGE.changeMsg('OPEN');
@@ -52,11 +52,6 @@ package doors
 						image.play('open');
 						open = true;
 					}
-				}
-				else //door is locked
-				{	
-					GV.CONTEXT_MESSAGE.changeMsg('LOCKED');
-					GV.CONTEXT_MESSAGE.isActive = true;
 				}
 			}
 			else

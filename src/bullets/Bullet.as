@@ -1,5 +1,6 @@
 package bullets 
 {
+	import enemies.Enemy;
 	import flash.geom.Vector3D;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
@@ -55,6 +56,14 @@ package bullets
 			if (e = collide(GC.DOOR_TYPE, x, y) as Door )
 			{
 				if(!e.open) world.remove(this);
+			}
+			
+			//hits and enemy, destroys it! muaha
+			var enemy:Enemy;
+			if ( enemy = collide(GC.ENEMY_TYPE, x, y) as Enemy )
+			{
+				enemy.hit();
+				world.remove(this);
 			}
 			
 			super.update();

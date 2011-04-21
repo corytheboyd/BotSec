@@ -41,6 +41,9 @@
 				<string name='id' default='none' />
 			</values>
 		</object>
+		<folder name='enemies'>
+			<object name='E1' image='enemies/E1.png' width='32' height='64' />
+		</folder>
 	</objects>
 	
 	<tilesets>

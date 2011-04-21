@@ -1,5 +1,6 @@
 package  
 {
+	import enemies.Enemy;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
@@ -19,7 +20,7 @@ package
 		protected var	maxVSpeed:Number		= GC.MAX_V_SPEED; //the maximum horizontal speed
 		protected var	moveSpeed:Number		= GC.MOVE_SPEED; //the current value
 		
-		public var velocity:Vector3D	= new Vector3D(); //the instantaneous velocity vector
+		public var velocity:Object = new Object; //the instantaneous velocity vector
 		
 		public function Player( x:Number=0, y:Number=0 )
 		{			
@@ -35,12 +36,27 @@ package
 			velocity.y = 0;
 		}
 		
+		//player hit by enemy
+		protected function hit(e:Entity):void
+		{
+			velocity.y = -300;
+			if ( x > e.x ) //on right
+			{
+				velocity.x = 3000;
+			}
+			else //on left
+			{
+				velocity.x = -3000;
+			}
+		}
+		
 		/*
 		 * Handles input and movement of player
 		 * */
 		override public function update():void
 		{				
 			floorCollision();
+			enemyCollision();
 			changeVelocity();
 			acceleration();
 			jump();
@@ -49,17 +65,17 @@ package
 			shoot();
 		}
 		
-		private function shoot():void
+		protected function shoot():void
 		{
 			if (!GV.EQUIPPED_WEAPON) return;
 			
-			if ( Input.pressed('Shoot') )
+			if ( Input.check('Shoot') && x > 0 && x < FP.width - width )
 			{
 				GV.EQUIPPED_WEAPON.fire(isFlipped, x, y);
 			}
 		}
 		
-		private function floorCollision():void
+		protected function floorCollision():void
 		{
 			if ( collide(GC.LEVEL_TYPE, x, y + 2) )
 			{
@@ -74,12 +90,21 @@ package
 			}
 		}
 		
-		private function changeVelocity():void
+		protected function enemyCollision():void
+		{
+			var e:Enemy;
+			if ( e = collide(GC.ENEMY_TYPE, x, y) as Enemy ) 
+			{
+				hit(e);
+			}
+		}
+		
+		protected function changeVelocity():void
 		{
 			gravity();			
 		}
 		
-		private function gravity():void
+		protected function gravity():void
 		{
 			if (isOnGround) return;
 			velocity.y += Math.round(GC.GRAVITY * FP.elapsed);
@@ -88,7 +113,7 @@ package
 			if ( Math.abs(velocity.y) > maxVSpeed ) velocity.y = sign * maxVSpeed;
 		}
 		
-		private function acceleration():void
+		protected function acceleration():void
 		{
 			
 			if ( Input.check("Right") ) 
@@ -152,7 +177,7 @@ package
 			if ( Math.abs(velocity.x) > maxHSpeed ) velocity.x = sign * maxHSpeed;
 		}
 		
-		private function jump():void
+		protected function jump():void
 		{
 			if( isOnGround && Input.pressed("Jump") )
 			{
@@ -173,7 +198,7 @@ package
 			}
 		}
 		
-		private function animate():void
+		protected function animate():void
 		{
 			// control facing direction
 			if ( Input.check('Left') ) 

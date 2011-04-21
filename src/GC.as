@@ -32,6 +32,11 @@ package
 		public static const AIR_DRAG:Number				= 0.35;
 		
 		/*
+		 * ENEMY CONSTANTS
+		 * */
+		public static const E1_MOVE_SPEED:Number		= 100;
+		
+		/*
 		 * UI CONSTANTS
 		 * */
 		public static const CURSOR_BLUR_LEVEL:Number	= 0.75;
@@ -82,6 +87,7 @@ package
 		public static const DOOR_TYPE:String			= 'door';
 		public static const RANGED_WEAPON_TYPE:String	= 'rangedWeapon';
 		public static const BULLET_TYPE:String			= 'bullet';
+		public static const ENEMY_TYPE:String			= 'enemy';
 		
 		/*
 		 * GRAPHICS
@@ -90,6 +96,10 @@ package
 		public static const GFX_TILESET:Class;
 		public static const GFX_TILESET_WIDTH:uint 	= 400;
 		public static const GFX_TILESET_HEIGHT:uint = 144;
+		
+		//make it a tilemap later
+		[Embed(source = '../assets/gfx/enemies/E1.png')]
+		public static const	GFX_E1:Class;
 		
 		[Embed(source = '../assets/gfx/player.png')]
 		public static const	GFX_PLAYER:Class;		

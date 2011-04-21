@@ -1,6 +1,7 @@
 package worlds 
 {
 	import doors.Door;
+	import enemies.Enemy;
 	import flash.ui.ContextMenu;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
@@ -112,6 +113,7 @@ package worlds
 				remove(GV.CURRENT_LEVEL);
 				removeList(GV.CURRENT_LEVEL.levelItems);
 				removeList(GV.CURRENT_LEVEL.levelDoors);
+				removeList(GV.CURRENT_LEVEL.levelEnemies);
 			}
 			catch (e:Error) { FP.console.log('HAY, YOU: Tried to remove something that does not exist'); }
 			
@@ -119,7 +121,14 @@ package worlds
 			add(GV.CURRENT_LEVEL);
 			
 			//get the player out of the level if they get stuck
-			if( PLAYER ) unstuckPlayer();
+			if ( PLAYER ) unstuckPlayer();
+			
+			//add all enemies to world
+			for each ( var e:Enemy in GV.CURRENT_LEVEL.levelEnemies )
+			{
+				e.layer = 1;
+				add(e);
+			}
 			
 			//add all items to world
 			for each ( var item:Item in GV.CURRENT_LEVEL.levelItems )

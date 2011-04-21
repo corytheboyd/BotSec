@@ -14,7 +14,7 @@ package
 		{
 			super(960, 480, 60);
 			//Mouse.hide();
-			//FP.console.enable();
+			FP.console.enable();
 			
 			FP.world = new GameWorld;
 			//FP.world = new MainMenu;
