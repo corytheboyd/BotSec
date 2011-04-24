@@ -7,9 +7,13 @@ designed to protect it. The culmination of the vast knoledge of thousands of yea
 of thought, able to adapt to new situations nearly as fast as the human mind, but there was thought to be no way of algorithmically simulating
 a concious. Or, maybe there was...
 
+KNOWN ISSUES:
+-Some mind of memory leak, extra entities present in GameWorld with playtime
+
 TODO:
 -SPAWN and SAVE locations
--Enemy class
+-Moving platforms
+-Minimap and Inventory control on pause menu
 -Ground enemy, wall enemy, air enemies
 -New weapons
 -Cutscenes mechanism
@@ -23,6 +27,7 @@ TODO ART ASSETS:
 -Industrial world tilemap (add)
 -Overgrowth/Natural world tilemap (add)
 -Platform tilemap (add)
+-Various background images
 
 TODO SOUNDS:
 -Ambient tracks (wip)
@@ -31,4 +36,4 @@ TODO SOUNDS:
 -Door open
 -Door close
 -Door locked
--Pistol fire, hit wall
+-Gun fire, hit wall
