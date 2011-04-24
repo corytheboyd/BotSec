@@ -16,8 +16,7 @@
     <rect x="96" y="224" w="16" h="48"/>
     <rect x="272" y="400" w="16" h="96"/>
     <rect x="432" y="176" w="16" h="32"/>
-    <rect x="592" y="480" w="64" h="32"/>
-    <rect x="640" y="64" w="16" h="416"/>
+    <rect x="640" y="64" w="16" h="448"/>
     <rect x="656" y="496" w="48" h="16"/>
     <rect x="688" y="16" w="16" h="480"/>
     <rect x="832" y="0" w="128" h="16"/>
@@ -2519,20 +2518,12 @@
     <tile set="tileset" tx="0" ty="32" x="80" y="256"/>
     <tile set="tileset" tx="0" ty="32" x="400" y="208"/>
     <tile set="tileset" tx="0" ty="32" x="416" y="208"/>
-    <tile set="tileset" tx="0" ty="32" x="608" y="496"/>
-    <tile set="tileset" tx="0" ty="32" x="624" y="496"/>
-    <tile set="tileset" tx="0" ty="32" x="640" y="496"/>
-    <tile set="tileset" tx="0" ty="32" x="608" y="480"/>
-    <tile set="tileset" tx="0" ty="32" x="624" y="480"/>
     <tile set="tileset" tx="0" ty="32" x="640" y="480"/>
     <tile set="tileset" tx="0" ty="32" x="640" y="464"/>
     <tile set="tileset" tx="0" ty="32" x="656" y="464"/>
     <tile set="tileset" tx="0" ty="32" x="656" y="480"/>
     <tile set="tileset" tx="0" ty="32" x="656" y="496"/>
     <tile set="tileset" tx="0" ty="32" x="672" y="496"/>
-    <tile set="tileset" tx="0" ty="0" x="592" y="480"/>
-    <tile set="tileset" tx="0" ty="16" x="592" y="496"/>
-    <tile set="tileset" tx="32" ty="0" x="624" y="464"/>
     <tile set="tileset" tx="48" ty="16" x="112" y="224"/>
     <tile set="tileset" tx="16" ty="16" x="96" y="272"/>
     <tile set="tileset" tx="16" ty="16" x="432" y="208"/>
@@ -2604,9 +2595,13 @@
     <tile set="tileset" tx="0" ty="32" x="656" y="288"/>
     <tile set="tileset" tx="0" ty="32" x="656" y="304"/>
     <tile set="tileset" tx="32" ty="16" x="624" y="64"/>
+    <tile set="tileset" tx="0" ty="16" x="640" y="496"/>
   </tiles>
   <objects>
     <door x="240" y="512" locked="false" id="d10_door1"/>
     <door x="656" y="512" locked="true" id="d10_door2"/>
+    <saveBeacon x="400" y="544" initial="false"/>
+    <respawn x="448" y="480"/>
+    <player x="464" y="496"/>
   </objects>
 </level>

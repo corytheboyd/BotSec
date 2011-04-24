@@ -36,7 +36,7 @@ package
 				while (moveX != 0)
 				{
 					moveX -= sign;
-					if ((e = collide(GC.LEVEL_TYPE, x + sign, y)))
+					if ((e = collide(GC.SOLID_TYPE, x + sign, y)))
 					{
 						collideX(e);
 						moveX = 0;
@@ -52,7 +52,7 @@ package
 				while (moveY != 0)
 				{
 					moveY -= sign;
-					if ((e = collide(GC.LEVEL_TYPE, x, y + sign)))
+					if ((e = collide(GC.SOLID_TYPE, x, y + sign)))
 					{
 						collideY(e);
 						moveY = 0;

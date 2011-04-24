@@ -5,12 +5,14 @@ package doors
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.utils.Input;
+	import ui.ContextMessage;
 
 	public class Door extends Entity 
 	{
 		public var locked:Boolean = true;
 		public var open:Boolean = false;
 		public var image:Spritemap = new Spritemap(GC.GFX_DOOR_TILESET, 32, 96);
+		public var contextMessage:ContextMessage = new ContextMessage('DOOR');
 		
 		public function Door(x:int=0, y:int=0) 
 		{
@@ -22,7 +24,7 @@ package doors
 			
 			graphic = image;
 			setHitbox(32, 96);
-			type = GC.LEVEL_TYPE;
+			type = GC.SOLID_TYPE;
 			
 			this.x = x;
 			this.y = y;
@@ -43,8 +45,8 @@ package doors
 			{				
 				if ( !locked ) //door is unlocked
 				{
-					GV.CONTEXT_MESSAGE.changeMsg('OPEN');
-					GV.CONTEXT_MESSAGE.isActive = open ? false : true;
+					contextMessage.changeMsg('OPEN')
+					contextMessage.isActive = open ? false : true;
 					
 					if ( Input.pressed('Action') )
 					{
@@ -53,14 +55,18 @@ package doors
 						open = true;
 					}
 				}
+				else 
+				{
+					contextMessage.changeMsg('LOCKED')
+					contextMessage.isActive = true;
+				}
 			}
 			else
 			{
-				GV.CONTEXT_MESSAGE.isActive = false;
-				
+				contextMessage.isActive = false;
 				if ( open )
 				{
-					type = GC.LEVEL_TYPE;
+					type = GC.SOLID_TYPE;
 					image.play('close');
 					open = false;
 				}				

@@ -13,6 +13,7 @@
     <rect x="64" y="208" w="256" h="16"/>
     <rect x="64" y="224" w="16" h="272"/>
     <rect x="80" y="464" w="16" h="32"/>
+    <rect x="256" y="592" w="32" h="16"/>
     <rect x="304" y="176" w="16" h="32"/>
     <rect x="320" y="400" w="64" h="16"/>
     <rect x="320" y="416" w="16" h="64"/>
@@ -26,6 +27,7 @@
     <rect x="688" y="384" w="16" h="32"/>
     <rect x="704" y="400" w="32" h="16"/>
     <rect x="720" y="416" w="16" h="48"/>
+    <rect x="768" y="592" w="32" h="16"/>
   </solid>
   <tiles_bg_2>
     <tile set="tileset" tx="0" ty="128" x="944" y="464"/>
@@ -1293,6 +1295,10 @@
     <tile set="tileset" tx="0" ty="32" x="592" y="448"/>
     <tile set="tileset" tx="0" ty="32" x="656" y="384"/>
     <tile set="tileset" tx="0" ty="32" x="672" y="352"/>
+    <tile set="tileset" tx="0" ty="0" x="256" y="592"/>
+    <tile set="tileset" tx="0" ty="0" x="768" y="592"/>
+    <tile set="tileset" tx="16" ty="0" x="784" y="592"/>
+    <tile set="tileset" tx="16" ty="0" x="272" y="592"/>
   </tiles>
   <decals>
     <tile set="tileset" tx="208" ty="16" x="336" y="448"/>
@@ -1326,7 +1332,7 @@
     <tile set="tileset" tx="272" ty="32" x="592" y="400"/>
   </decals>
   <objects>
-    <E1 x="160" y="544"/>
+    <E1 x="416" y="544"/>
     <E1 x="592" y="288"/>
   </objects>
 </level>

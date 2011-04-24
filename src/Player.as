@@ -4,13 +4,14 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import flash.geom.Vector3D;
 	
 	public class Player extends Moveable
 	{	
-		protected var	image:Image	= new Image(GC.GFX_PLAYER);
+		protected var	image:Spritemap = new Spritemap(GC.GFX_PLAYER, 64, 80);
 		protected var	isFlipped:Boolean = false;
 		
 		protected var	isOnGround:Boolean		= false; //true if player on ground, false otherwise
@@ -23,14 +24,18 @@ package
 		public var velocity:Object = new Object; //the instantaneous velocity vector
 		
 		public function Player( x:Number=0, y:Number=0 )
-		{			
+		{	
+			image.add('run_start', [0, 1, 2, 3, 4, 5, 6], GC.GFX_PLAYER_FPS, false);
+			image.add('run_loop', [7, 8, 9, 10, 11, 12, 13], GC.GFX_PLAYER_FPS, true);
+			image.add('idle', [14, 15], 2, true);
+			
 			type = GC.PLAYER_TYPE;
 			
 			this.x = x; 
 			this.y = y;
 			
 			graphic = image;
-			setHitbox(50, 64, -7, 0);
+			setHitbox(38, 60, -13, -20);
 			
 			velocity.x = 0;
 			velocity.y = 0;
@@ -39,15 +44,21 @@ package
 		//player hit by enemy
 		protected function hit(e:Entity):void
 		{
-			velocity.y = -300;
+			velocity.y = -100;
 			if ( x > e.x ) //on right
 			{
-				velocity.x = 3000;
+				velocity.x = 1500;
 			}
 			else //on left
 			{
-				velocity.x = -3000;
+				velocity.x = -1500;
 			}
+		}
+		
+		protected function kill():void
+		{
+			//play some explostion animation and remove the player from the world as the callback
+			world.remove(this);
 		}
 		
 		/*
@@ -77,7 +88,7 @@ package
 		
 		protected function floorCollision():void
 		{
-			if ( collide(GC.LEVEL_TYPE, x, y + 2) )
+			if ( collide(GC.SOLID_TYPE, x, y + 2) )
 			{
 				velocity.y = 0;
 				isOnGround = true;
@@ -95,7 +106,10 @@ package
 			var e:Enemy;
 			if ( e = collide(GC.ENEMY_TYPE, x, y) as Enemy ) 
 			{
-				hit(e);
+				if (e.lethal)
+				{
+					kill();
+				} else	hit(e);
 			}
 		}
 		
@@ -114,8 +128,7 @@ package
 		}
 		
 		protected function acceleration():void
-		{
-			
+		{			
 			if ( Input.check("Right") ) 
 			{
 				if (isOnGround)
@@ -190,7 +203,7 @@ package
 			{
 				canDblJump = true;
 			}
-			if ( canDblJump && Input.pressed("Jump") && !hasDblJumped && velocity.y < GC.DBL_JUMP_LIMIT )
+			if ( canDblJump && Input.pressed("Jump") && !hasDblJumped )
 			{
 				canDblJump = false;
 				hasDblJumped = true;
@@ -200,6 +213,25 @@ package
 		
 		protected function animate():void
 		{
+			//control animation
+			if (velocity.x == 0 && isOnGround)
+			{
+				image.play('idle');
+			}
+			else if (isOnGround)
+			{
+				image.play('run_start');
+				if (image.complete)
+				{
+					image.play('run_loop');
+				}
+			}
+			else 
+			{
+				//in air, replace with jump animation later
+				image.setFrame(15, 0);
+			}
+			
 			// control facing direction
 			if ( Input.check('Left') ) 
 			{

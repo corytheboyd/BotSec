@@ -4,6 +4,7 @@
 
 package  
 {
+	import flash.desktop.ClipboardFormats;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import items.*;
@@ -55,7 +56,7 @@ package
 		/*
 		 * INPUT CONSTANTS
 		 * */
-		Input.define("PauseMenu", Key.ENTER, Key.P);
+		Input.define("Pause", Key.ENTER, Key.P);
 		Input.define('Jump', Key.SPACE, Key.UP);
 		Input.define('Left', Key.LEFT);
 		Input.define('Right', Key.RIGHT);
@@ -97,12 +98,19 @@ package
 		public static const GFX_TILESET_WIDTH:uint 	= 400;
 		public static const GFX_TILESET_HEIGHT:uint = 144;
 		
+		[Embed(source = '../assets/gfx/save_beacon.png')]
+		public static const GFX_SAVE:Class;
+		public static const GFX_SAVE_WIDTH:uint = 64;
+		public static const GFX_SAVE_HEIGHT:uint = 64;
+		
+		[Embed(source = '../assets/gfx/player/player.png')]
+		public static const GFX_PLAYER:Class;
+		public static const GFX_PLAYER_FPS:uint = 12;
+		
 		//make it a tilemap later
 		[Embed(source = '../assets/gfx/enemies/E1.png')]
 		public static const	GFX_E1:Class;
 		
-		[Embed(source = '../assets/gfx/player.png')]
-		public static const	GFX_PLAYER:Class;		
 		[Embed(source = '../assets/gfx/pistol.png')]
 		public static const GFX_PISTOL:Class;		
 		[Embed(source = '../assets/gfx/item_default.png')]
@@ -137,6 +145,8 @@ package
 		public static const	GFX_MESSAGE:Class;
 		[Embed(source = '../assets/gfx/message/mini_message.png')]
 		public static const	GFX_MINI_MESSAGE:Class;
+		[Embed(source = '../assets/gfx/respawn.png')]
+		public static const GFX_RESPAWN:Class;		
 		
 		/*
 		* MAP FILES

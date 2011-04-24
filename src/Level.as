@@ -3,8 +3,11 @@ package
 	import bullets.PistolBullet;
 	import doors.*;
 	import enemies.E1;
+	import flash.net.Responder;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
+	import interactives.Respawner;
+	import interactives.SaveBeacon;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Tilemap;
@@ -21,6 +24,8 @@ package
 		public var data:XML;
 		
 		//objects on level
+		public var levelBeacon:SaveBeacon = null;
+		public var levelRespawner:Respawner = null;
 		public var levelItems:Array = new Array;
 		public var levelDoors:Array = new Array;
 		public var levelEnemies:Array = new Array;
@@ -45,7 +50,7 @@ package
 		 * */
 		public function Level(targetTile:String) 
 		{
-			type = GC.LEVEL_TYPE;
+			type = GC.SOLID_TYPE;
 			
 			loadLevel(targetTile); //loads the level from file, sets this.data
 			
@@ -55,7 +60,28 @@ package
 			graphic = tiles;
 			mask = grid;
 			
-			for each( var e:XML in data.objects.E1 )
+			for each( var e:XML in data.objects.respawn )
+			{
+				FP.console.log('Adding Respawner');
+				var respawner:Respawner = new Respawner( int(e.@x), int(e.@y) );
+				
+				levelRespawner = respawner;
+			}
+			
+			for each( e in data.objects.saveBeacon )
+			{
+				try
+				{
+					FP.console.log('Adding Save Beacon');
+					var saveBeacon:SaveBeacon = new SaveBeacon( int(e.@x), int(e.@y) );
+					if ( Boolean(e.@isActive) ) saveBeacon.initialSpawn = true;
+					
+					levelBeacon = saveBeacon;
+				}
+				catch (e:Error) { FP.console.log('Unable to add Save Beacon\n' + e); }
+			}
+			
+			for each( e in data.objects.E1 )
 			{
 				try
 				{
@@ -64,7 +90,7 @@ package
 					
 					levelEnemies.push(tenemy);
 				}
-				catch(e:Error) { FP.console.log('Unable to add E1\n' + e) }
+				catch (e:Error) { FP.console.log('Unable to add E1\n' + e); }
 			}
 			
 			for each( var item:XML in data.objects.item )
@@ -152,7 +178,7 @@ package
 			{
 				//tries to load the tile from GC. returns null if not present
 				var tileRef:Class = getDefinitionByName( 'GC_' + targetTile.toLowerCase() ) as Class;
-				data = FP.getXML(tileRef);
+				data = FP.getXML(tileRef); //reads the level data into XML object
 				
 				levelName		= data.@tile_name;
 				levelWidth 		= data.width;
@@ -164,10 +190,8 @@ package
 			}
 			catch (e:Error)
 			{
-				//FP.console.log('WARNING: Unable to load tile:',targetTile);
 				return;
 			}
-			FP.console.log('Loaded tile:',targetTile);
 		}
 		
 	}

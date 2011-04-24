@@ -20,7 +20,11 @@ package items
 		override public function update():void 
 		{
 			super.update();
-			if (!GV.EQUIPPED_WEAPON) GV.EQUIPPED_WEAPON = this;
+			
+			if ( collide(GC.PLAYER_TYPE, x, y) )
+			{
+				if (!GV.EQUIPPED_WEAPON) GV.EQUIPPED_WEAPON = this;
+			}
 		}
 		
 	}

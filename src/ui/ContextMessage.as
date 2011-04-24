@@ -8,27 +8,29 @@ package ui
 	public class ContextMessage extends Entity 
 	{
 		protected var image:Image = new Image(GC.GFX_MINI_MESSAGE);
-		protected var msg:Text = new Text('none', 0, 0, 176, 24); //the text of the message
+		protected var msg:Text = new Text('ACTION', 0, 0, 176, 24); //the text of the message
 		
 		public var isActive:Boolean = false; //true if the message is displayed
 		
-		public function ContextMessage()
+		public function ContextMessage( newMsg:String='ACTION' )
 		{
+			msg.text = newMsg;			
 			msg.alpha = 0.0001;
-			image.alpha = 0.0001;
-			graphic = image;
-			setHitbox(176, 48);
-			layer = 0;
-			
 			msg.size = 18;
+			image.alpha = 0.0001;
+			
+			graphic = image;
+			setHitbox(176, 48);	
 		}
 		
-		/*
-		 * Change the message text
-		 * */
-		public function changeMsg( newMsg:String ):void
+		public function changeMsg(newStr:String):void
 		{
-			msg.text = newMsg;
+			msg.text = newStr;
+		}
+		
+		override public function update():void 
+		{
+			show();
 		}
 		
 		override public function added():void 
@@ -36,7 +38,7 @@ package ui
 			world.addGraphic(msg);
 		}
 		
-		override public function update():void 
+		protected function show():void 
 		{			
 			//puts the message + text at bottom of screen, relative to camera
 			x = FP.camera.x + FP.screen.width / 2 - width / 2;
@@ -45,7 +47,7 @@ package ui
 			msg.y = FP.camera.y + FP.screen.height - height + 15;
 			
 			if ( isActive )
-			{
+			{				
 				image.alpha += GC.MSG_FADE_RATE;
 				msg.alpha += GC.MSG_FADE_RATE;
 			}
@@ -54,8 +56,6 @@ package ui
 				image.alpha -= GC.MSG_FADE_RATE;
 				msg.alpha -= GC.MSG_FADE_RATE;
 			}
-			
-			super.update();
 		}
 		
 	}

@@ -5,6 +5,8 @@ package enemies
 
 	public class Enemy extends Moveable 
 	{
+		public var lethal:Boolean = false; //true if touching the enemy kills the player
+		
 		public var image:Image;
 		public var isFlipped:Boolean = false;
 		public var velocity:Object = new Object;

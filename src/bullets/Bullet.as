@@ -46,7 +46,7 @@ package bullets
 			}
 			
 			//hits a wall of the level
-			if ( collide(GC.LEVEL_TYPE, x, y) )
+			if ( collide(GC.SOLID_TYPE, x, y) )
 			{
 				world.remove(this);
 			}

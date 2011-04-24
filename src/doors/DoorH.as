@@ -18,7 +18,7 @@ package doors
 			
 			graphic = image;
 			setHitbox(96, 32);
-			type = GC.LEVEL_TYPE;
+			type = GC.SOLID_TYPE;
 			
 			this.x = x;
 			this.y = y;
@@ -39,8 +39,8 @@ package doors
 			{
 				if ( !locked )
 				{
-					GV.CONTEXT_MESSAGE.changeMsg('Open');
-					GV.CONTEXT_MESSAGE.isActive = true;
+					contextMessage.changeMsg('OPEN')
+					contextMessage.isActive = open ? false : true;
 					
 					if ( Input.pressed('Action') )
 					{
@@ -49,11 +49,15 @@ package doors
 						open = true;
 					}
 				}
+				else
+				{
+					contextMessage.changeMsg('LOCKED')
+					contextMessage.isActive = true;
+				}
 			}
 			else
 			{
-				GV.CONTEXT_MESSAGE.isActive = false;
-				
+				contextMessage.isActive = false;
 				if ( open )
 				{
 					image.play('close');

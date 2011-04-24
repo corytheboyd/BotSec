@@ -3,6 +3,8 @@ package worlds
 	import doors.Door;
 	import enemies.Enemy;
 	import flash.ui.ContextMenu;
+	import interactives.Respawner;
+	import interactives.SaveBeacon;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
@@ -20,8 +22,6 @@ package worlds
 		protected var paused:Boolean = false;
 		protected var pauseMenu:PauseMenu;
 		
-		protected var bullets:Array = new Array; //stores all bullets
-		
 		public var PLAYER:Player;
 		
 		public function GameWorld() 
@@ -34,20 +34,23 @@ package worlds
 			switchLevel(GC.START_TILE); //changes to starting tile
 			PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y) );
 			
-			PLAYER.layer					= 0;
-			GV.ITEM_BLOOM_LIGHTING.color 	= GC.BLOOM_COLOR;
+			PLAYER.layer	= 0;
 			
 			add(PLAYER);
-			add(GV.CONTEXT_MESSAGE);
 			add(GV.CURRENT_LEVEL);
-			
-			super.begin();
 		}
-				
+		
 		override public function update():void 
-		{			
+		{	
+			if ( !PLAYER.world ) //player died, respawn them at the save room
+			{
+				switchLevel(GV.CURRENT_SAVE_ROOM);
+				PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y) );
+				add(PLAYER);
+			}
+			
 			//pause menu
-			if ( Input.pressed("PauseMenu") )
+			if ( Input.pressed("Pause") )
 			{				
 				if (!paused)
 				{
@@ -104,24 +107,42 @@ package worlds
 			}		
 		}
 		
-		private function switchLevel(targetTile:String):void
-		{				
+		protected function switchLevel(targetTile:String):void
+		{			
 			FP.console.log('Setting up tile: ' + targetTile + '...');
 			
-			try
-			{
-				remove(GV.CURRENT_LEVEL);
-				removeList(GV.CURRENT_LEVEL.levelItems);
-				removeList(GV.CURRENT_LEVEL.levelDoors);
-				removeList(GV.CURRENT_LEVEL.levelEnemies);
-			}
-			catch (e:Error) { FP.console.log('HAY, YOU: Tried to remove something that does not exist'); }
+			try { remove(GV.CURRENT_LEVEL); } catch (e:Error) { FP.console.log('Unable to remove level from GameWorld'); }
+			try { removeList(GV.CURRENT_LEVEL.levelItems); } catch (e:Error) { FP.console.log('Unable to remove items from GameWorld'); }
+			try { removeList(GV.CURRENT_LEVEL.levelDoors); } catch (e:Error) { FP.console.log('Unable to remove doors from GameWorld'); }
+			try { removeList(GV.CURRENT_LEVEL.levelEnemies); } catch (e:Error) { FP.console.log('Unable to remove enemies from GameWorld'); }
+			try { remove(GV.CURRENT_LEVEL.levelBeacon); } catch (e:Error) { FP.console.log('Unable to remove save beacon from GameWorld'); }
+			try { removeList(GV.CONTEXT_MESSAGES); GV.CONTEXT_MESSAGES = []; } catch (e:Error) { FP.console.log('Unable to remove context messages from GameWorld'); }
+			try { remove(GV.CURRENT_LEVEL.levelRespawner); } catch (e:Error) { FP.console.log('Unable to remove respawner from GameWorld'); }
+			
+			//REMOVE THE MESG GRAPHICS OF CONTEXT MESSAGES
 			
 			GV.CURRENT_LEVEL = new Level(targetTile);
 			add(GV.CURRENT_LEVEL);
 			
 			//get the player out of the level if they get stuck
 			if ( PLAYER ) unstuckPlayer();
+			
+			//add respawner to world
+			var r:Respawner = GV.CURRENT_LEVEL.levelRespawner;
+			if ( r )
+			{
+				r.layer = 2;
+				add(r);
+			}
+			
+			//add save beacon to world
+			var sb:SaveBeacon = GV.CURRENT_LEVEL.levelBeacon;
+			if ( sb )
+			{
+				sb.layer = 2;
+				add(sb);
+				GV.CONTEXT_MESSAGES.push(sb.contextMessage);
+			}
 			
 			//add all enemies to world
 			for each ( var e:Enemy in GV.CURRENT_LEVEL.levelEnemies )
@@ -143,19 +164,25 @@ package worlds
 			}
 			
 			//add all doors to world
-			for each ( var door:Entity in GV.CURRENT_LEVEL.levelDoors )
+			for each ( var door:Door in GV.CURRENT_LEVEL.levelDoors )
 			{
-				door.layer = 2;
+				door.layer = 1;
 				add(door);
+				GV.CONTEXT_MESSAGES.push(door.contextMessage);
 				
 				FP.console.log('Added Door to world');
 			}
 			
-			GV.ITEM_BLOOM_LIGHTING.layer 	= 0;
-			GV.BLUR_CANVAS.layer			= 1;
-			GV.CURRENT_LEVEL.layer 			= 3;
+			//add context messages
+			for each ( var msg:ContextMessage in GV.CONTEXT_MESSAGES )
+			{
+				msg.layer = 0;
+				add(msg);
+			}
+
+			GV.CURRENT_LEVEL.layer 			= 2;
 			
-			FP.console.log('...' + targetTile + ' loaded!');
+			FP.console.log('...' + targetTile + ' loaded!');			
 		}
 		
 		/*
