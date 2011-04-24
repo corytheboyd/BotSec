@@ -105,7 +105,7 @@ package
 		
 		[Embed(source = '../assets/gfx/player/player.png')]
 		public static const GFX_PLAYER:Class;
-		public static const GFX_PLAYER_FPS:uint = 12;
+		public static const GFX_PLAYER_FPS:uint = 24;
 		
 		//make it a tilemap later
 		[Embed(source = '../assets/gfx/enemies/E1.png')]
