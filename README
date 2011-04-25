@@ -1,4 +1,4 @@
-BotSec version 0.1.4
+BotSec version 0.1.5
 
 Introduction!
 
@@ -8,7 +8,7 @@ of thought, able to adapt to new situations nearly as fast as the human mind, bu
 a concious. Or, maybe there was...
 
 KNOWN ISSUES:
--Some mind of memory leak, extra entities present in GameWorld with playtime
+-Some kind of memory leak, extra entities present in GameWorld with playtime. They are the Text objects made by ContextMessage objects.
 
 TODO:
 -Minimap and Inventory control on pause menu
@@ -27,6 +27,7 @@ TODO ART ASSETS:
 -Overgrowth/Natural world tilemap (add)
 -Platform tilemap (add)
 -Various background images
+-New menu background
 
 TODO SOUNDS:
 -Ambient tracks (wip)
