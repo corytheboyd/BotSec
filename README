@@ -11,15 +11,14 @@ KNOWN ISSUES:
 -Some mind of memory leak, extra entities present in GameWorld with playtime
 
 TODO:
--SPAWN and SAVE locations
--Moving platforms
 -Minimap and Inventory control on pause menu
 -Ground enemy, wall enemy, air enemies
 -New weapons
+-Moving platforms
 -Cutscenes mechanism
 
 TODO ART ASSETS:
--Player spritemap (add)
+-Player spritemap (in progress)
 -Bullet spritemaps (replace)
 -Door spritemaps (replace)
 -Enemy spritemaps: Ground, Wall, Air (add)

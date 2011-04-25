@@ -9,6 +9,10 @@ package ui
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.World;
 	
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class PauseMenu extends Entity
 	{	
 		//The tiles to populate minimap with. [0] is dark, [1] is vistied

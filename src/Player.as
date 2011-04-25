@@ -9,6 +9,10 @@ package
 	import net.flashpunk.utils.Key;
 	import flash.geom.Vector3D;
 	
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class Player extends Moveable
 	{	
 		protected var	image:Spritemap = new Spritemap(GC.GFX_PLAYER, 64, 80);

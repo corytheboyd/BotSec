@@ -5,6 +5,10 @@ package enemies
 	import net.flashpunk.graphics.Image;
 	import flash.utils.getTimer;
 
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class E1 extends Enemy 
 	{
 		protected var dir:int = FP.rand(2) == 0 ? 1 : -1; //randomize direction

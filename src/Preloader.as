@@ -1,66 +1,87 @@
 package 
 {
+	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
-	import flash.display.StageAlign;
-	import flash.display.StageScaleMode;
 	import flash.events.Event;
-	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
+	import flash.text.Font;
 	import flash.utils.getDefinitionByName;
+	import flash.display.Sprite;
+	import flash.text.TextField;
+	import net.flashpunk.*
+	
+	[SWF(width = "960", height = "480")]
 	
 	/**
 	 * ...
-	 * @author Cory Boyd
+	 * @author Noel Berry
 	 */
 	public class Preloader extends MovieClip 
 	{
+		//[Embed(source = 'data/loading.png')] static private var imgLoading:Class;
+		
+		private var loading:Bitmap = new GC.GFX_BLACKSCREEN;
+		
+		private var square:Sprite = new Sprite();
+		private var border:Sprite = new Sprite();
+		private var wd:Number = (loaderInfo.bytesLoaded / loaderInfo.bytesTotal) * 240;
+		private var text:TextField = new TextField();
 		
 		public function Preloader() 
 		{
-			if (stage) {
-				stage.scaleMode = StageScaleMode.NO_SCALE;
-				stage.align = StageAlign.TOP_LEFT;
-			}
 			addEventListener(Event.ENTER_FRAME, checkFrame);
 			loaderInfo.addEventListener(ProgressEvent.PROGRESS, progress);
-			loaderInfo.addEventListener(IOErrorEvent.IO_ERROR, ioError);
+			// show loader
+			addChild(square);
+			square.x = 200;
+			square.y = stage.stageHeight / 2;
 			
-			// TODO show loader
-		}
+			addChild(border);
+			border.x = 200-4;
+			border.y = stage.stageHeight / 2 - 4;
 		
-		private function ioError(e:IOErrorEvent):void 
-		{
-			trace(e.text);
+			addChild(text);
+			text.x = 194;
+			text.y = stage.stageHeight / 2 - 30;
+			
+			addChild(loading);
+			loading.x = 0;
+			loading.y = 48;
+			
 		}
 		
 		private function progress(e:ProgressEvent):void 
 		{
-			// TODO update loader
+			// update loader
+			square.graphics.beginFill(0xF2F2F2);
+			square.graphics.drawRect(0,0,(loaderInfo.bytesLoaded / loaderInfo.bytesTotal) * 240,20);
+			square.graphics.endFill();
+			
+			border.graphics.lineStyle(2,0xFFFFFF);
+			border.graphics.drawRect(0, 0, 248, 28);
+			
+			text.textColor = 0xFFFFFF;
+			text.text = "Loading: " + Math.ceil((loaderInfo.bytesLoaded/loaderInfo.bytesTotal)*100) + "%";
+			
 		}
 		
 		private function checkFrame(e:Event):void 
 		{
 			if (currentFrame == totalFrames) 
 			{
-				stop();
-				loadingFinished();
+				removeEventListener(Event.ENTER_FRAME, checkFrame);
+				startup();
 			}
-		}
-		
-		private function loadingFinished():void 
-		{
-			removeEventListener(Event.ENTER_FRAME, checkFrame);
-			loaderInfo.removeEventListener(ProgressEvent.PROGRESS, progress);
-			loaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, ioError);
-			
-			// TODO hide loader
-			
-			startup();
 		}
 		
 		private function startup():void 
 		{
+			var a:Class = Main; //puts Main in the namespace
+			
+			// hide loader
+			stop();
+			loaderInfo.removeEventListener(ProgressEvent.PROGRESS, progress);
 			var mainClass:Class = getDefinitionByName("Main") as Class;
 			addChild(new mainClass() as DisplayObject);
 		}

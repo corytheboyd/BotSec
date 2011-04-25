@@ -5,6 +5,10 @@ package buttons
 	import net.flashpunk.graphics.Image;
 	import worlds.GameWorld;
 
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class StartButton extends Button 
 	{
 		protected var imageNormal:Image = new Image(GC.GFX_START_NORMAL);

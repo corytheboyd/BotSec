@@ -5,6 +5,10 @@ package ui
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Text;
 
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class ContextMessage extends Entity 
 	{
 		protected var image:Image = new Image(GC.GFX_MINI_MESSAGE);

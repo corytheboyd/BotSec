@@ -7,6 +7,10 @@ package doors
 	import net.flashpunk.utils.Input;
 	import ui.ContextMessage;
 
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class Door extends Entity 
 	{
 		public var locked:Boolean = true;

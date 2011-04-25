@@ -14,7 +14,10 @@ package
 	import net.flashpunk.World;
 	import worlds.*;
 	
-	
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class GV 
 	{
 		public static var CURRENT_LEVEL:Level; //the currently loaded world tile
@@ -22,7 +25,7 @@ package
 		public static var CONTEXT_MESSAGES:Array = new Array;
 		
 		public static var INVENTORY:Array = new Array();
-		public static var EQUIPPED_WEAPON:RangedWeapon = null;
+		public static var EQUIPPED_WEAPON:RangedWeapon;
 		
 		public static var CURRENT_SAVE_ROOM:String = ''; //the room where the active save beacon is
 		

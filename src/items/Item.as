@@ -7,6 +7,10 @@ package items
 	import flash.utils.getTimer;
 	import ui.*;
 
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class Item extends Entity 
 	{
 		public var image:Image = new Image(GC.GFX_ITEM_DEFAULT); //the texture to display if item in world

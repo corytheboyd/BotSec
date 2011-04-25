@@ -7,6 +7,10 @@ package bullets
 	import net.flashpunk.graphics.Image;
 	import doors.*;
 	
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class Bullet extends Moveable 
 	{
 		public var speed:Number; //how many px/sec the bullet moves in x

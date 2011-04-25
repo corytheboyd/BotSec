@@ -6,6 +6,10 @@ package items
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
 	
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class RangedWeapon extends Item 
 	{	
 		public var bulletType:Class; //the class of the bullet
@@ -20,7 +24,12 @@ package items
 		}
 		
 		override public function update():void 
-		{
+		{			
+			if ( collide(GC.PLAYER_TYPE, x, y) )
+			{
+				if (GV.EQUIPPED_WEAPON == null) GV.EQUIPPED_WEAPON = this;
+			}
+			
 			super.update();
 		}
 		

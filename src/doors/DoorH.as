@@ -5,7 +5,9 @@ package doors
 	
 	/*
 	 * Horizontal door, acts the same as Door but sideways!
-	 * */
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class DoorH extends Door 
 	{		
 		public function DoorH(x:int=0, y:int=0) 

@@ -9,6 +9,10 @@ package
 	import net.flashpunk.utils.Key;
 	import items.*;
 	
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class GC 
 	{
 		/*
@@ -91,6 +95,12 @@ package
 		public static const ENEMY_TYPE:String			= 'enemy';
 		
 		/*
+		 * AUDIO
+		 * */
+		[Embed(source = '../assets/music/title_song.mp3')]
+		public static const SFX_TITLE_TRACK:Class;		
+		
+		/*
 		 * GRAPHICS
 		 * */
 		[Embed(source='../assets/gfx/tileset.png')]
@@ -111,6 +121,8 @@ package
 		[Embed(source = '../assets/gfx/enemies/E1.png')]
 		public static const	GFX_E1:Class;
 		
+		[Embed(source = '../assets/gfx/blackscreen.png')]
+		public static const GFX_BLACKSCREEN:Class;
 		[Embed(source = '../assets/gfx/pistol.png')]
 		public static const GFX_PISTOL:Class;		
 		[Embed(source = '../assets/gfx/item_default.png')]
@@ -125,22 +137,18 @@ package
 		public static const GFX_DOORH_TILESET:Class;
 		[Embed(source = '../assets/gfx/cursor_menu.png')]
 		public static const GFX_CURSOR_MENU:Class;
-		[Embed(source='../assets/gfx/reticle1.png')]
-		public static const	GFX_RETICLE1:Class;
 		[Embed(source = '../assets/gfx/pause_menu.png')]
 		public static const	GFX_PAUSE_MENU:Class;
 		[Embed(source = '../assets/gfx/minimap/tileset.png')]
 		public static const	GFX_MINIMAP_TILESET:Class;
-		[Embed(source = '../assets/gfx/main_menu/main_menu_bg.png')]
+		[Embed(source = '../assets/gfx/main_menu/bg.png')]
 		public static const	GFX_MAIN_MENU_BG:Class;
-		[Embed(source = '../assets/gfx/main_menu/instructions_normal.png')]
-		public static const	GFX_INSTRUCTIONS_NORMAL:Class;
-		[Embed(source = '../assets/gfx/main_menu/options_normal.png')]
-		public static const	GFX_OPTIONS_NORMAL:Class;
-		[Embed(source = '../assets/gfx/main_menu/start_normal.png')]
-		public static const	GFX_START_NORMAL:Class;
+		[Embed(source = '../assets/gfx/main_menu/start_prompt.png')]
+		public static const	GFX_MAIN_MENU_START_PROMPT:Class;
 		[Embed(source = '../assets/gfx/main_menu/title.png')]
-		public static const	GFX_TITLE:Class;
+		public static const	GFX_MAIN_MENU_TITLE:Class;
+		[Embed(source = '../assets/gfx/main_menu/ng_tank.png')]
+		public static const GFX_MAIN_MENU_NG_TANK:Class;
 		[Embed(source = '../assets/gfx/message/message.png')]
 		public static const	GFX_MESSAGE:Class;
 		[Embed(source = '../assets/gfx/message/mini_message.png')]

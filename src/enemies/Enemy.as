@@ -3,6 +3,10 @@ package enemies
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class Enemy extends Moveable 
 	{
 		public var lethal:Boolean = false; //true if touching the enemy kills the player

@@ -16,6 +16,10 @@ package worlds
 	import items.Item;
 	import ui.*;
 	
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class GameWorld extends World 
 	{
 		protected var levelsVisited:Array = new Array;
@@ -46,6 +50,7 @@ package worlds
 			{
 				switchLevel(GV.CURRENT_SAVE_ROOM);
 				PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y) );
+				GV.CURRENT_LEVEL.levelRespawner.activate();
 				add(PLAYER);
 			}
 			

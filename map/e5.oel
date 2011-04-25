@@ -2480,6 +2480,9 @@
   </decals>
   <objects>
     <door x="448" y="480" locked="true" id="e5_door1"/>
+    <respawn x="256" y="208"/>
+    <saveBeacon x="448" y="208" initial="false"/>
+    <player x="272" y="208"/>
   </objects>
   <tiles_fg>
     <tile set="tileset" tx="32" ty="208" x="736" y="560"/>

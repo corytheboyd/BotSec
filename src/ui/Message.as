@@ -10,6 +10,10 @@ package ui
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Text;
 	
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class Message extends Entity 
 	{
 		protected var image:Image = new Image(GC.GFX_MESSAGE); //the background image of the message

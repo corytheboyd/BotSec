@@ -6,6 +6,10 @@ package interactives
 	import ui.ContextMessage;
 	import ui.Message;
 	
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class SaveBeacon extends Entity 
 	{
 		protected var image:Spritemap = new Spritemap(GC.GFX_SAVE, 32, 64);

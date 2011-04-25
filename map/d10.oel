@@ -2600,8 +2600,5 @@
   <objects>
     <door x="240" y="512" locked="false" id="d10_door1"/>
     <door x="656" y="512" locked="true" id="d10_door2"/>
-    <saveBeacon x="400" y="544" initial="false"/>
-    <respawn x="448" y="480"/>
-    <player x="464" y="496"/>
   </objects>
 </level>

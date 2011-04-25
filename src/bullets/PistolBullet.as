@@ -3,6 +3,10 @@ package bullets
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class PistolBullet extends Bullet 
 	{		
 		public function PistolBullet(flipped:Boolean) 

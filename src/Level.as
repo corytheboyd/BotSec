@@ -14,6 +14,10 @@ package
 	import net.flashpunk.masks.Grid;
 	import items.*;
 
+	/**
+	 * ...
+	 * @author Cory Boyd
+	 */
 	public class Level extends Entity 
 	{		
 		protected var grid:Grid;
