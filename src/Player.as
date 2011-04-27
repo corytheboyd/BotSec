@@ -5,6 +5,7 @@ package
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Spritemap;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import flash.geom.Vector3D;
@@ -15,15 +16,18 @@ package
 	 */
 	public class Player extends Moveable
 	{	
-		protected var	image:Spritemap = new Spritemap(GC.GFX_PLAYER, 64, 80);
-		protected var	isFlipped:Boolean = false;
+		protected var image:Spritemap = new Spritemap(GC.GFX_PLAYER, 64, 80);
+		protected var isFlipped:Boolean = false;
 		
-		protected var	isOnGround:Boolean		= false; //true if player on ground, false otherwise
-		protected var	canDblJump:Boolean		= false; //true if the player can double jump
-		protected var	hasDblJumped:Boolean 	= false; // true if player has already double jumped
-		protected var	maxHSpeed:Number		= GC.MAX_H_SPEED; //the maximum horizontal speed
-		protected var	maxVSpeed:Number		= GC.MAX_V_SPEED; //the maximum horizontal speed
-		protected var	moveSpeed:Number		= GC.MOVE_SPEED; //the current value
+		protected var isOnGround:Boolean		= false; //true if player on ground, false otherwise
+		protected var canDblJump:Boolean		= false; //true if the player can double jump
+		protected var hasDblJumped:Boolean 	= false; // true if player has already double jumped
+		protected var maxHSpeed:Number		= GC.MAX_H_SPEED; //the maximum horizontal speed
+		protected var maxVSpeed:Number		= GC.MAX_V_SPEED; //the maximum horizontal speed
+		protected var moveSpeed:Number		= GC.MOVE_SPEED; //the current value
+		
+		protected var jumpSound:Sfx = new Sfx(GC.SFX_PLAYER_JUMP);
+		protected var explodeSound:Sfx = new Sfx(GC.SFX_EXPLOSION_SMALL);
 		
 		public var velocity:Object = new Object; //the instantaneous velocity vector
 		
@@ -59,12 +63,6 @@ package
 			}
 		}
 		
-		protected function kill():void
-		{
-			//play some explostion animation and remove the player from the world as the callback
-			world.remove(this);
-		}
-		
 		/*
 		 * Handles input and movement of player
 		 * */
@@ -76,6 +74,7 @@ package
 			acceleration();
 			jump();
 			animate();
+			sound();
 			move( Math.round(velocity.x * FP.elapsed), Math.round(velocity.y * FP.elapsed) );
 			shoot();
 		}
@@ -84,7 +83,7 @@ package
 		{
 			if (!GV.EQUIPPED_WEAPON) return;
 			
-			if ( Input.check('Shoot') && x > 0 && x < FP.width - width )
+			if ( Input.pressed('Shoot') && x > 0 && x < FP.width - width )
 			{
 				GV.EQUIPPED_WEAPON.fire(isFlipped, x, y);
 			}
@@ -115,6 +114,13 @@ package
 					kill();
 				} else	hit(e);
 			}
+		}
+		
+		protected function kill():void
+		{
+			//play some explostion animation and remove the player from the world as the callback
+			explodeSound.play();
+			world.remove(this);
 		}
 		
 		protected function changeVelocity():void
@@ -198,6 +204,8 @@ package
 		{
 			if( isOnGround && Input.pressed("Jump") )
 			{
+				jumpSound.play();
+				
 				velocity.y = GC.JUMP_SPEED;
 				isOnGround = false;
 				if (velocity.x < 0 && image.flipped) velocity.x *= GC.LEAP;
@@ -209,6 +217,8 @@ package
 			}
 			if ( canDblJump && Input.pressed("Jump") && !hasDblJumped )
 			{
+				jumpSound.play();
+				
 				canDblJump = false;
 				hasDblJumped = true;
 				velocity.y = GC.DBL_JUMP_SPEED;
@@ -247,6 +257,11 @@ package
 				image.flipped = false;
 				isFlipped = false;
 			}
+		}
+		
+		protected function sound():void
+		{
+			
 		}
 		
 		override protected function collideX(e:Entity):void 

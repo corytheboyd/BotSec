@@ -2,6 +2,7 @@ package interactives
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Spritemap;
+	import net.flashpunk.Sfx;
 	
 	/**
 	 * ...
@@ -10,6 +11,7 @@ package interactives
 	public class Respawner extends Entity 
 	{
 		protected var image:Spritemap = new Spritemap(GC.GFX_RESPAWN, 96, 128);
+		protected var openSound:Sfx = new Sfx(GC.SFX_BUZZER);
 		
 		public function Respawner( x:Number=0, y:Number=0 ) 
 		{
@@ -28,6 +30,7 @@ package interactives
 		public function activate():void
 		{
 			image.play('activate');
+			openSound.play();
 		}
 		
 	}

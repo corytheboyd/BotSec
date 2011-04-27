@@ -43,9 +43,9 @@ package ui
 		override public function update():void 
 		{
 			//puts the message + text at top of screen, relative to camera
-			x = FP.camera.x + FP.screen.width / 2 - width / 2 - 75;
+			x = FP.camera.x + FP.screen.width / 2 - width / 2;
 			y = FP.camera.y;
-			msg.x = FP.camera.x + FP.screen.width / 2 - msg.width / 2 - 75;
+			msg.x = FP.camera.x + FP.screen.width / 2 - msg.width / 2;
 			msg.y = FP.camera.y + 10;
 			
 			//updates timer

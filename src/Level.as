@@ -3,6 +3,7 @@ package
 	import bullets.PistolBullet;
 	import doors.*;
 	import enemies.E1;
+	import flash.geom.Point;
 	import flash.net.Responder;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
@@ -13,6 +14,7 @@ package
 	import net.flashpunk.graphics.Tilemap;
 	import net.flashpunk.masks.Grid;
 	import items.*;
+	import platforms.Platform;
 
 	/**
 	 * ...
@@ -30,9 +32,10 @@ package
 		//objects on level
 		public var levelBeacon:SaveBeacon = null;
 		public var levelRespawner:Respawner = null;
-		public var levelItems:Array = new Array;
-		public var levelDoors:Array = new Array;
-		public var levelEnemies:Array = new Array;
+		public var levelItems:Array = [];
+		public var levelDoors:Array = [];
+		public var levelEnemies:Array = [];
+		public var levelPlatforms:Array = [];
 		
 		//set to true if the player has visited the tile
 		public var visited:Boolean;
@@ -64,7 +67,24 @@ package
 			graphic = tiles;
 			mask = grid;
 			
-			for each( var e:XML in data.objects.respawn )
+			for each( var e:XML in data.objects.platform )
+			{
+				FP.console.log('Adding Platform');
+				
+				var nodes:Array = []; //0 is node 1, 1 is node2
+				for each ( var n:XML in e.node )
+				{
+					nodes.push( new Point( int(n.@x), int(n.@y) ) );
+				}
+				var node1:Point = nodes[0];
+				var node2:Point = nodes[1];
+				
+				var platform:Platform = new Platform( int(e.@x), int(e.@y), Boolean(e.@moving), int(e.@speed), node1, node2 );
+				
+				levelPlatforms.push(platform);
+			}
+			
+			for each( e in data.objects.respawn )
 			{
 				FP.console.log('Adding Respawner');
 				var respawner:Respawner = new Respawner( int(e.@x), int(e.@y) );

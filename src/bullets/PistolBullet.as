@@ -2,16 +2,21 @@ package bullets
 {
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.Sfx;
 	
 	/**
 	 * ...
 	 * @author Cory Boyd
 	 */
 	public class PistolBullet extends Bullet 
-	{		
+	{	
+		protected var shootSound:Sfx = new Sfx(GC.SFX_PISTOL_SHOOT);
+		
 		public function PistolBullet(flipped:Boolean) 
 		{
 			super(flipped);
+			
+			shootSound.play();
 			
 			speed = GC.PISTOL_BULLET_SPEED;
 			hasGravity = false;

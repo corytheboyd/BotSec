@@ -95,10 +95,28 @@ package
 		public static const ENEMY_TYPE:String			= 'enemy';
 		
 		/*
-		 * AUDIO
+		 * MUSIC
 		 * */
 		[Embed(source = '../assets/music/title_song.mp3')]
-		public static const SFX_TITLE_TRACK:Class;		
+		public static const SFX_TITLE_TRACK:Class;
+		
+		/*
+		 * SFX
+		 * */
+		[Embed(source = '../assets/sfx/jump.mp3')]
+		public static const SFX_PLAYER_JUMP:Class;
+		[Embed(source = '../assets/sfx/shoot_pistol.mp3')]
+		public static const SFX_PISTOL_SHOOT:Class;
+		[Embed(source = '../assets/sfx/ricochet1.mp3')]
+		public static const SFX_BULLET_RICOCHET1:Class;
+		[Embed(source = '../assets/sfx/ricochet2.mp3')]
+		public static const SFX_BULLET_RICOCHET2:Class;
+		[Embed(source = '../assets/sfx/ricochet3.mp3')]
+		public static const SFX_BULLET_RICOCHET3:Class;
+		[Embed(source = '../assets/sfx/explosion1.mp3')]
+		public static const SFX_EXPLOSION_SMALL:Class;
+		[Embed(source = '../assets/sfx/buzzer.mp3')]
+		public static const SFX_BUZZER:Class;
 		
 		/*
 		 * GRAPHICS
@@ -154,7 +172,9 @@ package
 		[Embed(source = '../assets/gfx/message/mini_message.png')]
 		public static const	GFX_MINI_MESSAGE:Class;
 		[Embed(source = '../assets/gfx/respawn.png')]
-		public static const GFX_RESPAWN:Class;		
+		public static const GFX_RESPAWN:Class;
+		[Embed(source = '../assets/gfx/platform.png')]
+		public static const GFX_PLATFORM:Class;
 		
 		/*
 		* MAP FILES

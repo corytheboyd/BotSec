@@ -22,8 +22,8 @@ package
 			//Mouse.hide();
 			FP.console.enable();
 			
-			//FP.world = new GameWorld;
-			FP.world = new MainMenu;
+			FP.world = new GameWorld;
+			//FP.world = new MainMenu;
 		}
 	}
 

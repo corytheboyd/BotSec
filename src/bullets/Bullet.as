@@ -6,6 +6,7 @@ package bullets
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	import doors.*;
+	import net.flashpunk.Sfx;
 	
 	/**
 	 * ...
@@ -13,6 +14,11 @@ package bullets
 	 */
 	public class Bullet extends Moveable 
 	{
+		protected var ricochet1:Sfx = new Sfx(GC.SFX_BULLET_RICOCHET1);
+		protected var ricochet2:Sfx = new Sfx(GC.SFX_BULLET_RICOCHET2);
+		protected var ricochet3:Sfx = new Sfx(GC.SFX_BULLET_RICOCHET3);
+		protected var ricochets:Array = [ricochet1, ricochet2, ricochet3];
+		
 		public var speed:Number; //how many px/sec the bullet moves in x
 		public var dy:Number = 0; //the force of gravity if applicable
 		public var spread:Number = 0; //range in which bullet paths slightly fluctuate
@@ -52,6 +58,8 @@ package bullets
 			//hits a wall of the level
 			if ( collide(GC.SOLID_TYPE, x, y) )
 			{
+				var n:int = FP.rand(ricochets.length);
+				ricochets[n].play();
 				world.remove(this);
 			}
 			

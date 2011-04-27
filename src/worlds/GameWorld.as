@@ -2,7 +2,9 @@ package worlds
 {
 	import doors.Door;
 	import enemies.Enemy;
+	import flash.events.TimerEvent;
 	import flash.ui.ContextMenu;
+	import flash.utils.Timer;
 	import interactives.Respawner;
 	import interactives.SaveBeacon;
 	import net.flashpunk.Entity;
@@ -14,6 +16,7 @@ package worlds
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.World;
 	import items.Item;
+	import platforms.Platform;
 	import ui.*;
 	
 	/**
@@ -25,6 +28,7 @@ package worlds
 		protected var levelsVisited:Array = new Array;
 		protected var paused:Boolean = false;
 		protected var pauseMenu:PauseMenu;
+		protected var respawnTimer:Timer = new Timer(1000, 0);
 		
 		public var PLAYER:Player;
 		
@@ -42,16 +46,25 @@ package worlds
 			
 			add(PLAYER);
 			add(GV.CURRENT_LEVEL);
+			
+			respawnTimer.addEventListener(TimerEvent.TIMER, respawnPlayer);
+		}
+		
+		protected function respawnPlayer(e:TimerEvent):void
+		{
+			respawnTimer.reset();
+			
+			switchLevel(GV.CURRENT_SAVE_ROOM);
+			PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y) );
+			GV.CURRENT_LEVEL.levelRespawner.activate();
+			add(PLAYER);
 		}
 		
 		override public function update():void 
 		{	
 			if ( !PLAYER.world ) //player died, respawn them at the save room
 			{
-				switchLevel(GV.CURRENT_SAVE_ROOM);
-				PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y) );
-				GV.CURRENT_LEVEL.levelRespawner.activate();
-				add(PLAYER);
+				respawnTimer.start(); //when finishes, calls respawn()
 			}
 			
 			//pause menu
@@ -116,21 +129,28 @@ package worlds
 		{			
 			FP.console.log('Setting up tile: ' + targetTile + '...');
 			
-			try { remove(GV.CURRENT_LEVEL); } catch (e:Error) { FP.console.log('Unable to remove level from GameWorld'); }
-			try { removeList(GV.CURRENT_LEVEL.levelItems); } catch (e:Error) { FP.console.log('Unable to remove items from GameWorld'); }
-			try { removeList(GV.CURRENT_LEVEL.levelDoors); } catch (e:Error) { FP.console.log('Unable to remove doors from GameWorld'); }
-			try { removeList(GV.CURRENT_LEVEL.levelEnemies); } catch (e:Error) { FP.console.log('Unable to remove enemies from GameWorld'); }
-			try { remove(GV.CURRENT_LEVEL.levelBeacon); } catch (e:Error) { FP.console.log('Unable to remove save beacon from GameWorld'); }
-			try { removeList(GV.CONTEXT_MESSAGES); GV.CONTEXT_MESSAGES = []; } catch (e:Error) { FP.console.log('Unable to remove context messages from GameWorld'); }
-			try { remove(GV.CURRENT_LEVEL.levelRespawner); } catch (e:Error) { FP.console.log('Unable to remove respawner from GameWorld'); }
+			try { remove(GV.CURRENT_LEVEL); } catch (e:Error) { /*FP.console.log('Unable to remove level from GameWorld');*/ }
+			try { removeList(GV.CURRENT_LEVEL.levelItems); } catch (e:Error) { /*FP.console.log('Unable to remove items from GameWorld');*/ }
+			try { removeList(GV.CURRENT_LEVEL.levelDoors); } catch (e:Error) { /*FP.console.log('Unable to remove doors from GameWorld');*/ }
+			try { removeList(GV.CURRENT_LEVEL.levelEnemies); } catch (e:Error) { /*FP.console.log('Unable to remove enemies from GameWorld');*/ }
+			try { remove(GV.CURRENT_LEVEL.levelBeacon); } catch (e:Error) { /*FP.console.log('Unable to remove save beacon from GameWorld');*/ }
+			try { removeList(GV.CONTEXT_MESSAGES); GV.CONTEXT_MESSAGES = []; } catch (e:Error) { /*FP.console.log('Unable to remove context messages from GameWorld');*/ }
+			try { remove(GV.CURRENT_LEVEL.levelRespawner); } catch (e:Error) { /*FP.console.log('Unable to remove respawner from GameWorld');*/ }
+			try { removeList(GV.CURRENT_LEVEL.levelPlatforms); } catch (e:Error) { /*FP.console.log('Unable to remove platforms from GameWorld');*/ }
 			
-			//REMOVE THE MESG GRAPHICS OF CONTEXT MESSAGES
+			//REMOVE THE MSG GRAPHICS OF CONTEXT MESSAGES SOMEHOW
 			
 			GV.CURRENT_LEVEL = new Level(targetTile);
 			add(GV.CURRENT_LEVEL);
 			
 			//get the player out of the level if they get stuck
 			if ( PLAYER ) unstuckPlayer();
+			
+			//add platforms to world
+			for each( var p:Platform in GV.CURRENT_LEVEL.levelPlatforms )
+			{
+				add(p);
+			}
 			
 			//add respawner to world
 			var r:Respawner = GV.CURRENT_LEVEL.levelRespawner;

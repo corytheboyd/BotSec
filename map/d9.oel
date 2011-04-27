@@ -1533,6 +1533,14 @@
     <item x="160" y="576" Class="Pistol" id="d9_pistol"/>
     <respawn x="464" y="480"/>
     <saveBeacon x="416" y="544" initial="false"/>
-    <player x="480" y="496"/>
+    <player x="480" y="480"/>
+    <platform x="224" y="480" moving="true" speed="100">
+      <node x="64" y="544"/>
+      <node x="64" y="384"/>
+    </platform>
+    <platform x="288" y="352" moving="false" speed="100">
+      <node x="160" y="128"/>
+      <node x="448" y="128"/>
+    </platform>
   </objects>
 </level>
