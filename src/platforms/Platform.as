@@ -57,11 +57,7 @@ package platforms
 				this.speed = speed;
 				
 				//dynamically set the movement vector depending on the node locations
-				var dx:Number = node2pos.x - node1pos.x;
-				var dy:Number = node2pos.y - node1pos.y;
-				moveVector = new Vector3D( dx, dy );
-				moveVector.normalize(); //make it a unit vector
-				moveVector.scaleBy(speed); //then scale it to the speed				
+				makeMoveVector()			
 			}
 			else //just a static platform
 			{
