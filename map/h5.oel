@@ -1,4 +1,13 @@
-<level tile_name="h5" tile_left="h4" tile_right="h6" tile_up="g5" tile_down="i5">
-  <width>960</width>
-  <height>640</height>
+<level tile_name="h5" zone="factory" tile_left="h4" tile_right="h6" tile_up="g5" tile_down="i5">
+  <width>1200</width>
+  <height>960</height>
+  <solid>
+    <rect x="0" y="0" w="688" h="960"/>
+    <rect x="688" y="896" w="512" h="64"/>
+  </solid>
+  <tiles>
+    <rect set="tileset" tx="0" ty="32" x="0" y="0" w="688" h="960"/>
+    <rect set="tileset" tx="0" ty="32" x="688" y="896" w="512" h="64"/>
+    <tile set="tileset" tx="48" ty="0" x="688" y="880"/>
+  </tiles>
 </level>

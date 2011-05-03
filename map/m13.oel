@@ -1,4 +1,4 @@
-<level tile_name="m13" tile_left="m12" tile_right="m14" tile_up="l13" tile_down="n13">
-  <width>960</width>
-  <height>640</height>
+<level tile_name="m13" zone="" tile_left="m12" tile_right="m14" tile_up="l13" tile_down="n13">
+  <width>1200</width>
+  <height>960</height>
 </level>

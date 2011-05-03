@@ -1,4 +1,4 @@
-<level tile_name="k12" tile_left="k11" tile_right="k13" tile_up="j12" tile_down="l12">
-  <width>960</width>
-  <height>640</height>
+<level tile_name="k12" zone="" tile_left="k11" tile_right="k13" tile_up="j12" tile_down="l12">
+  <width>1200</width>
+  <height>960</height>
 </level>

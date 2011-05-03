@@ -13,9 +13,7 @@ package enemies
 		
 		public var image:Image;
 		public var isFlipped:Boolean = false;
-		public var velocity:Object = new Object;
 		
-		public var	isOnGround:Boolean		= false; //true if player on ground, false otherwise
 		public var	maxHSpeed:Number;
 		public var	maxVSpeed:Number;
 		public var	moveSpeed:Number;

@@ -7,10 +7,7 @@ package
 	import flash.filters.BlurFilter;
 	import flash.utils.Dictionary;
 	import items.RangedWeapon;
-	import net.bloom.BloomLighting;
-	import net.blur.BlurCanvas;
 	import net.flashpunk.Entity;
-	import net.flashpunk.graphics.Image;
 	import net.flashpunk.World;
 	import worlds.*;
 	
@@ -28,8 +25,5 @@ package
 		public static var EQUIPPED_WEAPON:RangedWeapon;
 		
 		public static var CURRENT_SAVE_ROOM:String = ''; //the room where the active save beacon is
-		
-		public static var BLUR_CANVAS:BlurCanvas = new BlurCanvas(GC.CURSOR_BLUR_LEVEL);
-		public static var ITEM_BLOOM_LIGHTING:BloomLighting = new BloomLighting(GC.BLOOM_AMOUNT, GC.BLOOM_QUALITY);
 	}
 }

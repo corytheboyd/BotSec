@@ -2,6 +2,7 @@ package ui
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
+	import net.flashpunk.Graphic;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Text;
 
@@ -13,11 +14,13 @@ package ui
 	{
 		protected var image:Image = new Image(GC.GFX_MINI_MESSAGE);
 		protected var msg:Text = new Text('ACTION', 0, 0, 176, 24); //the text of the message
+		protected var msgGraphic:Entity = new Entity;
 		
 		public var isActive:Boolean = false; //true if the message is displayed
 		
 		public function ContextMessage( newMsg:String='ACTION' )
 		{
+			msgGraphic.type = GC.MESSAGE_TYPE;
 			msg.text = newMsg;			
 			msg.alpha = 0.0001;
 			msg.size = 18;
@@ -39,7 +42,7 @@ package ui
 		
 		override public function added():void 
 		{
-			world.addGraphic(msg);
+			msgGraphic = world.addGraphic(msg);
 		}
 		
 		protected function show():void 

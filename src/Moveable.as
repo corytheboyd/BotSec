@@ -1,5 +1,6 @@
 package 
 {
+	import flash.geom.Vector3D;
 	import net.flashpunk.Entity;
 	
 	/**
@@ -7,6 +8,8 @@ package
 	 */
 	public class Moveable extends Entity 
 	{
+		public var velocity:Vector3D = new Vector3D
+		public var isOnGround:Boolean = false; 
 		
 		public function Moveable() 
 		{
@@ -35,8 +38,8 @@ package
 				sign = moveX > 0 ? 1 : -1;
 				while (moveX != 0)
 				{
-					moveX -= sign;
-					if ((e = collide(GC.SOLID_TYPE, x + sign, y)))
+					moveX -= sign; 
+					if ((e = collideTypes([GC.SOLID_TYPE], x + sign, y)))
 					{
 						collideX(e);
 						moveX = 0;
@@ -52,10 +55,11 @@ package
 				while (moveY != 0)
 				{
 					moveY -= sign;
-					if ((e = collide(GC.SOLID_TYPE, x, y + sign)))
+					if ((e = collideTypes([GC.SOLID_TYPE], x, y + sign)))
 					{
 						collideY(e);
 						moveY = 0;
+						isOnGround = true;
 					}
 					else y += sign;
 				}

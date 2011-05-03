@@ -1,8 +1,11 @@
 package  
 {
-	import bullets.PistolBullet;
+	import bullets.*;
 	import doors.*;
-	import enemies.E1;
+	import enemies.*;
+	import hazards.*;
+	import items.*;
+	import platforms.*;
 	import flash.geom.Point;
 	import flash.net.Responder;
 	import flash.utils.getDefinitionByName;
@@ -12,9 +15,7 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Tilemap;
-	import net.flashpunk.masks.Grid;
-	import items.*;
-	import platforms.Platform;
+	import net.flashpunk.masks.Grid;	
 
 	/**
 	 * ...
@@ -36,6 +37,7 @@ package
 		public var levelDoors:Array = [];
 		public var levelEnemies:Array = [];
 		public var levelPlatforms:Array = [];
+		public var levelHazards:Array = [];
 		
 		//set to true if the player has visited the tile
 		public var visited:Boolean;
@@ -44,7 +46,9 @@ package
 		public var levelWidth:uint; 
 		public var levelHeight:uint;
 		public var levelName:String;
-		public var index:int;
+		
+		//the zone that the room is in
+		public var levelZone:String;
 		
 		//references to the adjacent tiles
 		public var tileLeft:String; 
@@ -67,7 +71,21 @@ package
 			graphic = tiles;
 			mask = grid;
 			
-			for each( var e:XML in data.objects.platform )
+			for each ( var e:XML in data.objects.electric_gate )
+			{
+				FP.console.log('Adding Electric Gate Piece');
+				
+				levelHazards.push( new ElectricGate(int(e.@x), int(e.@y)) );
+			}
+			
+			for each ( e in data.objects.spike )
+			{
+				FP.console.log('Adding Spike');
+				
+				levelHazards.push( new Spike(int(e.@x), int(e.@y)) );				
+			}
+			
+			for each( e in data.objects.platform )
 			{
 				FP.console.log('Adding Platform');
 				
@@ -152,43 +170,92 @@ package
 				levelDoors.push( tdoorH );
 			}
 			
-			for each( var rect:XML in data.tiles_bg_0.rect )
-			{
-				tiles.setRect(int(rect.@x) / 16, int(rect.@y) / 16, int(rect.w) / 16, int(rect.h) / 16, tiles.getIndex(int(rect.@tx) / 16, int(rect.@ty) / 16) );
-			}
-			
-			for each( var tile:XML in data.tiles_bg_1.tile )
+			/*
+			 * BG TILES 0
+			 * */
+			for each( var tile:XML in data.tiles_bg_0.tile )
 			{
 				tiles.setTile(int(tile.@x) / 16, int(tile.@y) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
 			}
+			for each( tile in data.tiles_bg_0.rect )
+			{
+				tiles.setRect(int(tile.@x) / 16, int(tile.@y) / 16, int(tile.@w) / 16, int(tile.@h) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
+			}
 			
+			/*
+			 * BG TILES 1
+			 * */
+			for each( tile in data.tiles_bg_1.tile )
+			{
+				tiles.setTile(int(tile.@x) / 16, int(tile.@y) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
+			}
+			for each( tile in data.tiles_bg_1.rect )
+			{
+				tiles.setRect(int(tile.@x) / 16, int(tile.@y) / 16, int(tile.@w) / 16, int(tile.@h) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
+			}
+			
+			/*
+			 * BG TILES 2
+			 * */
 			for each( tile in data.tiles_bg_2.tile )
 			{
 				tiles.setTile(int(tile.@x) / 16, int(tile.@y) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
 			}
+			for each( tile in data.tiles_bg_2.rect )
+			{
+				tiles.setRect(int(tile.@x) / 16, int(tile.@y) / 16, int(tile.@w) / 16, int(tile.@h) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
+			}
 			
+			/*
+			 * BG TILES 3
+			 * */
 			for each( tile in data.tiles_bg_3.tile )
 			{
 				tiles.setTile(int(tile.@x) / 16, int(tile.@y) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
 			}
+			for each( tile in data.tiles_bg_3.rect )
+			{
+				tiles.setRect(int(tile.@x) / 16, int(tile.@y) / 16, int(tile.@w) / 16, int(tile.@h) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
+			}
 			
+			/*
+			 * TILES
+			 * */
 			for each( tile in data.tiles.tile )
 			{
 				tiles.setTile(int(tile.@x) / 16, int(tile.@y) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
 			}
+			for each( tile in data.tiles.rect )
+			{
+				tiles.setRect(int(tile.@x) / 16, int(tile.@y) / 16, int(tile.@w) / 16, int(tile.@h) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
+			}			
 			
+			/*
+			 * DECALS
+			 * */
 			for each( tile in data.decals.tile )
 			{
-				decalTiles.setTile(int(tile.@x) / 16, int(tile.@y) / 16, decalTiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
+				tiles.setTile(int(tile.@x) / 16, int(tile.@y) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
+			}
+			for each( tile in data.decals.rect )
+			{
+				tiles.setRect(int(tile.@x) / 16, int(tile.@y) / 16, int(tile.@w) / 16, int(tile.@h) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
 			}
 			
+			/*
+			 * FG TILES
+			 * */
 			for each( tile in data.tiles_fg.tile )
 			{
 				tiles.setTile(int(tile.@x) / 16, int(tile.@y) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
 			}
+			for each( tile in data.tiles_fg.rect )
+			{
+				tiles.setRect(int(tile.@x) / 16, int(tile.@y) / 16, int(tile.@w) / 16, int(tile.@h) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
+			}
 			
 			for each( var solid:XML in data.solid.rect )
-			{
+			{				
 				grid.setRect(int(solid.@x) / 16, int(solid.@y) / 16, int(solid.@w) / 16, int(solid.@h) / 16, true); 
 			}
 		}
@@ -205,7 +272,8 @@ package
 				data = FP.getXML(tileRef); //reads the level data into XML object
 				
 				levelName		= data.@tile_name;
-				levelWidth 		= data.width;
+				levelZone		= data.@zone;
+ 				levelWidth 		= data.width;
 				levelHeight		= data.height;
 				tileLeft 		= data.@tile_left;
 				tileRight 		= data.@tile_right;
@@ -214,6 +282,7 @@ package
 			}
 			catch (e:Error)
 			{
+				FP.console.log('Error loading level ' + targetTile);
 				return;
 			}
 		}

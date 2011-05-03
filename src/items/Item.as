@@ -22,9 +22,7 @@ package items
 		
 		public function Item( x:int=0, y:int=0 )
 		{
-			var imageFxWrapper:BloomWrapper = new BloomWrapper(image);
-			graphic = imageFxWrapper;
-			GV.ITEM_BLOOM_LIGHTING.register(graphic as BloomWrapper);
+			graphic = image;
 			
 			this.x = x;
 			this.y = startY = y;

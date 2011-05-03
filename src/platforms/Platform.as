@@ -1,3 +1,8 @@
+/*
+ * Note: Platforms are 'cloud' tiles, which means they only have hit detection on the top when player lands
+ *   on it. The player can jump through it right, left, and up, but not fall through it.
+ *   this solves a few complications and makes gameplay more intuitive.
+ * */
 package platforms 
 {
 	import enemies.E1;
@@ -12,7 +17,7 @@ package platforms
 	 * ...
 	 * @author Cory Boyd
 	 */
-	public class Platform extends Entity 
+	public class Platform extends Entity
 	{
 		public var image:Image = new Image(GC.GFX_PLATFORM);
 		public var moving:Boolean = false; //true if it moves, false if stationary
@@ -26,18 +31,17 @@ package platforms
 		public function Platform( x:Number, y:Number, moving:Boolean=false, speed:Number=100, node1pos:Point=null, node2pos:Point=null ) 
 		{
 			graphic = image;
-			type = GC.SOLID_TYPE;
-			setHitbox(96, 16);
+			type = GC.PLATFORM_TYPE;
+			setHitbox(96, 3);
 			this.moving = moving;
 			
-			if (moving)
+			if (node1pos && node2pos)	
 			{
-				if (!node1pos || !node2pos)	
-				{
-					FP.console.log('PLATFORM.AS: Moving platform must be given 2 nodes in Ogmo!');
-					return;
-				}
-				
+				moving = true;
+			}
+			
+			if (moving)
+			{				
 				try 
 				{
 					this.node1pos = node1pos;
@@ -57,11 +61,7 @@ package platforms
 				this.speed = speed;
 				
 				//dynamically set the movement vector depending on the node locations
-				var dx:Number = node2pos.x - node1pos.x;
-				var dy:Number = node2pos.y - node1pos.y;
-				moveVector = new Vector3D( dx, dy );
-				moveVector.normalize(); //make it a unit vector
-				moveVector.scaleBy(speed); //then scale it to the speed				
+				makeMoveVector()			
 			}
 			else //just a static platform
 			{
@@ -73,7 +73,7 @@ package platforms
 		override public function update():void 
 		{
 			if (moving)
-			{
+			{				
 				if (!moveVector) 
 				{
 					makeMoveVector();
@@ -88,6 +88,8 @@ package platforms
 					 Math.abs(y) < Math.abs(node2pos.y) || Math.abs(y) > Math.abs(node1pos.y) ) 
 				{
 					moveVector.negate(); //reverse direction
+					x += moveVector.x * FP.elapsed;
+					y += moveVector.y * FP.elapsed;
 				}
 				
 				//special collision detection if platform moves
@@ -97,23 +99,24 @@ package platforms
 		
 		protected function movingCollision():void
 		{
-			var e:Entity;
-			if ( e = collide(GC.PLAYER_TYPE, x, y) )
-			{
-				if (moveVector.y < 0) //moving up
-				{				
-					e.y = y - e.height - 20;
-				}
-				else //moving down
-				{
-					e.y = y - e.height - 15;
-				}
-			}
+			var e:Moveable;
+			var collisions:Array = [];
+			collideTypesInto([GC.PLAYER_TYPE, GC.ENEMY_TYPE], x, y, collisions);
 			
-			//if on top, follow platforms x position
-			if ( e = collide(GC.PLAYER_TYPE, x, y + 10) )
-			{
-				e.x = x;
+			for each ( e in collisions )
+			{				
+				if ( e.velocity.y > 0 ) //player lands if falling down and their feet hit the platform
+				{
+					e.y = y - 80; //offset to players height
+					e.isOnGround = true;
+					
+					if ( moving ) //make x position follow platform
+					{
+						//how many pixels the platform has moved in x direction
+						var dx:Number = Math.cos( Math.PI / 2 + Math.atan2(moveVector.x, moveVector.y) ) * moveVector.length * FP.elapsed;
+						e.x -= dx;
+					}
+				}
 			}
 		}
 		

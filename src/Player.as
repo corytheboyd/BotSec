@@ -16,22 +16,19 @@ package
 	 */
 	public class Player extends Moveable
 	{	
-		protected var image:Spritemap = new Spritemap(GC.GFX_PLAYER, 64, 80);
-		protected var isFlipped:Boolean = false;
+		public var image:Spritemap 			= new Spritemap(GC.GFX_PLAYER, 64, 80);
+		public var isFlipped:Boolean 		= false;		
+		public var canDblJump:Boolean		= false; //true if the player can double jump
+		public var hasDblJumped:Boolean 	= false; // true if player has already double jumped
 		
-		protected var isOnGround:Boolean		= false; //true if player on ground, false otherwise
-		protected var canDblJump:Boolean		= false; //true if the player can double jump
-		protected var hasDblJumped:Boolean 	= false; // true if player has already double jumped
 		protected var maxHSpeed:Number		= GC.MAX_H_SPEED; //the maximum horizontal speed
 		protected var maxVSpeed:Number		= GC.MAX_V_SPEED; //the maximum horizontal speed
 		protected var moveSpeed:Number		= GC.MOVE_SPEED; //the current value
 		
-		protected var jumpSound:Sfx = new Sfx(GC.SFX_PLAYER_JUMP);
-		protected var explodeSound:Sfx = new Sfx(GC.SFX_EXPLOSION_SMALL);
+		protected var jumpSound:Sfx 		= new Sfx(GC.SFX_PLAYER_JUMP);
+		protected var explodeSound:Sfx 		= new Sfx(GC.SFX_EXPLOSION_SMALL);
 		
-		public var velocity:Object = new Object; //the instantaneous velocity vector
-		
-		public function Player( x:Number=0, y:Number=0 )
+		public function Player( x:Number=0, y:Number=0, v:Vector3D=null )
 		{	
 			image.add('run_start', [0, 1, 2, 3, 4, 5, 6], GC.GFX_PLAYER_FPS, false);
 			image.add('run_loop', [7, 8, 9, 10, 11, 12, 13], GC.GFX_PLAYER_FPS, true);
@@ -41,12 +38,19 @@ package
 			
 			this.x = x; 
 			this.y = y;
+
+			try 
+			{
+				if (!v) velocity = new Vector3D;
+				else velocity = v;
+			} 
+			catch (err:Error) 
+			{
+				
+			}
 			
 			graphic = image;
 			setHitbox(38, 60, -13, -20);
-			
-			velocity.x = 0;
-			velocity.y = 0;
 		}
 		
 		//player hit by enemy
@@ -67,7 +71,15 @@ package
 		 * Handles input and movement of player
 		 * */
 		override public function update():void
-		{				
+		{
+			if (Input.pressed('Suicide'))
+			{
+				kill();
+			}
+			
+			//trace('isOnGround', isOnGround);
+			
+			hazardCollision();
 			floorCollision();
 			enemyCollision();
 			changeVelocity();
@@ -75,8 +87,16 @@ package
 			jump();
 			animate();
 			sound();
-			move( Math.round(velocity.x * FP.elapsed), Math.round(velocity.y * FP.elapsed) );
+			move( velocity.x * FP.elapsed, velocity.y * FP.elapsed );
 			shoot();
+		}
+		
+		protected function hazardCollision():void
+		{
+			if ( collide(GC.HAZARD_TYPE, x, y) )
+			{
+				kill();
+			}
 		}
 		
 		protected function shoot():void
@@ -90,15 +110,16 @@ package
 		}
 		
 		protected function floorCollision():void
-		{
-			if ( collide(GC.SOLID_TYPE, x, y + 2) )
-			{
+		{			
+			var e:Entity;
+			if ( e = collideTypes([GC.SOLID_TYPE], x, y + 2) )
+			{ 
 				velocity.y = 0;
 				isOnGround = true;
 				canDblJump = false;
 				hasDblJumped = false;
 			}
-			else
+			else if ( !collideTypes([GC.PLATFORM_TYPE], x, y + 2) )
 			{
 				isOnGround = false;
 			}
@@ -201,11 +222,11 @@ package
 		}
 		
 		protected function jump():void
-		{
+		{			
 			if( isOnGround && Input.pressed("Jump") )
 			{
 				jumpSound.play();
-				
+
 				velocity.y = GC.JUMP_SPEED;
 				isOnGround = false;
 				if (velocity.x < 0 && image.flipped) velocity.x *= GC.LEAP;
@@ -218,7 +239,7 @@ package
 			if ( canDblJump && Input.pressed("Jump") && !hasDblJumped )
 			{
 				jumpSound.play();
-				
+
 				canDblJump = false;
 				hasDblJumped = true;
 				velocity.y = GC.DBL_JUMP_SPEED;

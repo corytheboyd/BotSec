@@ -1,4 +1,4 @@
-<level tile_name="q4" tile_left="q3" tile_right="q5" tile_up="p4" tile_down="r4">
-  <width>960</width>
-  <height>640</height>
+<level tile_name="q4" zone="" tile_left="q3" tile_right="q5" tile_up="p4" tile_down="r4">
+  <width>1200</width>
+  <height>960</height>
 </level>
