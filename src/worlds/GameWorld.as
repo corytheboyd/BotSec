@@ -44,13 +44,13 @@ package worlds
 		
 		override public function begin():void 
 		{
-			switchLevel(GC.START_TILE); //changes to starting tile
-			PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y) );
+			//changes to starting tile
+			switchLevel(GC.START_TILE); 
 			
-			PLAYER.layer	= 0;
-			
+			//creates the player based on initial position in room
+			PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y) );			
+			PLAYER.layer = 1;			
 			add(PLAYER);
-			add(GV.CURRENT_LEVEL);
 			
 			respawnTimer.addEventListener(TimerEvent.TIMER, respawnPlayer);
 		}
@@ -60,7 +60,7 @@ package worlds
 			respawnTimer.reset();
 			
 			switchLevel(GV.CURRENT_SAVE_ROOM);
-			PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y) );
+			PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y), new Vector3D(0, GC.RESPAWN_LAUNCH_SPEED) );
 			GV.CURRENT_LEVEL.levelRespawner.activate();
 			add(PLAYER);
 		}
@@ -153,6 +153,7 @@ package worlds
 			try { remove(GV.CURRENT_LEVEL.levelRespawner); } catch (e:Error) { FP.console.log('Unable to remove respawner from GameWorld'); }
 			try { removeList(GV.CURRENT_LEVEL.levelPlatforms); } catch (e:Error) { FP.console.log('Unable to remove platforms from GameWorld'); }
 			try { removeList(GV.CURRENT_LEVEL.levelHazards); } catch (e:Error) { FP.console.log('Unable to remove hazards from GameWorld'); }
+			try { removeList(GV.CURRENT_LEVEL.levelLifts); } catch (e:Error) { FP.console.log('Unable to remove interactives from GameWorld'); }
 			
 			//clears all other entities without assigned types (basically, antyhing left over that is not the player
 			var spareObjects:Array = [];
@@ -171,11 +172,14 @@ package worlds
 			//get the player out of the level if they get stuck
 			if ( PLAYER ) 
 			{
-				var ent:Entity;
-				if ( ent = PLAYER.collideTypes(GC.ALL_TYPES, PLAYER.x, PLAYER.y) )
-				{
-					trace(ent.type);
-				}
+				
+			}
+			
+			//add lifts to world
+			for each ( var gl:GravityLift in GV.CURRENT_LEVEL.levelLifts )
+			{
+				gl.layer = 0;
+				add(gl);
 			}
 			
 			//add hazards to world
@@ -188,7 +192,7 @@ package worlds
 			//add platforms to world
 			for each( var p:Platform in GV.CURRENT_LEVEL.levelPlatforms )
 			{
-				p.layer = 2;
+				p.layer = 0;
 				add(p);
 			}
 			

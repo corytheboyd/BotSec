@@ -5,10 +5,12 @@ package
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Spritemap;
+	import net.flashpunk.masks.Hitbox;
 	import net.flashpunk.Sfx;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import flash.geom.Vector3D;
+	import platforms.Platform;
 	
 	/**
 	 * ...
@@ -21,6 +23,9 @@ package
 		public var canDblJump:Boolean		= false; //true if the player can double jump
 		public var hasDblJumped:Boolean 	= false; // true if player has already double jumped
 		
+		public var hitbox:Hitbox			= new Hitbox(38, 60, 13, 20); //used for masking
+		public var feetHitbox:Hitbox		= new Hitbox(38, 5, 13, 75); //used for platform hit detection
+		
 		protected var maxHSpeed:Number		= GC.MAX_H_SPEED; //the maximum horizontal speed
 		protected var maxVSpeed:Number		= GC.MAX_V_SPEED; //the maximum horizontal speed
 		protected var moveSpeed:Number		= GC.MOVE_SPEED; //the current value
@@ -29,28 +34,25 @@ package
 		protected var explodeSound:Sfx 		= new Sfx(GC.SFX_EXPLOSION_SMALL);
 		
 		public function Player( x:Number=0, y:Number=0, v:Vector3D=null )
-		{	
-			image.add('run_start', [0, 1, 2, 3, 4, 5, 6], GC.GFX_PLAYER_FPS, false);
-			image.add('run_loop', [7, 8, 9, 10, 11, 12, 13], GC.GFX_PLAYER_FPS, true);
-			image.add('idle', [14, 15], 2, true);
+		{
+			image.add('run_start', [9, 10, 11], GC.GFX_PLAYER_FPS, false);
+			image.add('run_loop', [12, 13 ,14, 15, 16, 17, 18], GC.GFX_PLAYER_FPS, true);
+			image.add('idle', [0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 2, 2], 12, true);
+			image.add('jump', [3, 3, 4, 4, 4, 4, 5], GC.GFX_PLAYER_FPS, false);
+			image.add('dbl_jump', [6, 6, 7, 7, 7, 7, 7], GC.GFX_PLAYER_FPS, false);
+			image.add('falling', [8]);
+			image.add('ascending', [5]);
 			
 			type = GC.PLAYER_TYPE;
 			
 			this.x = x; 
 			this.y = y;
 
-			try 
-			{
-				if (!v) velocity = new Vector3D;
-				else velocity = v;
-			} 
-			catch (err:Error) 
-			{
-				
-			}
+			if (!v) velocity = new Vector3D; //make 0 velocity vector if none passed
+			else velocity = v; //set the initial velocity vector
 			
 			graphic = image;
-			setHitbox(38, 60, -13, -20);
+			mask = hitbox;
 		}
 		
 		//player hit by enemy
@@ -71,24 +73,22 @@ package
 		 * Handles input and movement of player
 		 * */
 		override public function update():void
-		{
+		{			
 			if (Input.pressed('Suicide'))
 			{
 				kill();
 			}
 			
-			//trace('isOnGround', isOnGround);
-			
 			hazardCollision();
 			floorCollision();
 			enemyCollision();
-			changeVelocity();
+			gravity();
 			acceleration();
 			jump();
 			animate();
 			sound();
-			move( velocity.x * FP.elapsed, velocity.y * FP.elapsed );
 			shoot();
+			move( velocity.x * FP.elapsed, velocity.y * FP.elapsed );
 		}
 		
 		protected function hazardCollision():void
@@ -109,20 +109,31 @@ package
 			}
 		}
 		
+		/*
+		 * Handle the player landing on floors,
+		 * as well as platforms (including moving platforms)
+		 * */
 		protected function floorCollision():void
 		{			
 			var e:Entity;
-			if ( e = collideTypes([GC.SOLID_TYPE], x, y + 2) )
+			
+			/*
+			 * Just the lame old ground
+			 * */
+			if ( e = collideTypes([GC.SOLID_TYPE, GC.PLATFORM_TYPE], x, y + 3) )
 			{ 
-				velocity.y = 0;
+				if (e.type == GC.SOLID_TYPE) velocity.y = 0;
 				isOnGround = true;
 				canDblJump = false;
 				hasDblJumped = false;
+				
+				return;
 			}
-			else if ( !collideTypes([GC.PLATFORM_TYPE], x, y + 2) )
-			{
-				isOnGround = false;
-			}
+			
+			/*
+			 * You're falling now, due to not standing on anything!
+			 * */
+			isOnGround = false;
 		}
 		
 		protected function enemyCollision():void
@@ -144,16 +155,12 @@ package
 			world.remove(this);
 		}
 		
-		protected function changeVelocity():void
-		{
-			gravity();			
-		}
-		
 		protected function gravity():void
 		{
 			if (isOnGround) return;
 			velocity.y += Math.round(GC.GRAVITY * FP.elapsed);
 			
+			//cap vertical speed at maxVSpeed
 			var sign:int = velocity.y > 0 ? 1 : -1;
 			if ( Math.abs(velocity.y) > maxVSpeed ) velocity.y = sign * maxVSpeed;
 		}
@@ -217,6 +224,7 @@ package
 				}
 			}
 			
+			//cap vertical speed at maxHSpeed
 			var sign:int = velocity.x > 0 ? 1 : -1;
 			if ( Math.abs(velocity.x) > maxHSpeed ) velocity.x = sign * maxHSpeed;
 		}
@@ -261,11 +269,6 @@ package
 					image.play('run_loop');
 				}
 			}
-			else 
-			{
-				//in air, replace with jump animation later
-				image.setFrame(15, 0);
-			}
 			
 			// control facing direction
 			if ( Input.check('Left') ) 
@@ -278,28 +281,31 @@ package
 				image.flipped = false;
 				isFlipped = false;
 			}
+			
+			//jump animation
+			if ( Input.pressed('Jump') )
+			{
+				if ( !hasDblJumped )
+				{
+					image.play('jump', true);
+				}
+				else
+				{
+					image.setAnimFrame('dbl_jump', 0);
+					image.play('dbl_jump');
+				}
+			}
+			
+			//falling animation
+			if ( velocity.y > 0 && !isOnGround )
+			{
+				image.setAnimFrame('falling', 0);
+			}
 		}
 		
 		protected function sound():void
 		{
 			
-		}
-		
-		override protected function collideX(e:Entity):void 
-		{
-			velocity.x = 0;
-		}
-		
-		override protected function collideY(e:Entity):void 
-		{
-			if (velocity.y > 0) //falling
-			{
-				velocity.y *= -1;
-			}
-			else // jumping
-			{
-				velocity.y = 0;
-			}
 		}
 		
 	}

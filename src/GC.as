@@ -28,13 +28,14 @@ package
 		 * */
 		public static const	START_TILE:String 			= 'h6';
 		public static const	MAX_H_SPEED:Number			= 300;
-		public static const	MAX_V_SPEED:Number			= 600;
+		public static const	MAX_V_SPEED:Number			= 700;
 		public static const	MOVE_SPEED:Number			= 2000;
 		public static const	JUMP_SPEED:Number			= -400;
 		public static const	DBL_JUMP_SPEED:Number		= -300;
 		public static const	DBL_JUMP_LIMIT:Number		= 300;
 		public static const	LEAP:Number					= 1.5;
 		public static const AIR_DRAG:Number				= 0.35;
+		public static const RESPAWN_LAUNCH_SPEED:Number = -500;
 		
 		/*
 		 * ENEMY CONSTANTS
@@ -97,6 +98,7 @@ package
 		public static const PLATFORM_TYPE:String		= 'platform';
 		public static const MESSAGE_TYPE:String			= 'message';
 		public static const HAZARD_TYPE:String			= 'hazard';
+		public static const GRAVLIFT_TYPE:String		= 'gravityLift'
 		
 		/*
 		 * Array with all types, for debuggin and stuff
@@ -122,7 +124,7 @@ package
 		public static const SFX_BULLET_RICOCHET2:Class;
 		[Embed(source = '../assets/sfx/ricochet3.mp3')]
 		public static const SFX_BULLET_RICOCHET3:Class;
-		[Embed(source = '../assets/sfx/explosion1.mp3')]
+		[Embed(source='../assets/sfx/explosion1.mp3')]
 		public static const SFX_EXPLOSION_SMALL:Class;
 		[Embed(source = '../assets/sfx/buzzer.mp3')]
 		public static const SFX_BUZZER:Class;
@@ -188,6 +190,8 @@ package
 		public static const GFX_SPIKES:Class;
 		[Embed(source = '../assets/gfx/hazards/electric_gate.png')]
 		public static const GFX_ELECTRIC_GATE:Class;
+		[Embed(source = '../assets/gfx/grav_lift.png')]
+		public static const GFX_GRAVLIFT:Class;
 		
 		/*
 		* MAP FILES

@@ -4,6 +4,7 @@ package
 	import doors.*;
 	import enemies.*;
 	import hazards.*;
+	import interactives.GravityLift;
 	import items.*;
 	import platforms.*;
 	import flash.geom.Point;
@@ -38,6 +39,7 @@ package
 		public var levelEnemies:Array = [];
 		public var levelPlatforms:Array = [];
 		public var levelHazards:Array = [];
+		public var levelLifts:Array = [];
 		
 		//set to true if the player has visited the tile
 		public var visited:Boolean;
@@ -71,9 +73,16 @@ package
 			graphic = tiles;
 			mask = grid;
 			
-			for each ( var e:XML in data.objects.electric_gate )
+			for each ( var e:XML in data.objects.grav_lift )
 			{
-				FP.console.log('Adding Electric Gate Piece');
+				FP.console.log('Adding Gravity Lift piece');
+				
+				levelLifts.push( new GravityLift(int(e.@x), int(e.@y), int(e.@speed)) );
+			}
+			
+			for each ( e in data.objects.electric_gate )
+			{
+				FP.console.log('Adding Electric Gate piece');
 				
 				levelHazards.push( new ElectricGate(int(e.@x), int(e.@y)) );
 			}
@@ -97,7 +106,7 @@ package
 				var node1:Point = nodes[0];
 				var node2:Point = nodes[1];
 				
-				var platform:Platform = new Platform( int(e.@x), int(e.@y), Boolean(e.@moving), int(e.@speed), node1, node2 );
+				var platform:Platform = new Platform( int(e.@x), int(e.@y), int(e.@speed), node1, node2 );
 				
 				levelPlatforms.push(platform);
 			}
@@ -168,6 +177,18 @@ package
 				tdoorH.locked = (doorH.@locked == 'true') ? true : false;
 				
 				levelDoors.push( tdoorH );
+			}
+			
+			/*
+			 * SOLID
+			 * */
+			
+			//clearTweens grid first just in case it is fucking things up
+			//grid.clearRect( 0, 0, levelWidth / 16, levelHeight / 16 );
+			
+			for each( var solid:XML in data.solid.rect )
+			{
+				grid.setRect( int(solid.@x) / 16, int(solid.@y) / 16, int(solid.@w) / 16, int(solid.@h) / 16, true );
 			}
 			
 			/*
@@ -252,11 +273,6 @@ package
 			for each( tile in data.tiles_fg.rect )
 			{
 				tiles.setRect(int(tile.@x) / 16, int(tile.@y) / 16, int(tile.@w) / 16, int(tile.@h) / 16, tiles.getIndex(int(tile.@tx) / 16, int(tile.@ty) / 16) );
-			}
-			
-			for each( var solid:XML in data.solid.rect )
-			{				
-				grid.setRect(int(solid.@x) / 16, int(solid.@y) / 16, int(solid.@w) / 16, int(solid.@h) / 16, true); 
 			}
 		}
 		

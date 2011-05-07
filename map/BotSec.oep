@@ -25,6 +25,12 @@
 	<objects>
 		<object name='player' image='player/player_static.png' width='64' height='80' limit='1' />
 		
+		<object name='grav_lift' image = 'grav_lift_static.png' width='96' height='32'>
+			<values>
+				<integer name='speed' default='15' min='10' max='100' />
+			</values>
+		</object>
+		
 		<object name='saveBeacon' image='save_beacon_static.png' width='32' height='64' limit='1'>
 			<values>
 				<boolean name='initial' default='false' />
@@ -68,7 +74,6 @@
 		<folder name='platforms'>
 			<object name='platform' image='platform.png' width='96' height ='16'>
 				<values>
-					<boolean name='moving' default='false' />
 					<integer name='speed' default='100' min='1' max='1000' />
 				</values>
 				<nodes drawObject='true' limit='2' lineMode='1' />
