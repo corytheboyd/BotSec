@@ -78,16 +78,18 @@ package platforms
 		}
 		
 		override public function update():void 
-		{
+		{			
 			//player collision
 			var e:Player;
 			if ( e = collide(GC.PLAYER_TYPE, x, y - 3) as Player )
 			{
 				if ( collideRect(x, y, e.x, e.y + e.image.height - 10, e.width, 10) && (e.velocity.y >= 0) ) //player falling down
 				{
-					e.isOnGround = true;
-					//set y position on top of platform
+					//set player on ground, on top of platform
 					e.velocity.y = 0;
+					e.isOnGround = true;
+					e.canDblJump = false;
+					e.hasDblJumped = false;
 					
 					//move the player
 					if (moving) e.x += speed * dir * FP.elapsed;

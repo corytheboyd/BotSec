@@ -1,7 +1,6 @@
 package  
 {
 	import enemies.Enemy;
-	import interactives.GravityLift;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
@@ -20,8 +19,7 @@ package
 	public class Player extends Moveable
 	{	
 		public var image:Spritemap 			= new Spritemap(GC.GFX_PLAYER, 64, 80);
-		public var isFlipped:Boolean 		= false;	
-		public var isFlippedPrev:Boolean; 	//previous frame's value of isFlipped
+		public var isFlipped:Boolean 		= false;		
 		public var canDblJump:Boolean		= false; //true if the player can double jump
 		public var hasDblJumped:Boolean 	= false; // true if player has already double jumped
 		
@@ -32,20 +30,16 @@ package
 		protected var maxVSpeed:Number		= GC.MAX_V_SPEED; //the maximum horizontal speed
 		protected var moveSpeed:Number		= GC.MOVE_SPEED; //the current value
 		
-		protected var upFlag:Boolean 		= false; //true if up is pressed and held
-		protected var downFlag:Boolean		= false; //true if down is pressed and held
-		
 		protected var jumpSound:Sfx 		= new Sfx(GC.SFX_PLAYER_JUMP);
-		protected var explodeSound:Sfx 		= new Sfx(GC.SFX_EXPLOSION1);
+		protected var explodeSound:Sfx 		= new Sfx(GC.SFX_EXPLOSION_SMALL);
 		
 		public function Player( x:Number=0, y:Number=0, v:Vector3D=null )
 		{
 			image.add('run_start', [9, 10, 11], GC.GFX_PLAYER_FPS, false);
 			image.add('run_loop', [12, 13 ,14, 15, 16, 17, 18], GC.GFX_PLAYER_FPS, true);
-			image.add('idle', [0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1], 12, true);
+			image.add('idle', [0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 2, 2], 12, true);
 			image.add('jump', [3, 3, 4, 4, 4, 4, 5], GC.GFX_PLAYER_FPS, false);
-			image.add('dbl_jump', [6, 6, 7, 7, 7, 7, 7], GC.GFX_PLAYER_FPS, false);
-			image.add('turn', [19], GC.GFX_PLAYER_FPS, false);
+			image.add('dbl_jump', [6, 7], GC.GFX_PLAYER_FPS, false);
 			image.add('falling', [8]);
 			image.add('ascending', [5]);
 			
@@ -59,16 +53,6 @@ package
 			
 			graphic = image;
 			mask = hitbox;
-		}
-		
-		/*
-		 * Kills the player, with explosion sfx
-		 * */
-		public function kill():void
-		{
-			//play some explostion animation and remove the player from the world as the callback
-			explodeSound.play();
-			world.remove(this);
 		}
 		
 		//player hit by enemy
@@ -89,40 +73,22 @@ package
 		 * Handles input and movement of player
 		 * */
 		override public function update():void
-		{			
-			if (Input.pressed('Suicide')) kill();
-			
-			//check for plyer holding up or down
-			if (Input.check(Key.UP)) upFlag = true;
-			else upFlag = false;
-			if (Input.check(Key.DOWN)) downFlag = true;
-			else downFlag = false;
+		{
+			if (Input.pressed('Suicide'))
+			{
+				kill();
+			}
 			
 			hazardCollision();
 			floorCollision();
 			enemyCollision();
-			gravLiftCollision();
-			gravity();
+			changeVelocity();
 			acceleration();
 			jump();
 			animate();
 			sound();
-			shoot();
 			move( velocity.x * FP.elapsed, velocity.y * FP.elapsed );
-			
-			isFlippedPrev = isFlipped;
-		}
-		
-		protected function gravLiftCollision():void
-		{
-			var gl:GravityLift;
-			if ( gl = collide(GC.GRAVLIFT_TYPE, x, y) as GravityLift )
-			{
-				if ( !isOnGround && velocity.y < 0 ) //then move that playa UP, DAWG
-				{
-					velocity.y -= gl.speed;
-				}
-			}
+			shoot();
 		}
 		
 		protected function hazardCollision():void
@@ -137,12 +103,9 @@ package
 		{
 			if (!GV.EQUIPPED_WEAPON) return;
 			
-			if( (isFlipped && x > 0) || (!isFlipped && x < GV.CURRENT_LEVEL.levelWidth - width) )
+			if ( Input.pressed('Shoot') && x > 0 && x < FP.width - width )
 			{
-				if ( Input.pressed('Shoot') ) 
-				{
-					GV.EQUIPPED_WEAPON.fire(x, y, isFlipped, upFlag, downFlag, velocity);
-				}
+				GV.EQUIPPED_WEAPON.fire(isFlipped, x, y);
 			}
 		}
 		
@@ -153,26 +116,32 @@ package
 		protected function floorCollision():void
 		{			
 			var e:Entity;
+			var p:Platform;
 			
 			/*
 			 * Just the lame old ground
 			 * */
-			if ( e = collideTypes([GC.SOLID_TYPE, GC.PLATFORM_TYPE], x, y + 3) )
+			if ( e = collide(GC.SOLID_TYPE, x, y + 3) )
 			{ 
-				if (e.type == GC.SOLID_TYPE) 
-				{
-					velocity.y = 0;
-					isOnGround = true;
-					canDblJump = false;
-					hasDblJumped = false;
-				}
-				else if (e.type == GC.PLATFORM_TYPE && e.collideRect(e.x, e.y, x, y + image.height - 10, width, 10) && velocity.y > 0 )
-				{
-					velocity.y = 0;
-					isOnGround = true;
-					canDblJump = false;
-					hasDblJumped = false;
-				}
+				velocity.y = 0;
+				isOnGround = true;
+				canDblJump = false;
+				hasDblJumped = false;
+				
+				return;
+			}
+			
+			/*
+			 * Moving platform in this bitch
+			 * */
+			if ( ( p = collide(GC.PLATFORM_TYPE, x, y + 2) as Platform ) && velocity.y > 0 )
+			{
+				isOnGround = true;
+				canDblJump = false;
+				hasDblJumped = false;
+				
+				x -= p.dx;
+				y = p.y - image.height;
 				
 				return;
 			}
@@ -195,12 +164,23 @@ package
 			}
 		}
 		
+		protected function kill():void
+		{
+			//play some explostion animation and remove the player from the world as the callback
+			explodeSound.play();
+			world.remove(this);
+		}
+		
+		protected function changeVelocity():void
+		{
+			gravity();			
+		}
+		
 		protected function gravity():void
 		{
 			if (isOnGround) return;
 			velocity.y += Math.round(GC.GRAVITY * FP.elapsed);
 			
-			//cap vertical speed at maxVSpeed
 			var sign:int = velocity.y > 0 ? 1 : -1;
 			if ( Math.abs(velocity.y) > maxVSpeed ) velocity.y = sign * maxVSpeed;
 		}
@@ -264,7 +244,6 @@ package
 				}
 			}
 			
-			//cap vertical speed at maxHSpeed
 			var sign:int = velocity.x > 0 ? 1 : -1;
 			if ( Math.abs(velocity.x) > maxHSpeed ) velocity.x = sign * maxHSpeed;
 		}
@@ -295,44 +274,37 @@ package
 		}
 		
 		protected function animate():void
-		{			
-			//walk animation control
+		{
+			//control animation
 			if (velocity.x == 0 && isOnGround)
 			{
 				image.play('idle');
 			}
 			else if (isOnGround)
 			{
-				if (image.currentAnim == 'idle') image.play('run_start');
-				if (image.complete)	image.play('run_loop');
+				image.play('run_start');
+				if (image.complete)
+				{
+					image.play('run_loop');
+				}
 			}
 			
 			// control facing direction
 			if ( Input.check('Left') ) 
 			{
-				if ( !isFlipped && isOnGround ) image.play('turn');
 				image.flipped = true;
 				isFlipped = true;
 			}
 			else if ( Input.check('Right') )
 			{
-				if ( isFlipped && isOnGround ) image.play('turn');
 				image.flipped = false;
 				isFlipped = false;
 			}
 			
 			//jump animation
-			if ( Input.pressed('Jump') )
+			if ( Input.pressed('Jump') && !canDblJump )
 			{
-				if ( !hasDblJumped )
-				{
-					image.play('jump', true);
-				}
-				else
-				{
-					image.setAnimFrame('dbl_jump', 0);
-					image.play('dbl_jump');
-				}
+				image.play('jump', true);
 			}
 			
 			//falling animation
@@ -354,7 +326,14 @@ package
 		
 		override protected function collideY(e:Entity):void 
 		{
-			velocity.y = 0;
+			if (velocity.y > 0) //falling
+			{
+				velocity.y *= -1;
+			}
+			else // jumping
+			{
+				velocity.y = 0;
+			}
 		}
 		
 	}

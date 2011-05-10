@@ -17,7 +17,7 @@ package
 		public function Main()
 		{
 			super(960, 480, 60);
-			FP.screen.color = 0x00000000;			
+			FP.screen.color = 0x00000000;
 			
 			//Mouse.hide();
 			FP.console.enable();

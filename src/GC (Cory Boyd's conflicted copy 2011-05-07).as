@@ -26,12 +26,12 @@ package
 		/*
 		 * PLAYER CONSTANTS
 		 * */
-		public static const	START_TILE:String 			= 'k9';
+		public static const	START_TILE:String 			= 'h6';
 		public static const	MAX_H_SPEED:Number			= 300;
-		public static const	MAX_V_SPEED:Number			= 700;
+		public static const	MAX_V_SPEED:Number			= 600;
 		public static const	MOVE_SPEED:Number			= 2000;
-		public static const	JUMP_SPEED:Number			= -425;
-		public static const	DBL_JUMP_SPEED:Number		= -350;
+		public static const	JUMP_SPEED:Number			= -400;
+		public static const	DBL_JUMP_SPEED:Number		= -300;
 		public static const	DBL_JUMP_LIMIT:Number		= 300;
 		public static const	LEAP:Number					= 1.5;
 		public static const AIR_DRAG:Number				= 0.35;
@@ -61,12 +61,12 @@ package
 		/*
 		 * INPUT CONSTANTS
 		 * */
-		Input.define("Pause", 	Key.ENTER, Key.P);
-		Input.define('Jump', 	Key.Z, Key.SPACE);
-		Input.define('Left', 	Key.LEFT);
-		Input.define('Right', 	Key.RIGHT);
-		Input.define('Shoot', 	Key.X);
-		Input.define('Action', 	Key.C);
+		Input.define("Pause", Key.ENTER, Key.P);
+		Input.define('Jump', Key.SPACE, Key.UP);
+		Input.define('Left', Key.LEFT);
+		Input.define('Right', Key.RIGHT);
+		Input.define('Shoot', Key.Z);
+		Input.define('Action', Key.X);
 		Input.define('Suicide', Key.R);
 			
 		/*
@@ -98,7 +98,11 @@ package
 		public static const PLATFORM_TYPE:String		= 'platform';
 		public static const MESSAGE_TYPE:String			= 'message';
 		public static const HAZARD_TYPE:String			= 'hazard';
-		public static const GRAVLIFT_TYPE:String		= 'gravityLift';
+		
+		/*
+		 * Array with all types, for debuggin and stuff
+		 * */
+		public static const ALL_TYPES:Array = [SOLID_TYPE, PLAYER_TYPE, LEVEL_TYPE, ITEM_TYPE, DOOR_TYPE, RANGED_WEAPON_TYPE, BULLET_TYPE, ENEMY_TYPE, PLATFORM_TYPE, MESSAGE_TYPE, HAZARD_TYPE];
 		
 		/*
 		 * MUSIC
@@ -120,9 +124,7 @@ package
 		[Embed(source = '../assets/sfx/ricochet3.mp3')]
 		public static const SFX_BULLET_RICOCHET3:Class;
 		[Embed(source='../assets/sfx/explosion1.mp3')]
-		public static const SFX_EXPLOSION1:Class;
-		[Embed(source = '../assets/sfx/explosion2.mp3')]
-		public static const SFX_EXPLOSION2:Class;
+		public static const SFX_EXPLOSION_SMALL:Class;
 		[Embed(source = '../assets/sfx/buzzer.mp3')]
 		public static const SFX_BUZZER:Class;
 		
@@ -187,23 +189,14 @@ package
 		public static const GFX_SPIKES:Class;
 		[Embed(source = '../assets/gfx/hazards/electric_gate.png')]
 		public static const GFX_ELECTRIC_GATE:Class;
-		[Embed(source = '../assets/gfx/grav_lift.png')]
-		public static const GFX_GRAVLIFT:Class;
-		[Embed(source = '../assets/gfx/particles/grav_lift_particles.png')]
-		public static const GFX_GRAVLIFT_PARTICLES:Class;
 		
 		/*
 		* MAP FILES
 		* */
-		[Embed(source = '../map/a0.oel', mimeType = 'application/octet-stream')] 
-		public static const a0:Class;
-		
-		[Embed(source = '../map/k9.oel', mimeType = 'application/octet-stream')] 
-		public static const k9:Class;
-		[Embed(source = '../map/k10.oel', mimeType = 'application/octet-stream')] 
-		public static const k10:Class;
-		[Embed(source = '../map/k11.oel', mimeType = 'application/octet-stream')]
-		public static const k11:Class;
+		[Embed(source = '../map/h5.oel', mimeType = 'application/octet-stream')] public static const h5:Class;
+		[Embed(source = '../map/h6.oel', mimeType = 'application/octet-stream')] public static const h6:Class;
+		[Embed(source = '../map/h7.oel', mimeType = 'application/octet-stream')] public static const h7:Class;
+		[Embed(source = '../map/h8.oel', mimeType = 'application/octet-stream')] public static const h8:Class;
 	}
 	
 }

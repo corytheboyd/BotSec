@@ -24,6 +24,6 @@ package
 		public static var INVENTORY:Array = new Array();
 		public static var EQUIPPED_WEAPON:RangedWeapon;
 		
-		public static var CURRENT_SAVE_ROOM:String = ''; //the room where the active save beacon is
+		public static var CURRENT_SAVE_ROOM:String = GC.START_TILE; //the room where the active save beacon is
 	}
 }

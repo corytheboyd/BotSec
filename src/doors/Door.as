@@ -70,7 +70,11 @@ package doors
 				contextMessage.isActive = false;
 				if ( open )
 				{
-					type = GC.SOLID_TYPE;
+					try 
+					{
+						type = GC.SOLID_TYPE;
+					} catch (err:Error) { trace('Weird door shit\n\t' + err); }
+					
 					image.play('close');
 					open = false;
 				}				

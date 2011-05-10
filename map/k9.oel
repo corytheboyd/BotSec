@@ -1,4 +1,23 @@
 <level tile_name="k9" zone="" tile_left="k8" tile_right="k10" tile_up="j9" tile_down="l9">
   <width>1200</width>
   <height>960</height>
+  <solid>
+    <rect x="0" y="0" w="1200" h="48"/>
+    <rect x="0" y="48" w="48" h="912"/>
+    <rect x="48" y="240" w="1152" h="720"/>
+    <rect x="1136" y="48" w="64" h="96"/>
+  </solid>
+  <tiles>
+    <rect set="tileset" tx="0" ty="32" x="0" y="240" w="1200" h="720"/>
+    <rect set="tileset" tx="0" ty="32" x="1136" y="0" w="64" h="144"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="0" w="1136" h="48"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="48" w="48" h="192"/>
+  </tiles>
+  <objects>
+    <door x="1152" y="144" locked="false" id="k9_door1"/>
+    <respawn x="192" y="112"/>
+    <player x="208" y="112"/>
+    <saveBeacon x="144" y="176" initial="false"/>
+    <item x="432" y="208" Class="Pistol" id="none"/>
+  </objects>
 </level>

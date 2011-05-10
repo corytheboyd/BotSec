@@ -1,5 +1,7 @@
 package enemies 
 {
+	import flash.display.GradientType;
+	import interactives.GravityLift;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
@@ -11,16 +13,17 @@ package enemies
 	 */
 	public class E1 extends Enemy 
 	{
-		protected var dir:int = FP.rand(2) == 0 ? 1 : -1; //randomize direction
+		protected var dir:int = 1; //the direction of enemies movement, defaults to right
 		
 		public function E1( x:Number, y:Number ) 
-		{	
+		{
+			super(x, y);
+			
 			lethal = true;
+			hp = 6;
 			
 			graphic = image = new Image(GC.GFX_E1);
 			setHitbox(16, 48, -8, -16);
-			
-			super(x, y);
 		}
 		
 		override public function update():void 
@@ -28,12 +31,61 @@ package enemies
 			gravity();
 			acceleration();
 			floorCollision();
-			enemyCollision();
-			move( velocity.x * FP.elapsed, velocity.y * FP.elapsed );
+			gravLiftCollision();
 			checkBounds();
 			animate();
 			
+			if (moving) move( velocity.x * FP.elapsed, velocity.y * FP.elapsed );
+			
 			super.update();
+		}
+		
+		public function reverseDirection():void
+		{
+			isFlipped = !isFlipped;
+			velocity.x *= -1;
+			dir *= -1;
+		}
+		
+		/*
+		 * Makes enemy change direction if it's about to fall off of the edge that it is currently on.
+		 * Smart little fuckers.
+		 */		
+		protected function checkBounds():void
+		{
+			//make sure it doesnt fall of ledges
+			if ( isOnGround ) //facing left
+			{
+				if ( isFlipped && ( !collide(GC.SOLID_TYPE, x - width, y + 3 ) ) ) //facing left
+				{
+					reverseDirection();
+				}
+				if ( !isFlipped && !collide(GC.SOLID_TYPE, x + (2*width), y + 3 ) ) //facing right
+				{
+					reverseDirection();
+				}
+			}
+			
+			//make sure it doesn't move outside of the level, if possible
+			if (x < 0)
+			{
+				x = 0;
+				reverseDirection();	
+			}
+			if (x + width > GV.CURRENT_LEVEL.levelWidth)
+			{
+				x = GV.CURRENT_LEVEL.levelWidth - width;
+				reverseDirection();
+			}
+		}
+		
+		protected function gravLiftCollision():void
+		{
+			var gl:GravityLift;
+			if ( gl = collide(GC.GRAVLIFT_TYPE, x, y) as GravityLift )
+			{
+				velocity.y -= gl.speed;
+			}
 		}
 		
 		protected function gravity():void
@@ -48,31 +100,6 @@ package enemies
 		protected function acceleration():void
 		{
 			velocity.x = dir * GC.E1_MOVE_SPEED;
-		}
-		
-		protected function checkBounds():void
-		{
-			if ( x < 0)
-			{
-				x = 0;
-				dir *= -1;
-			}
-			if ( x > FP.width - width )
-			{
-				x = FP.width - width;
-				dir *= -1;
-			}
-		}
-		
-		//enemies collide with eachother
-		protected function enemyCollision():void
-		{
-			var e:Enemy
-			if ( e = collide(GC.ENEMY_TYPE, x, y) as Enemy )
-			{
-				e.x *= -1;
-				x *= -1;
-			}
 		}
 		
 		protected function floorCollision():void
@@ -92,7 +119,12 @@ package enemies
 		
 		override protected function collideX(e:Entity):void 
 		{
-			dir *= -1;
+			reverseDirection();
+		}
+		
+		override protected function collideY(e:Entity):void 
+		{
+			if (velocity.y < 0) velocity.y = 0;
 		}
 	}
 

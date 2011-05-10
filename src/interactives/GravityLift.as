@@ -1,5 +1,7 @@
 package interactives 
 {
+	import enemies.E1;
+	import enemies.Enemy;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
@@ -30,14 +32,7 @@ package interactives
 		
 		override public function update():void 
 		{
-			var e:Player;
-			if ( (e = collide(GC.PLAYER_TYPE, x, y) as Player) )
-			{
-				if ( !e.isOnGround && e.velocity.y < 0 ) //then move that playa UP, DAWG
-				{
-					e.velocity.y -= speed;
-				}
-			}
+			
 		}
 		
 	}

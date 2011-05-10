@@ -48,9 +48,8 @@ package worlds
 			switchLevel(GC.START_TILE); 
 			
 			//creates the player based on initial position in room
-			PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y), new Vector3D(0, GC.RESPAWN_LAUNCH_SPEED) );			
-			PLAYER.layer = 1;			
-			GV.CURRENT_LEVEL.levelRespawner.activate();
+			PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y) );			
+			PLAYER.layer	= 0;			
 			add(PLAYER);
 			
 			respawnTimer.addEventListener(TimerEvent.TIMER, respawnPlayer);
@@ -62,22 +61,12 @@ package worlds
 			
 			switchLevel(GV.CURRENT_SAVE_ROOM);
 			PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y), new Vector3D(0, GC.RESPAWN_LAUNCH_SPEED) );
-			PLAYER.layer = 1;
 			GV.CURRENT_LEVEL.levelRespawner.activate();
 			add(PLAYER);
 		}
 		
 		override public function update():void 
 		{
-			//TAKES YOU TO THE GLORIOUS DEBUG ROOM. ALL HAIL DEBUG.
-			if ( (Input.check(Key.CONTROL) && Input.check(Key.SHIFT) && Input.pressed(Key.D)) && GV.CURRENT_LEVEL.levelName != 'a0')
-			{
-				remove(PLAYER);
-				GV.CURRENT_SAVE_ROOM = 'a0';
-				switchLevel('a0');
-			}
-			//END THE DEBUG ZONE ENTRANCE.
-			
 			if ( playerStuckMoveDir ) //get the player unstuck
 			{				
 				PLAYER.x += playerStuckMoveDir.x;
@@ -164,7 +153,6 @@ package worlds
 			try { remove(GV.CURRENT_LEVEL.levelRespawner); } catch (e:Error) { FP.console.log('Unable to remove respawner from GameWorld'); }
 			try { removeList(GV.CURRENT_LEVEL.levelPlatforms); } catch (e:Error) { FP.console.log('Unable to remove platforms from GameWorld'); }
 			try { removeList(GV.CURRENT_LEVEL.levelHazards); } catch (e:Error) { FP.console.log('Unable to remove hazards from GameWorld'); }
-			try { removeList(GV.CURRENT_LEVEL.levelLifts); } catch (e:Error) { FP.console.log('Unable to remove gravity lifts from GameWorld'); }
 			
 			//clears all other entities without assigned types (basically, antyhing left over that is not the player
 			var spareObjects:Array = [];
@@ -177,29 +165,17 @@ package worlds
 				}
 			}
 			
-			try 
-			{
-				GV.CURRENT_LEVEL = new Level(targetTile);
-				add(GV.CURRENT_LEVEL);
-			} 
-			catch (err:Error) 
-			{
-				FP.console.log('Tried to load nonexistent room, player is now dead as shit!');
-				PLAYER.kill();
-				respawnTimer.start();
-			}
+			GV.CURRENT_LEVEL = new Level(targetTile);
+			add(GV.CURRENT_LEVEL);
 			
 			//get the player out of the level if they get stuck
 			if ( PLAYER ) 
 			{
-				
-			}
-			
-			//add lifts to world
-			for each ( var gl:GravityLift in GV.CURRENT_LEVEL.levelLifts )
-			{
-				gl.layer = 0;
-				add(gl);
+				var ent:Entity;
+				if ( ent = PLAYER.collideTypes([GC.SOLID_TYPE], PLAYER.x, PLAYER.y) )
+				{
+					trace(ent.type);
+				}
 			}
 			
 			//add hazards to world
@@ -212,7 +188,7 @@ package worlds
 			//add platforms to world
 			for each( var p:Platform in GV.CURRENT_LEVEL.levelPlatforms )
 			{
-				p.layer = 0;
+				p.layer = 2;
 				add(p);
 			}
 			

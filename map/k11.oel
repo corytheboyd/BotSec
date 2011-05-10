@@ -1,4 +1,23 @@
 <level tile_name="k11" zone="" tile_left="k10" tile_right="k12" tile_up="j11" tile_down="l11">
   <width>1200</width>
   <height>960</height>
+  <solid>
+    <rect x="0" y="224" w="192" h="736"/>
+    <rect x="400" y="544" w="128" h="416"/>
+    <rect x="768" y="336" w="432" h="112"/>
+    <rect x="816" y="448" w="384" h="64"/>
+    <rect x="880" y="512" w="320" h="80"/>
+    <rect x="944" y="592" w="256" h="192"/>
+    <rect x="1040" y="784" w="160" h="176"/>
+  </solid>
+  <tiles_bg_0>
+    <rect set="tileset" tx="0" ty="32" x="0" y="224" w="192" h="464"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="688" w="192" h="272"/>
+    <rect set="tileset" tx="0" ty="32" x="400" y="544" w="128" h="416"/>
+    <rect set="tileset" tx="0" ty="32" x="768" y="336" w="432" h="112"/>
+    <rect set="tileset" tx="0" ty="32" x="816" y="448" w="384" h="64"/>
+    <rect set="tileset" tx="0" ty="32" x="880" y="512" w="320" h="80"/>
+    <rect set="tileset" tx="0" ty="32" x="944" y="592" w="256" h="192"/>
+    <rect set="tileset" tx="0" ty="32" x="1040" y="784" w="160" h="176"/>
+  </tiles_bg_0>
 </level>

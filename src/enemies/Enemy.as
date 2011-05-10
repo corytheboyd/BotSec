@@ -1,7 +1,9 @@
 package enemies 
 {
+	import flash.geom.Vector3D;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.Sfx;
 
 	/**
 	 * ...
@@ -10,6 +12,8 @@ package enemies
 	public class Enemy extends Moveable 
 	{
 		public var lethal:Boolean = false; //true if touching the enemy kills the player
+		public var hp:int = 1; //how many hits the enemy takes before it dies
+		public var moving:Boolean = true; //set to false if you want it to stop moving
 		
 		public var image:Image;
 		public var isFlipped:Boolean = false;
@@ -17,6 +21,8 @@ package enemies
 		public var	maxHSpeed:Number;
 		public var	maxVSpeed:Number;
 		public var	moveSpeed:Number;
+		
+		public var dieSound:Sfx = new Sfx(GC.SFX_EXPLOSION2, kill);
 		
 		public function Enemy( x:Number=0, y:Number=0 ) 
 		{
@@ -32,9 +38,39 @@ package enemies
 		/*
 		 * Called when the enemy is hit by a bullet
 		 * */
-		public function hit():void
+		public function hit( damage:int ):void
 		{
-			velocity.y = -150;
+			hp -= damage;
+			
+			if (hp <= 0 && type != '')
+			{
+				//call kill at end of wait, allows sound and death animation to play
+				type = ''; //make it not kill they player on touch
+				moving = false; //stop movement
+				dieSound.play(); //play sound, calls kill when done
+			}
+			else if (hp > 0) //react to getting hit
+			{
+				hitReact();
+			}
+		}
+		
+		/*
+		 * Called when the enemy's hp is depleted
+		 * Override for specific enemy behavior
+		 * */
+		public function kill():void
+		{
+			world.remove(this);
+		}
+		
+		/*
+		 * Called when hit by bullet, but didn't die.
+		 * Override for specific enemy behavior
+		 * */
+		public function hitReact():void
+		{
+			trace('ouch');
 		}
 		
 	}

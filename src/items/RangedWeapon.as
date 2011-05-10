@@ -1,5 +1,6 @@
 package items
 {
+	import flash.geom.Vector3D;
 	import flash.utils.Endian;
 	import flash.utils.Timer;
 	import bullets.*;
@@ -19,7 +20,9 @@ package items
 		public function RangedWeapon( x:int = 0, y:int = 0 ) 
 		{
 			type = GC.RANGED_WEAPON_TYPE;
-			bulletType = Bullet;
+			
+			bulletType = Bullet; //default bullet type
+			
 			super( x, y );
 		}
 		
@@ -38,23 +41,31 @@ package items
 		 * @param flipped: true if the player is facing left, false if right
 		 * @param x: x position of player
 		 * @param y: y position of player
+		 * @param upFlag: true if up held
+		 * @param downFlag: true if down held
+		 * @param playerVelocity: used to fix bullet trajectories if player moving
 		 * */
-		public function fire(flipped:Boolean, x:Number, y:Number):void
+		public function fire( x:Number, y:Number, flipped:Boolean, upFlag:Boolean=false, downFlag:Boolean=false, playerVelocity:Vector3D=null):void
 		{
 			if (!fireTimer.running)
 			{
 				fireTimer.reset();
-				var bullet:Bullet = new bulletType(flipped);
+				var bullet:Bullet = new bulletType(flipped, upFlag, downFlag, playerVelocity);
 				
-				if (flipped)
+				if (upFlag)
 				{
-					bullet.x = x;
-					bullet.y = y + 32;
+					bullet.x = x + 32;
+					bullet.y = y;
+				}
+				else if (downFlag)
+				{
+					bullet.x = x + 32; //offset from player origin
+					bullet.y = y + 80;
 				}
 				else 
 				{
-					bullet.x = x + 64;
-					bullet.y = y + 32;
+					bullet.x = (flipped) ? (x) : (x + 64);
+					bullet.y =  y + 32;
 				}
 				
 				GV.CURRENT_LEVEL.world.add(bullet);
