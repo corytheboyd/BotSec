@@ -24,6 +24,7 @@
     <rect set="tileset" tx="0" ty="32" x="48" y="96" w="32" h="48"/>
   </tiles_bg_0>
   <objects>
-    <door x="16" y="144" locked="false" id="d10_door1"/>
+    <E1 x="736" y="288"/>
+    <E1 x="1072" y="160"/>
   </objects>
 </level>

@@ -1,10 +1,8 @@
 package  
 {
 	import bullets.*;
-	import doors.*;
 	import enemies.*;
-	import hazards.*;
-	import interactives.GravityLift;
+	import interactives.*;
 	import items.*;
 	import platforms.*;
 	import flash.geom.Point;
@@ -40,6 +38,8 @@ package
 		public var levelPlatforms:Array = [];
 		public var levelHazards:Array = [];
 		public var levelLifts:Array = [];
+		public var levelSwitches:Array = [];
+		public var levelInteractives:Array = []; //store all Interactive objects
 		
 		//set to true if the player has visited the tile
 		public var visited:Boolean;
@@ -77,21 +77,27 @@ package
 			{
 				FP.console.log('Adding Gravity Lift piece');
 				
-				levelLifts.push( new GravityLift(int(e.@x), int(e.@y), int(e.@speed)) );
+				var lift:GravityLift = new GravityLift(int(e.@x), int(e.@y), int(e.@speed))
+				levelLifts.push(lift);
+				levelInteractives.push(lift);
 			}
 			
-			for each ( e in data.objects.electric_gate )
+			for each ( e in data.objects.electric_gate_v )
 			{
-				FP.console.log('Adding Electric Gate piece');
+				FP.console.log('Adding Vertical Electric Gate');
 				
-				levelHazards.push( new ElectricGate(int(e.@x), int(e.@y)) );
+				var gate:ElectricGate = new ElectricGate(int(e.@x), int(e.@y), int(e.@height), int(e.@width), e.@id);
+				levelHazards.push(gate);
+				levelInteractives.push(gate);
 			}
 			
-			for each ( e in data.objects.spike )
+			for each ( e in data.objects.electric_gate_h )
 			{
-				FP.console.log('Adding Spike');
+				FP.console.log('Adding Horizontal Electric Gate piece');
 				
-				levelHazards.push( new Spike(int(e.@x), int(e.@y)) );				
+				gate = new ElectricGate(int(e.@x), int(e.@y), int(e.@height), int(e.@width), e.@id);
+				levelHazards.push(gate);
+				levelInteractives.push(gate)
 			}
 			
 			for each( e in data.objects.platform )
@@ -163,20 +169,66 @@ package
 			
 			for each( var door:XML in data.objects.door )
 			{
-				var tdoor:Door = new Door( int(door.@x), int(door.@y) );
+				var tdoor:Door = new Door( int(door.@x), int(door.@y), door.@id );
 				
 				tdoor.locked = (door.@locked == 'true') ? true : false;
 				
 				levelDoors.push( tdoor );
+				levelInteractives.push( tdoor );
 			}
 			
 			for each( var doorH:XML in data.objects.doorH )
 			{
-				var tdoorH:DoorH = new DoorH( int(doorH.@x), int(doorH.@y) );
+				var tdoorH:DoorH = new DoorH( int(doorH.@x), int(doorH.@y), doorH.@id );
 				
 				tdoorH.locked = (doorH.@locked == 'true') ? true : false;
 				
 				levelDoors.push( tdoorH );
+				levelInteractives.push( tdoorH );
+			}
+			
+			for each ( e in data.objects.wall_switch )
+			{
+				FP.console.log('Adding Switch');
+				
+				try 
+				{
+					var isOn:Boolean = (e.@isOn == 'true') ? true : false;
+					var useOnce:Boolean = (e.@useOnce == 'true') ? true : false;					
+					var s:Switch = new Switch( int(e.@x), int(e.@y), useOnce, isOn, false );
+					
+					for ( var i:uint = 0; i < levelInteractives.length; i++ )
+					{						
+						if ( levelInteractives[i].id == e.@t_id )
+						{
+							s.targetIndexes.push(i);
+						}
+					}					
+					levelSwitches.push(s);
+				} 
+				catch (err:Error) { FP.console.log('...Unable to add Flipped Switch\n\t' + err); }
+			}
+			
+			for each ( e in data.objects.wall_switch_flipped )
+			{
+				FP.console.log('Adding Flipped Switch');
+				
+				try 
+				{
+					isOn = (e.@isOn == 'true') ? true : false;
+					useOnce = (e.@useOnce == 'true') ? true : false;					
+					s = new Switch( int(e.@x), int(e.@y), useOnce, isOn, true );
+					
+					for ( i = 0; i < levelInteractives.length; i++ )
+					{						
+						if ( levelInteractives[i].id == e.@t_id )
+						{
+							s.targetIndexes.push(i);
+						}
+					}					
+					levelSwitches.push(s);
+				} 
+				catch (err:Error) { FP.console.log('...Unable to add Flipped Switch\n\t' + err); }
 			}
 			
 			/*

@@ -1,4 +1,98 @@
 <level tile_name="l14" zone="" tile_left="l13" tile_right="l15" tile_up="k14" tile_down="m14">
   <width>1200</width>
   <height>960</height>
+  <solid>
+    <rect x="0" y="0" w="128" h="304"/>
+    <rect x="0" y="304" w="96" h="32"/>
+    <rect x="0" y="432" w="208" h="304"/>
+    <rect x="0" y="736" w="160" h="64"/>
+    <rect x="0" y="800" w="144" h="160"/>
+    <rect x="128" y="32" w="48" h="272"/>
+    <rect x="144" y="816" w="16" h="64"/>
+    <rect x="176" y="112" w="64" h="16"/>
+    <rect x="176" y="128" w="48" h="32"/>
+    <rect x="176" y="160" w="32" h="144"/>
+    <rect x="208" y="448" w="128" h="288"/>
+    <rect x="304" y="864" w="688" h="96"/>
+    <rect x="336" y="528" w="160" h="208"/>
+    <rect x="368" y="0" w="832" h="80"/>
+    <rect x="368" y="80" w="384" h="48"/>
+    <rect x="368" y="128" w="224" h="32"/>
+    <rect x="432" y="160" w="80" h="96"/>
+    <rect x="496" y="608" w="48" h="128"/>
+    <rect x="544" y="688" w="176" h="48"/>
+    <rect x="656" y="496" w="336" h="48"/>
+    <rect x="688" y="480" w="304" h="16"/>
+    <rect x="704" y="416" w="288" h="64"/>
+    <rect x="736" y="336" w="256" h="80"/>
+    <rect x="752" y="544" w="240" h="16"/>
+    <rect x="800" y="256" w="192" h="80"/>
+    <rect x="800" y="784" w="192" h="80"/>
+    <rect x="832" y="768" w="160" h="16"/>
+    <rect x="848" y="576" w="144" h="96"/>
+    <rect x="864" y="560" w="128" h="16"/>
+    <rect x="896" y="672" w="96" h="96"/>
+    <rect x="992" y="880" w="208" h="80"/>
+    <rect x="1056" y="80" w="144" h="128"/>
+    <rect x="1120" y="208" w="80" h="672"/>
+  </solid>
+  <tiles>
+    <tile set="tileset" tx="0" ty="80" x="432" y="960"/>
+    <rect set="tileset" tx="0" ty="80" x="304" y="864" w="688" h="96"/>
+    <rect set="tileset" tx="0" ty="80" x="992" y="880" w="208" h="80"/>
+    <rect set="tileset" tx="0" ty="80" x="1120" y="496" w="80" h="384"/>
+    <rect set="tileset" tx="0" ty="80" x="800" y="784" w="48" h="80"/>
+    <rect set="tileset" tx="0" ty="80" x="832" y="768" w="16" h="16"/>
+    <rect set="tileset" tx="0" ty="80" x="848" y="768" w="144" h="96"/>
+    <rect set="tileset" tx="0" ty="80" x="896" y="256" w="96" h="512"/>
+    <rect set="tileset" tx="0" ty="80" x="848" y="576" w="48" h="96"/>
+    <rect set="tileset" tx="0" ty="80" x="864" y="256" w="32" h="320"/>
+    <rect set="tileset" tx="0" ty="80" x="800" y="256" w="64" h="304"/>
+    <rect set="tileset" tx="0" ty="80" x="736" y="336" w="64" h="208"/>
+    <rect set="tileset" tx="0" ty="80" x="704" y="416" w="32" h="128"/>
+    <rect set="tileset" tx="0" ty="80" x="656" y="496" w="48" h="48"/>
+    <rect set="tileset" tx="0" ty="80" x="688" y="480" w="16" h="16"/>
+    <rect set="tileset" tx="0" ty="80" x="752" y="544" w="48" h="16"/>
+    <rect set="tileset" tx="0" ty="80" x="1120" y="0" w="80" h="496"/>
+    <rect set="tileset" tx="0" ty="80" x="1056" y="0" w="64" h="208"/>
+    <rect set="tileset" tx="0" ty="80" x="368" y="0" w="688" h="80"/>
+    <rect set="tileset" tx="0" ty="80" x="368" y="80" w="224" h="80"/>
+    <rect set="tileset" tx="0" ty="80" x="592" y="80" w="160" h="48"/>
+    <rect set="tileset" tx="0" ty="80" x="432" y="160" w="80" h="96"/>
+    <rect set="tileset" tx="0" ty="80" x="0" y="0" w="96" h="336"/>
+    <rect set="tileset" tx="0" ty="80" x="96" y="0" w="32" h="304"/>
+    <rect set="tileset" tx="0" ty="80" x="128" y="32" w="32" h="272"/>
+    <rect set="tileset" tx="0" ty="80" x="160" y="32" w="16" h="272"/>
+    <rect set="tileset" tx="0" ty="80" x="176" y="112" w="32" h="192"/>
+    <rect set="tileset" tx="0" ty="80" x="208" y="112" w="16" h="48"/>
+    <rect set="tileset" tx="0" ty="80" x="224" y="112" w="16" h="16"/>
+    <rect set="tileset" tx="0" ty="80" x="208" y="448" w="128" h="240"/>
+    <rect set="tileset" tx="0" ty="80" x="336" y="528" w="160" h="160"/>
+    <rect set="tileset" tx="0" ty="80" x="496" y="608" w="48" h="80"/>
+    <rect set="tileset" tx="0" ty="80" x="0" y="880" w="144" h="80"/>
+    <rect set="tileset" tx="0" ty="80" x="0" y="816" w="160" h="64"/>
+    <rect set="tileset" tx="0" ty="80" x="0" y="800" w="144" h="16"/>
+    <rect set="tileset" tx="0" ty="80" x="0" y="448" w="160" h="352"/>
+    <rect set="tileset" tx="0" ty="128" x="0" y="432" w="208" h="16"/>
+    <rect set="tileset" tx="0" ty="128" x="160" y="448" w="48" h="288"/>
+    <rect set="tileset" tx="0" ty="128" x="208" y="688" w="512" h="48"/>
+  </tiles>
+  <objects>
+    <E1 x="816" y="192"/>
+    <grav_lift x="240" y="416" speed="40"/>
+    <grav_lift x="240" y="368" speed="40"/>
+    <grav_lift x="240" y="320" speed="40"/>
+    <grav_lift x="240" y="272" speed="40"/>
+    <grav_lift x="240" y="224" speed="40"/>
+    <door x="48" y="336" locked="true" id="none"/>
+    <grav_lift x="1008" y="848" speed="40"/>
+    <grav_lift x="1008" y="800" speed="40"/>
+    <grav_lift x="1008" y="752" speed="40"/>
+    <grav_lift x="1008" y="704" speed="40"/>
+    <grav_lift x="1008" y="656" speed="40"/>
+    <grav_lift x="1008" y="608" speed="40"/>
+    <grav_lift x="1008" y="560" speed="40"/>
+    <grav_lift x="1008" y="512" speed="40"/>
+    <platform x="160" y="928" speed="100"/>
+  </objects>
 </level>

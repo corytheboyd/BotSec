@@ -46,6 +46,24 @@
 			</values>
 		</object>
 		
+		<folder name='switches'>
+			<object name='wall_switch' image='switch_static.png' width='16' height='32'>
+				<values>
+					<boolean name='isOn' default='false' />
+					<boolean name='useOnce' default='true' />
+					<string name='t_id' default='none' />
+				</values>
+			</object>
+			
+			<object name='wall_switch_flipped' image='switch_static_flipped.png' width='16' height='32'>
+				<values>
+					<boolean name='isOn' default='false' />
+					<boolean name='useOnce' default='true' />
+					<string name='t_id' default='none' />
+				</values>
+			</object>
+		</folder>
+		
 		<folder name='doors'>
 			<object name='door' image='door.png' width='32' height='96'>
 				<values>
@@ -63,8 +81,16 @@
 		</folder>
 		
 		<folder name='hazards'>
-			<object name='spike' image='hazards/spike_static.png' width='32' height='32' />
-			<object name='electric_gate' image='hazards/electric_gate_static.png' width='16' height='16' />
+			<object name='electric_gate_h' image='hazards/electric_gate_h_static.png' width='16' height='16' resizableX='true' tile='true'>
+				<values>
+					<string name='id' default='none' />
+				</values>
+			</object>
+			<object name='electric_gate_v' image='hazards/electric_gate_v_static.png' width='16' height='16' resizableY='true' tile='true'>
+				<values>
+					<string name='id' default='none' />
+				</values>
+			</object>
 		</folder>
 		
 		<folder name='enemies'>
@@ -93,8 +119,8 @@
 		<tiles name='tiles_bg_2' gridSize='16' drawGridSize='16' multipleTilesets='true' />
 		<tiles name='tiles_bg_3' gridSize='16' drawGridSize='16' multipleTilesets='true' />
 		<tiles name='tiles' gridSize='16' drawGridSize='16' multipleTilesets='true' />
-		<tiles name='decals' gridSize='16' drawGridSize='16' multipleTilesets='true' />
 		<objects name='objects' gridSize='16' drawGridSize='16' />
+		<tiles name='decals' gridSize='16' drawGridSize='16' multipleTilesets='true' />
 		<tiles name='tiles_fg' gridSize='16' drawGridSize='16' multipleTilesets='true' />
 	</layers>
 	

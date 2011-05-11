@@ -1,4 +1,74 @@
 <level tile_name="l13" zone="" tile_left="l12" tile_right="l14" tile_up="k13" tile_down="m13">
   <width>1200</width>
   <height>960</height>
+  <solid>
+    <rect x="0" y="528" w="240" h="432"/>
+    <rect x="768" y="400" w="432" h="16"/>
+    <rect x="800" y="0" w="32" h="272"/>
+    <rect x="832" y="416" w="368" h="16"/>
+    <rect x="896" y="432" w="304" h="16"/>
+    <rect x="960" y="448" w="240" h="512"/>
+    <rect x="1008" y="0" w="192" h="240"/>
+    <rect x="1040" y="240" w="160" h="16"/>
+    <rect x="1056" y="256" w="144" h="32"/>
+    <rect x="1088" y="288" w="112" h="16"/>
+  </solid>
+  <tiles_bg_3>
+    <tile set="tileset" tx="0" ty="32" x="224" y="944"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="928"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="912"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="896"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="880"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="864"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="848"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="832"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="816"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="800"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="784"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="768"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="752"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="736"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="720"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="704"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="688"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="672"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="656"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="640"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="624"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="608"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="592"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="576"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="560"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="544"/>
+    <tile set="tileset" tx="0" ty="32" x="224" y="528"/>
+    <tile set="tileset" tx="0" ty="32" x="208" y="528"/>
+    <tile set="tileset" tx="0" ty="32" x="192" y="528"/>
+    <tile set="tileset" tx="0" ty="32" x="176" y="528"/>
+    <tile set="tileset" tx="0" ty="32" x="160" y="528"/>
+    <tile set="tileset" tx="0" ty="32" x="144" y="528"/>
+    <tile set="tileset" tx="0" ty="32" x="128" y="528"/>
+    <tile set="tileset" tx="0" ty="32" x="112" y="528"/>
+    <tile set="tileset" tx="0" ty="32" x="96" y="528"/>
+    <tile set="tileset" tx="0" ty="32" x="80" y="528"/>
+    <tile set="tileset" tx="0" ty="32" x="64" y="528"/>
+    <tile set="tileset" tx="0" ty="32" x="48" y="528"/>
+    <tile set="tileset" tx="0" ty="32" x="32" y="528"/>
+    <tile set="tileset" tx="0" ty="32" x="16" y="528"/>
+    <tile set="tileset" tx="0" ty="32" x="0" y="528"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="544" w="224" h="416"/>
+    <rect set="tileset" tx="0" ty="80" x="960" y="400" w="240" h="544"/>
+    <rect set="tileset" tx="0" ty="80" x="960" y="944" w="240" h="16"/>
+    <rect set="tileset" tx="0" ty="80" x="768" y="400" w="192" h="16"/>
+    <rect set="tileset" tx="0" ty="80" x="832" y="416" w="128" h="16"/>
+    <rect set="tileset" tx="0" ty="80" x="896" y="432" w="64" h="16"/>
+    <rect set="tileset" tx="0" ty="80" x="800" y="0" w="32" h="272"/>
+    <rect set="tileset" tx="0" ty="80" x="1008" y="0" w="192" h="224"/>
+    <rect set="tileset" tx="0" ty="80" x="1008" y="224" w="192" h="16"/>
+    <rect set="tileset" tx="0" ty="80" x="1040" y="240" w="160" h="16"/>
+    <rect set="tileset" tx="0" ty="80" x="1056" y="256" w="144" h="32"/>
+    <rect set="tileset" tx="0" ty="80" x="1088" y="288" w="112" h="16"/>
+  </tiles_bg_3>
+  <objects>
+    <door x="1104" y="304" locked="true" id="none"/>
+  </objects>
 </level>

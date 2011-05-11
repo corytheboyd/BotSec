@@ -1,4 +1,49 @@
 <level tile_name="k12" zone="" tile_left="k11" tile_right="k13" tile_up="j12" tile_down="l12">
   <width>1200</width>
   <height>960</height>
+  <solid>
+    <rect x="0" y="0" w="144" h="176"/>
+    <rect x="0" y="176" w="64" h="80"/>
+    <rect x="0" y="352" w="992" h="32"/>
+    <rect x="0" y="384" w="256" h="320"/>
+    <rect x="0" y="704" w="96" h="256"/>
+    <rect x="160" y="304" w="832" h="48"/>
+    <rect x="208" y="896" w="848" h="64"/>
+    <rect x="256" y="0" w="736" h="304"/>
+    <rect x="416" y="624" w="160" h="272"/>
+    <rect x="1120" y="0" w="80" h="384"/>
+    <rect x="1136" y="544" w="64" h="48"/>
+    <rect x="1152" y="592" w="48" h="16"/>
+    <rect x="1168" y="608" w="32" h="16"/>
+  </solid>
+  <tiles>
+    <rect set="tileset" tx="0" ty="32" x="416" y="624" w="160" h="272"/>
+    <rect set="tileset" tx="0" ty="32" x="208" y="896" w="848" h="64"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="704" w="96" h="256"/>
+    <rect set="tileset" tx="0" ty="32" x="256" y="0" w="720" h="384"/>
+    <rect set="tileset" tx="0" ty="32" x="976" y="16" w="16" h="368"/>
+    <rect set="tileset" tx="0" ty="32" x="976" y="0" w="16" h="16"/>
+    <rect set="tileset" tx="0" ty="32" x="1120" y="0" w="80" h="384"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="0" w="144" h="176"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="176" w="64" h="32"/>
+    <rect set="tileset" tx="0" ty="32" x="1136" y="544" w="64" h="48"/>
+    <rect set="tileset" tx="0" ty="32" x="1152" y="592" w="48" h="16"/>
+    <rect set="tileset" tx="0" ty="32" x="1168" y="608" w="32" h="16"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="208" w="64" h="48"/>
+    <rect set="tileset" tx="0" ty="32" x="160" y="304" w="96" h="48"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="352" w="256" h="352"/>
+    <rect set="tileset" tx="0" ty="32" x="256" y="384" w="96" h="80"/>
+  </tiles>
+  <objects>
+    <platform x="320" y="800" speed="100"/>
+    <platform x="320" y="704" speed="100"/>
+    <platform x="576" y="704" speed="100"/>
+    <platform x="576" y="800" speed="100"/>
+    <platform x="448" y="528" speed="100">
+      <node x="992" y="528"/>
+    </platform>
+    <E1 x="736" y="832"/>
+    <E1 x="944" y="832"/>
+    <door x="32" y="256" locked="false" id="none"/>
+  </objects>
 </level>

@@ -4,10 +4,10 @@
 
 package  
 {
-	import flash.desktop.ClipboardFormats;
+	import interactives.*;
+	import items.*;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
-	import items.*;
 	
 	/**
 	 * ...
@@ -19,7 +19,7 @@ package
 		 * PYSICS CONSTANTS
 		 * all in px/s
 		 * */
-		public static const	GRAVITY:Number			= 1000;
+		public static const	GRAVITY:Number			= 1500;
 		public static const	FRICTION:Number			= 1800;
 		public static const	DRAG:Number				= 100;
 		
@@ -30,8 +30,8 @@ package
 		public static const	MAX_H_SPEED:Number			= 300;
 		public static const	MAX_V_SPEED:Number			= 700;
 		public static const	MOVE_SPEED:Number			= 2000;
-		public static const	JUMP_SPEED:Number			= -425;
-		public static const	DBL_JUMP_SPEED:Number		= -350;
+		public static const	JUMP_SPEED:Number			= -550;
+		public static const	DBL_JUMP_SPEED:Number		= -450;
 		public static const	DBL_JUMP_LIMIT:Number		= 300;
 		public static const	LEAP:Number					= 1.5;
 		public static const AIR_DRAG:Number				= 0.35;
@@ -52,13 +52,6 @@ package
 		public static const MSG_DURATION:Number			= 1.5;
 		
 		/*
-		 * BLOOM SETTINGS
-		 * */
-		public static const BLOOM_AMOUNT:Number = 15;
-		public static const BLOOM_QUALITY:Number = 1;
-		public static const BLOOM_COLOR:uint = 0xfeff9e;
-		
-		/*
 		 * INPUT CONSTANTS
 		 * */
 		Input.define("Pause", 	Key.ENTER, Key.P);
@@ -72,12 +65,21 @@ package
 		/*
 		 * ITEM CONSTANTS
 		 * */
+		
 		//PISTOL
-		public static const PISTOL_CLASS_REF:Class 		= Pistol; //needed for getDefByName... otherwise it wont be in namespace
 		public static const PISTOL_BULLET_SPEED:Number	= 650;
 		public static const PISTOL_BULLET_DAMAGE:Number	= 1;
 		public static const ITEM_MOVE_HEIGHT:Number		= 10;
 		public static const ITEM_MOVE_RATE:Number		= 350;
+		
+		/*
+		 * CLASS REFERENCES
+		 * Gets class definitions in the namespace for recognition by getDefinitionByName
+		 * */
+		public static const PISTOL_CLASS_REF:Class 		= Pistol;
+		public static const INTERACTIVE_CLASS_REF:Class	= Interactive;
+		public static const DOOR_CLASS_REF:Class		= Door;
+		public static const DOORH_CLASS_REF:Class		= DoorH;
 		
 		/*
 		 * DOOR CONSTANTS
@@ -99,6 +101,7 @@ package
 		public static const MESSAGE_TYPE:String			= 'message';
 		public static const HAZARD_TYPE:String			= 'hazard';
 		public static const GRAVLIFT_TYPE:String		= 'gravityLift';
+		public static const SWITCH_TYPE:String			= 'switch';
 		
 		/*
 		 * MUSIC
@@ -183,14 +186,16 @@ package
 		public static const GFX_RESPAWN:Class;
 		[Embed(source = '../assets/gfx/platform.png')]
 		public static const GFX_PLATFORM:Class;
-		[Embed(source = '../assets/gfx/hazards/spikes.png')]
-		public static const GFX_SPIKES:Class;
-		[Embed(source = '../assets/gfx/hazards/electric_gate.png')]
-		public static const GFX_ELECTRIC_GATE:Class;
+		[Embed(source = '../assets/gfx/hazards/electric_gate_h.png')]
+		public static const GFX_ELECTRIC_GATE_H:Class;
+		[Embed(source = '../assets/gfx/hazards/electric_gate_v.png')]
+		public static const GFX_ELECTRIC_GATE_V:Class;
 		[Embed(source = '../assets/gfx/grav_lift.png')]
 		public static const GFX_GRAVLIFT:Class;
 		[Embed(source = '../assets/gfx/particles/grav_lift_particles.png')]
 		public static const GFX_GRAVLIFT_PARTICLES:Class;
+		[Embed(source = '../assets/gfx/switch.png')]
+		public static const	GFX_SWITCH:Class;
 		
 		/*
 		* MAP FILES
@@ -204,6 +209,41 @@ package
 		public static const k10:Class;
 		[Embed(source = '../map/k11.oel', mimeType = 'application/octet-stream')]
 		public static const k11:Class;
+		[Embed(source = '../map/k12.oel', mimeType = 'application/octet-stream')]
+		public static const k12:Class;
+		[Embed(source = '../map/k13.oel', mimeType = 'application/octet-stream')]
+		public static const k13:Class;
+		[Embed(source = '../map/k14.oel', mimeType = 'application/octet-stream')]
+		public static const k14:Class;
+		
+		[Embed(source = '../map/l10.oel', mimeType = 'application/octet-stream')]
+		public static const l10:Class;
+		[Embed(source = '../map/l11.oel', mimeType = 'application/octet-stream')]
+		public static const l11:Class;
+		[Embed(source = '../map/l12.oel', mimeType = 'application/octet-stream')]
+		public static const l12:Class;
+		[Embed(source = '../map/l13.oel', mimeType = 'application/octet-stream')]
+		public static const l13:Class;
+		[Embed(source = '../map/l14.oel', mimeType = 'application/octet-stream')]
+		public static const l14:Class;
+		
+		[Embed(source = '../map/m10.oel', mimeType = 'application/octet-stream')]
+		public static const m10:Class;
+		[Embed(source = '../map/m11.oel', mimeType = 'application/octet-stream')]
+		public static const m11:Class;
+		[Embed(source = '../map/m12.oel', mimeType = 'application/octet-stream')]
+		public static const m12:Class;
+		[Embed(source = '../map/m13.oel', mimeType = 'application/octet-stream')]
+		public static const m13:Class;
+		[Embed(source = '../map/m14.oel', mimeType = 'application/octet-stream')]
+		public static const m14:Class;
+		
+		[Embed(source = '../map/n12.oel', mimeType = 'application/octet-stream')]
+		public static const n12:Class;
+		[Embed(source = '../map/n13.oel', mimeType = 'application/octet-stream')]
+		public static const n13:Class;
+		[Embed(source = '../map/n14.oel', mimeType = 'application/octet-stream')]
+		public static const n14:Class;
 	}
 	
 }

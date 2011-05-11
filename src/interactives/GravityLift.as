@@ -2,6 +2,7 @@ package interactives
 {
 	import enemies.E1;
 	import enemies.Enemy;
+	import flash.display.InteractiveObject;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
@@ -12,7 +13,7 @@ package interactives
 	 * ...
 	 * @author Cory Boyd
 	 */
-	public class GravityLift extends Entity 
+	public class GravityLift extends Interactive 
 	{
 		public var image:Image = new Image(GC.GFX_GRAVLIFT);
 		public var speed:int; //speed in px/s that the lift moves the player at

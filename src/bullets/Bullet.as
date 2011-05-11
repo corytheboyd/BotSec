@@ -5,7 +5,7 @@ package bullets
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
-	import doors.*;
+	import interactives.*;
 	import net.flashpunk.Sfx;
 	
 	/**

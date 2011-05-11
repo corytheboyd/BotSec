@@ -1,4 +1,35 @@
 <level tile_name="m13" zone="" tile_left="m12" tile_right="m14" tile_up="l13" tile_down="n13">
   <width>1200</width>
   <height>960</height>
+  <solid>
+    <rect x="0" y="0" w="240" h="288"/>
+    <rect x="0" y="608" w="144" h="352"/>
+    <rect x="80" y="288" w="144" h="32"/>
+    <rect x="80" y="320" w="80" h="16"/>
+    <rect x="320" y="608" w="352" h="352"/>
+    <rect x="400" y="512" w="272" h="96"/>
+    <rect x="432" y="416" w="32" h="96"/>
+    <rect x="464" y="448" w="208" h="64"/>
+    <rect x="640" y="416" w="32" h="32"/>
+    <rect x="816" y="512" w="384" h="448"/>
+    <rect x="976" y="0" w="224" h="368"/>
+  </solid>
+  <tiles>
+    <rect set="tileset" tx="0" ty="80" x="0" y="608" w="144" h="352"/>
+    <rect set="tileset" tx="0" ty="80" x="320" y="608" w="352" h="352"/>
+    <rect set="tileset" tx="0" ty="80" x="400" y="528" w="272" h="80"/>
+    <rect set="tileset" tx="0" ty="80" x="400" y="512" w="272" h="16"/>
+    <rect set="tileset" tx="0" ty="80" x="432" y="416" w="32" h="96"/>
+    <rect set="tileset" tx="0" ty="80" x="640" y="416" w="32" h="96"/>
+    <rect set="tileset" tx="0" ty="80" x="464" y="448" w="176" h="64"/>
+    <rect set="tileset" tx="0" ty="80" x="816" y="512" w="384" h="448"/>
+    <rect set="tileset" tx="0" ty="80" x="976" y="0" w="224" h="368"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="256" w="240" h="32"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="0" w="240" h="256"/>
+    <rect set="tileset" tx="0" ty="32" x="80" y="288" w="144" h="32"/>
+    <rect set="tileset" tx="0" ty="32" x="80" y="320" w="80" h="16"/>
+  </tiles>
+  <objects>
+    <E1 x="480" y="384"/>
+  </objects>
 </level>

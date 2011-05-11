@@ -1,4 +1,61 @@
 <level tile_name="k13" zone="" tile_left="k12" tile_right="k14" tile_up="j13" tile_down="l13">
   <width>1200</width>
   <height>960</height>
+  <solid>
+    <rect x="0" y="0" w="64" h="384"/>
+    <rect x="0" y="544" w="64" h="48"/>
+    <rect x="0" y="592" w="48" h="16"/>
+    <rect x="0" y="608" w="32" h="16"/>
+    <rect x="160" y="0" w="64" h="336"/>
+    <rect x="304" y="0" w="64" h="384"/>
+    <rect x="432" y="0" w="64" h="288"/>
+    <rect x="576" y="0" w="64" h="336"/>
+    <rect x="672" y="640" w="528" h="48"/>
+    <rect x="720" y="0" w="64" h="272"/>
+    <rect x="736" y="688" w="464" h="16"/>
+    <rect x="752" y="704" w="128" h="48"/>
+    <rect x="784" y="752" w="96" h="16"/>
+    <rect x="784" y="768" w="64" h="96"/>
+    <rect x="784" y="864" w="32" h="96"/>
+    <rect x="848" y="544" w="352" h="96"/>
+    <rect x="864" y="0" w="64" h="288"/>
+    <rect x="992" y="448" w="208" h="96"/>
+    <rect x="992" y="880" w="208" h="80"/>
+    <rect x="1136" y="336" w="64" h="112"/>
+  </solid>
+  <tiles>
+    <rect set="tileset" tx="0" ty="32" x="0" y="0" w="64" h="384"/>
+    <rect set="tileset" tx="0" ty="32" x="160" y="0" w="64" h="336"/>
+    <rect set="tileset" tx="0" ty="32" x="304" y="0" w="64" h="384"/>
+    <rect set="tileset" tx="0" ty="32" x="432" y="0" w="64" h="288"/>
+    <rect set="tileset" tx="0" ty="32" x="576" y="0" w="64" h="336"/>
+    <rect set="tileset" tx="0" ty="32" x="720" y="0" w="64" h="272"/>
+    <rect set="tileset" tx="0" ty="32" x="864" y="0" w="64" h="288"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="544" w="64" h="48"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="592" w="48" h="16"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="608" w="32" h="16"/>
+    <rect set="tileset" tx="0" ty="32" x="672" y="640" w="528" h="48"/>
+    <rect set="tileset" tx="0" ty="32" x="736" y="688" w="464" h="16"/>
+    <rect set="tileset" tx="0" ty="32" x="752" y="704" w="128" h="48"/>
+    <rect set="tileset" tx="0" ty="32" x="784" y="752" w="96" h="16"/>
+    <rect set="tileset" tx="0" ty="32" x="784" y="768" w="64" h="96"/>
+    <rect set="tileset" tx="0" ty="32" x="784" y="864" w="32" h="96"/>
+    <rect set="tileset" tx="0" ty="32" x="848" y="544" w="352" h="96"/>
+    <rect set="tileset" tx="0" ty="32" x="992" y="448" w="208" h="96"/>
+    <rect set="tileset" tx="0" ty="32" x="1136" y="336" w="64" h="112"/>
+    <rect set="tileset" tx="0" ty="32" x="880" y="704" w="320" h="16"/>
+    <rect set="tileset" tx="0" ty="32" x="992" y="880" w="208" h="80"/>
+  </tiles>
+  <objects>
+    <E1 x="736" y="576"/>
+    <E1 x="912" y="480"/>
+    <platform x="64" y="544" speed="100">
+      <node x="64" y="544"/>
+      <node x="256" y="544"/>
+    </platform>
+    <platform x="384" y="640" speed="100">
+      <node x="576" y="640"/>
+      <node x="384" y="640"/>
+    </platform>
+  </objects>
 </level>

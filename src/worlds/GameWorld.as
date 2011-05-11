@@ -1,8 +1,6 @@
 package worlds 
 {
-	import doors.*;
 	import enemies.*;
-	import hazards.*;
 	import items.*;
 	import platforms.*;
 	import ui.*;
@@ -68,7 +66,7 @@ package worlds
 		}
 		
 		override public function update():void 
-		{
+		{			
 			//TAKES YOU TO THE GLORIOUS DEBUG ROOM. ALL HAIL DEBUG.
 			if ( (Input.check(Key.CONTROL) && Input.check(Key.SHIFT) && Input.pressed(Key.D)) && GV.CURRENT_LEVEL.levelName != 'a0')
 			{
@@ -165,6 +163,7 @@ package worlds
 			try { removeList(GV.CURRENT_LEVEL.levelPlatforms); } catch (e:Error) { FP.console.log('Unable to remove platforms from GameWorld'); }
 			try { removeList(GV.CURRENT_LEVEL.levelHazards); } catch (e:Error) { FP.console.log('Unable to remove hazards from GameWorld'); }
 			try { removeList(GV.CURRENT_LEVEL.levelLifts); } catch (e:Error) { FP.console.log('Unable to remove gravity lifts from GameWorld'); }
+			try { removeList(GV.CURRENT_LEVEL.levelSwitches); } catch (e:Error) { FP.console.log('Unable to remove switches from GameWorld'); }
 			
 			//clears all other entities without assigned types (basically, antyhing left over that is not the player
 			var spareObjects:Array = [];
@@ -195,6 +194,14 @@ package worlds
 				
 			}
 			
+			//add switches to world
+			for each ( var s:Switch in GV.CURRENT_LEVEL.levelSwitches )
+			{
+				s.layer = 2;
+				add(s);
+				GV.CONTEXT_MESSAGES.push(s.contextMessage);
+			}
+			
 			//add lifts to world
 			for each ( var gl:GravityLift in GV.CURRENT_LEVEL.levelLifts )
 			{
@@ -203,10 +210,10 @@ package worlds
 			}
 			
 			//add hazards to world
-			for each ( var s:Entity in GV.CURRENT_LEVEL.levelHazards )
+			for each ( var h:Entity in GV.CURRENT_LEVEL.levelHazards )
 			{
-				s.layer = 3;
-				add(s);
+				h.layer = 3;
+				add(h);
 			}
 			
 			//add platforms to world
@@ -248,8 +255,6 @@ package worlds
 				
 				item.layer = 1;
 				add(item);
-				
-				FP.console.log('Added ' + item + ' to world');
 			}
 			
 			//add all doors to world

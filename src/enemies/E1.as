@@ -20,7 +20,7 @@ package enemies
 			super(x, y);
 			
 			lethal = true;
-			hp = 6;
+			hp = 1;
 			
 			graphic = image = new Image(GC.GFX_E1);
 			setHitbox(16, 48, -8, -16);

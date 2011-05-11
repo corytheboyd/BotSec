@@ -1,4 +1,50 @@
 <level tile_name="m12" zone="" tile_left="m11" tile_right="m13" tile_up="l12" tile_down="n12">
   <width>1200</width>
   <height>960</height>
+  <solid>
+    <rect x="0" y="0" w="1040" h="96"/>
+    <rect x="0" y="96" w="112" h="528"/>
+    <rect x="0" y="880" w="160" h="80"/>
+    <rect x="256" y="816" w="944" h="144"/>
+    <rect x="384" y="768" w="272" h="48"/>
+    <rect x="432" y="720" w="224" h="48"/>
+    <rect x="512" y="224" w="144" h="32"/>
+    <rect x="656" y="784" w="544" h="32"/>
+    <rect x="768" y="288" w="144" h="48"/>
+    <rect x="800" y="704" w="400" h="80"/>
+    <rect x="880" y="608" w="320" h="96"/>
+    <rect x="1136" y="0" w="64" h="256"/>
+  </solid>
+  <tiles>
+    <rect set="tileset" tx="0" ty="80" x="0" y="0" w="112" h="624"/>
+    <rect set="tileset" tx="0" ty="80" x="112" y="0" w="928" h="96"/>
+    <rect set="tileset" tx="0" ty="80" x="1136" y="0" w="64" h="256"/>
+    <rect set="tileset" tx="0" ty="80" x="768" y="288" w="144" h="48"/>
+    <rect set="tileset" tx="0" ty="80" x="512" y="224" w="144" h="32"/>
+    <rect set="tileset" tx="0" ty="80" x="256" y="816" w="944" h="144"/>
+    <rect set="tileset" tx="0" ty="80" x="384" y="768" w="272" h="48"/>
+    <rect set="tileset" tx="0" ty="80" x="432" y="720" w="224" h="48"/>
+    <rect set="tileset" tx="0" ty="80" x="656" y="784" w="544" h="32"/>
+    <rect set="tileset" tx="0" ty="80" x="800" y="704" w="400" h="80"/>
+    <rect set="tileset" tx="0" ty="80" x="880" y="608" w="320" h="96"/>
+    <rect set="tileset" tx="0" ty="80" x="0" y="880" w="144" h="80"/>
+    <rect set="tileset" tx="0" ty="80" x="144" y="880" w="16" h="80"/>
+  </tiles>
+  <objects>
+    <platform x="1040" y="48" speed="100"/>
+    <platform x="1040" y="144" speed="100"/>
+    <platform x="1040" y="240" speed="100"/>
+    <platform x="352" y="288" speed="100"/>
+    <platform x="112" y="352" speed="100"/>
+    <platform x="160" y="880" speed="100"/>
+    <platform x="160" y="944" speed="100"/>
+    <grav_lift x="272" y="736" speed="40"/>
+    <grav_lift x="272" y="784" speed="40"/>
+    <grav_lift x="272" y="688" speed="40"/>
+    <grav_lift x="272" y="640" speed="40"/>
+    <grav_lift x="272" y="592" speed="40"/>
+    <grav_lift x="272" y="528" speed="40"/>
+    <E1 x="480" y="656"/>
+    <E1 x="960" y="544"/>
+  </objects>
 </level>
