@@ -1,4 +1,32 @@
 <level tile_name="b0" zone="" tile_left="null" tile_right="b1" tile_up="a0" tile_down="c0">
   <width>1200</width>
   <height>960</height>
+  <solid>
+    <rect x="0" y="0" w="800" h="192"/>
+    <rect x="0" y="192" w="48" h="768"/>
+    <rect x="48" y="928" w="1152" h="32"/>
+    <rect x="512" y="448" w="688" h="48"/>
+    <rect x="928" y="0" w="272" h="192"/>
+    <rect x="1152" y="192" w="48" h="256"/>
+  </solid>
+  <tiles>
+    <tile set="tileset" tx="0" ty="16" x="928" y="176"/>
+    <tile set="tileset" tx="16" ty="16" x="784" y="176"/>
+    <tile set="tileset" tx="0" ty="0" x="512" y="448"/>
+    <tile set="tileset" tx="0" ty="16" x="512" y="480"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="0" w="800" h="176"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="176" w="784" h="16"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="192" w="48" h="768"/>
+    <rect set="tileset" tx="0" ty="32" x="48" y="928" w="1152" h="32"/>
+    <rect set="tileset" tx="0" ty="32" x="528" y="448" w="672" h="48"/>
+    <rect set="tileset" tx="0" ty="32" x="512" y="464" w="16" h="16"/>
+    <rect set="tileset" tx="0" ty="32" x="928" y="0" w="272" h="176"/>
+    <rect set="tileset" tx="0" ty="32" x="944" y="176" w="256" h="16"/>
+    <rect set="tileset" tx="0" ty="32" x="1152" y="192" w="48" h="256"/>
+  </tiles>
+  <objects>
+    <respawn x="1040" y="320"/>
+    <saveBeacon x="992" y="384" initial="false"/>
+    <player x="1056" y="320"/>
+  </objects>
 </level>

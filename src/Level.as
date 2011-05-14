@@ -77,7 +77,9 @@ package
 			{
 				FP.console.log('Adding Gravity Lift piece');
 				
-				var lift:GravityLift = new GravityLift(int(e.@x), int(e.@y), int(e.@speed))
+				var isOn:Boolean = (e.@isOn == 'true') ? true : false;
+				
+				var lift:GravityLift = new GravityLift(int(e.@x), int(e.@y), int(e.@height), int(e.@speed), e.@id, isOn)
 				levelLifts.push(lift);
 				levelInteractives.push(lift);
 			}
@@ -86,7 +88,9 @@ package
 			{
 				FP.console.log('Adding Vertical Electric Gate');
 				
-				var gate:ElectricGate = new ElectricGate(int(e.@x), int(e.@y), int(e.@height), int(e.@width), e.@id);
+				isOn = (e.@isOn == 'true') ? true : false;
+				
+				var gate:ElectricGate = new ElectricGate(int(e.@x), int(e.@y), int(e.@height), int(e.@width), e.@id, isOn);
 				levelHazards.push(gate);
 				levelInteractives.push(gate);
 			}
@@ -95,7 +99,9 @@ package
 			{
 				FP.console.log('Adding Horizontal Electric Gate piece');
 				
-				gate = new ElectricGate(int(e.@x), int(e.@y), int(e.@height), int(e.@width), e.@id);
+				isOn = (e.@isOn == 'true') ? true : false;
+				
+				gate = new ElectricGate(int(e.@x), int(e.@y), int(e.@height), int(e.@width), e.@id, isOn);
 				levelHazards.push(gate);
 				levelInteractives.push(gate)
 			}
@@ -131,7 +137,8 @@ package
 				{
 					FP.console.log('Adding Save Beacon');
 					var saveBeacon:SaveBeacon = new SaveBeacon( int(e.@x), int(e.@y) );
-					if ( Boolean(e.@isActive) ) saveBeacon.initialSpawn = true;
+					
+					saveBeacon.initialSpawn = (e.@isActive == 'true') ? true : false;
 					
 					levelBeacon = saveBeacon;
 				}
@@ -193,7 +200,7 @@ package
 				
 				try 
 				{
-					var isOn:Boolean = (e.@isOn == 'true') ? true : false;
+					isOn = (e.@isOn == 'true') ? true : false;
 					var useOnce:Boolean = (e.@useOnce == 'true') ? true : false;					
 					var s:Switch = new Switch( int(e.@x), int(e.@y), useOnce, isOn, false );
 					

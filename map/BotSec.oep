@@ -25,9 +25,11 @@
 	<objects>
 		<object name='player' image='player/player_static.png' width='64' height='80' limit='1' />
 		
-		<object name='grav_lift' image = 'grav_lift_static.png' width='96' height='32'>
+		<object name='grav_lift' image = 'grav_lift_static.png' width='96' height='32' resizableY='true' tile='true'>
 			<values>
-				<integer name='speed' default='40' min='1' max='1000' />
+				<integer name='speed' default='40' min='1' max='300' />
+				<string name='id' default='none' />
+				<boolean name='isOn' default='true' />
 			</values>
 		</object>
 		
@@ -84,11 +86,13 @@
 			<object name='electric_gate_h' image='hazards/electric_gate_h_static.png' width='16' height='16' resizableX='true' tile='true'>
 				<values>
 					<string name='id' default='none' />
+					<boolean name='isOn' default='true' />
 				</values>
 			</object>
 			<object name='electric_gate_v' image='hazards/electric_gate_v_static.png' width='16' height='16' resizableY='true' tile='true'>
 				<values>
 					<string name='id' default='none' />
+					<boolean name='isOn' default='true' />
 				</values>
 			</object>
 		</folder>

@@ -118,7 +118,7 @@ package
 			var gl:GravityLift;
 			if ( gl = collide(GC.GRAVLIFT_TYPE, x, y) as GravityLift )
 			{
-				if ( !isOnGround && velocity.y < 0 ) //then move that playa UP, DAWG
+				if ( gl.isOn && !isOnGround && velocity.y < 0 ) //then move that playa UP, DAWG
 				{
 					velocity.y -= gl.speed;
 				}

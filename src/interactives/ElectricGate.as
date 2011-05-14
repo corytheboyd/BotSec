@@ -16,7 +16,7 @@ package interactives
 		public var h:int; //height of the hazard
 		public var w:int; //width of the hazard
 		
-		public function ElectricGate( x:Number, y:Number, h:uint, w:uint, id:String, isOn:Boolean=true ) 
+		public function ElectricGate( x:Number, y:Number, h:uint, w:uint, id:String, isOn:Boolean ) 
 		{			
 			type = GC.HAZARD_TYPE;
 			
@@ -42,6 +42,12 @@ package interactives
 			
 			image.add('on', [0, 1, 2, 3], 8, true);
 			image.play('on');
+		}
+		
+		override public function added():void 
+		{
+			//if it is initially disabled
+			if (!isOn) disable();
 		}
 		
 		/*

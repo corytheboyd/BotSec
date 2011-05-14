@@ -203,6 +203,9 @@ package
 		[Embed(source = '../map/a0.oel', mimeType = 'application/octet-stream')] 
 		public static const a0:Class;
 		
+		[Embed(source = '../map/b0.oel', mimeType = 'application/octet-stream')] 
+		public static const b0:Class;
+		
 		[Embed(source = '../map/k9.oel', mimeType = 'application/octet-stream')] 
 		public static const k9:Class;
 		[Embed(source = '../map/k10.oel', mimeType = 'application/octet-stream')] 
