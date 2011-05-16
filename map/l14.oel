@@ -9,8 +9,7 @@
     <rect x="0" y="800" w="144" h="160"/>
     <rect x="128" y="32" w="48" h="272"/>
     <rect x="144" y="816" w="16" h="64"/>
-    <rect x="176" y="112" w="64" h="16"/>
-    <rect x="176" y="128" w="48" h="32"/>
+    <rect x="176" y="112" w="48" h="48"/>
     <rect x="176" y="160" w="32" h="144"/>
     <rect x="208" y="448" w="128" h="288"/>
     <rect x="304" y="864" w="688" h="96"/>
@@ -65,7 +64,6 @@
     <rect set="tileset" tx="0" ty="80" x="160" y="32" w="16" h="272"/>
     <rect set="tileset" tx="0" ty="80" x="176" y="112" w="32" h="192"/>
     <rect set="tileset" tx="0" ty="80" x="208" y="112" w="16" h="48"/>
-    <rect set="tileset" tx="0" ty="80" x="224" y="112" w="16" h="16"/>
     <rect set="tileset" tx="0" ty="80" x="208" y="448" w="128" h="240"/>
     <rect set="tileset" tx="0" ty="80" x="336" y="528" w="160" h="160"/>
     <rect set="tileset" tx="0" ty="80" x="496" y="608" w="48" h="80"/>
@@ -79,20 +77,9 @@
   </tiles>
   <objects>
     <E1 x="816" y="192"/>
-    <grav_lift x="240" y="416" speed="40"/>
-    <grav_lift x="240" y="368" speed="40"/>
-    <grav_lift x="240" y="320" speed="40"/>
-    <grav_lift x="240" y="272" speed="40"/>
-    <grav_lift x="240" y="224" speed="40"/>
     <door x="48" y="336" locked="true" id="none"/>
-    <grav_lift x="1008" y="848" speed="40"/>
-    <grav_lift x="1008" y="800" speed="40"/>
-    <grav_lift x="1008" y="752" speed="40"/>
-    <grav_lift x="1008" y="704" speed="40"/>
-    <grav_lift x="1008" y="656" speed="40"/>
-    <grav_lift x="1008" y="608" speed="40"/>
-    <grav_lift x="1008" y="560" speed="40"/>
-    <grav_lift x="1008" y="512" speed="40"/>
+    <grav_lift x="1008" y="512" height="352" speed="50" id="none" isOn="true"/>
     <platform x="160" y="928" speed="100"/>
+    <grav_lift x="224" y="272" height="160" speed="40" id="none" isOn="true"/>
   </objects>
 </level>

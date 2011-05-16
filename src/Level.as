@@ -39,6 +39,8 @@ package
 		public var levelHazards:Array = [];
 		public var levelLifts:Array = [];
 		public var levelSwitches:Array = [];
+		public var levelTVs:Array = [];
+		public var levelTriggers:Array = [];
 		public var levelInteractives:Array = []; //store all Interactive objects
 		
 		//set to true if the player has visited the tile
@@ -62,16 +64,13 @@ package
 		 * Makes a new level based off of the tile name passed
 		 * */
 		public function Level(targetTile:String) 
-		{
-			type = GC.SOLID_TYPE;
-			
+		{			
 			loadLevel(targetTile); //loads the level from file, sets this.data
 			
-			decalTiles = tiles = new Tilemap(GC.GFX_TILESET, levelWidth, levelHeight, 16, 16);
-			grid = 	new Grid(levelWidth, levelHeight, 16, 16);
+			type = GC.SOLID_TYPE;
 			
-			graphic = tiles;
-			mask = grid;
+			graphic = decalTiles = tiles = new Tilemap(GC.GFX_TILESET, levelWidth, levelHeight, 16, 16);
+			mask = grid = new Grid(levelWidth, levelHeight, 16, 16, 0, 0);
 			
 			for each ( var e:XML in data.objects.grav_lift )
 			{
@@ -79,9 +78,20 @@ package
 				
 				var isOn:Boolean = (e.@isOn == 'true') ? true : false;
 				
-				var lift:GravityLift = new GravityLift(int(e.@x), int(e.@y), int(e.@height), int(e.@speed), e.@id, isOn)
+				var lift:GravityLift = new GravityLift(int(e.@x), int(e.@y), int(e.@height), int(e.@speed), e.@id, isOn);
 				levelLifts.push(lift);
 				levelInteractives.push(lift);
+			}
+			
+			for each ( e in data.objects.tv )
+			{
+				FP.console.log('Adding TV');
+				
+				isOn = (e.@isOn == 'true') ? true : false;
+				
+				var tv:TV = new TV( int(e.@x), int(e.@y), e.@id, isOn );
+				levelTVs.push(tv);
+				levelInteractives.push(tv);
 			}
 			
 			for each ( e in data.objects.electric_gate_v )
@@ -238,13 +248,24 @@ package
 				catch (err:Error) { FP.console.log('...Unable to add Flipped Switch\n\t' + err); }
 			}
 			
+			for each ( e in data.objects.trigger )
+			{
+				var fireOnce:Boolean = (e.@fire_once == 'true') ? true : false;
+				var t:Trigger = new Trigger( int(e.@x), int(e.@y), int(e.@height), int(e.@width), fireOnce );
+				
+				for ( i = 0; i < levelInteractives.length; i++ )
+				{						
+					if ( levelInteractives[i].id == e.@t_id )
+					{
+						t.targetIndexes.push(i);
+					}
+				}
+				levelTriggers.push(t);
+			}
+			
 			/*
 			 * SOLID
-			 * */
-			
-			//clearTweens grid first just in case it is fucking things up
-			//grid.clearRect( 0, 0, levelWidth / 16, levelHeight / 16 );
-			
+			 * */			
 			for each( var solid:XML in data.solid.rect )
 			{
 				grid.setRect( int(solid.@x) / 16, int(solid.@y) / 16, int(solid.@w) / 16, int(solid.@h) / 16, true );

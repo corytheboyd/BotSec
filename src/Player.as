@@ -201,8 +201,9 @@ package
 			velocity.y += Math.round(GC.GRAVITY * FP.elapsed);
 			
 			//cap vertical speed at maxVSpeed
-			var sign:int = velocity.y > 0 ? 1 : -1;
-			if ( Math.abs(velocity.y) > maxVSpeed ) velocity.y = sign * maxVSpeed;
+			//var sign:int = velocity.y > 0 ? 1 : -1;
+			//if ( Math.abs(velocity.y) > maxVSpeed ) velocity.y = sign * maxVSpeed;
+			if ( velocity.y > maxVSpeed ) velocity.y = maxVSpeed;
 		}
 		
 		protected function acceleration():void
@@ -297,14 +298,13 @@ package
 		protected function animate():void
 		{			
 			//walk animation control
-			if (velocity.x == 0 && isOnGround)
+			if ( isOnGround && velocity.x == 0 )
 			{
 				image.play('idle');
 			}
-			else if (isOnGround)
+			else
 			{
-				if (image.currentAnim == 'idle') image.play('run_start');
-				if (image.complete)	image.play('run_loop');
+				image.play('falling');
 			}
 			
 			// control facing direction
@@ -313,12 +313,24 @@ package
 				if ( !isFlipped && isOnGround ) image.play('turn');
 				image.flipped = true;
 				isFlipped = true;
+				
+				if ( isOnGround )
+				{
+					if (image.currentAnim == 'idle') image.play('run_start');
+					if (image.complete)	image.play('run_loop');
+				}
 			}
 			else if ( Input.check('Right') )
 			{
 				if ( isFlipped && isOnGround ) image.play('turn');
 				image.flipped = false;
 				isFlipped = false;
+				
+				if ( isOnGround )
+				{
+					if (image.currentAnim == 'idle') image.play('run_start');
+					if (image.complete)	image.play('run_loop');
+				}
 			}
 			
 			//jump animation
@@ -333,12 +345,6 @@ package
 					image.setAnimFrame('dbl_jump', 0);
 					image.play('dbl_jump');
 				}
-			}
-			
-			//falling animation
-			if ( velocity.y > 0 && !isOnGround )
-			{
-				image.setAnimFrame('falling', 0);
 			}
 		}
 		

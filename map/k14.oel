@@ -36,9 +36,9 @@
     <rect set="tileset" tx="0" ty="32" x="752" y="0" w="400" h="80"/>
     <rect set="tileset" tx="0" ty="32" x="960" y="272" w="240" h="160"/>
     <rect set="tileset" tx="0" ty="32" x="912" y="352" w="48" h="80"/>
-    <rect set="tileset" tx="0" ty="0" x="0" y="320" w="128" h="96"/>
-    <rect set="tileset" tx="0" ty="0" x="0" y="416" w="256" h="288"/>
-    <rect set="tileset" tx="0" ty="0" x="128" y="400" w="128" h="16"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="416" w="256" h="288"/>
+    <rect set="tileset" tx="0" ty="32" x="0" y="320" w="128" h="96"/>
+    <rect set="tileset" tx="0" ty="32" x="128" y="400" w="128" h="16"/>
   </tiles>
   <objects>
     <E1 x="144" y="336"/>

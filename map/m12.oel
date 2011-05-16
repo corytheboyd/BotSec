@@ -38,13 +38,8 @@
     <platform x="112" y="352" speed="100"/>
     <platform x="160" y="880" speed="100"/>
     <platform x="160" y="944" speed="100"/>
-    <grav_lift x="272" y="736" speed="40"/>
-    <grav_lift x="272" y="784" speed="40"/>
-    <grav_lift x="272" y="688" speed="40"/>
-    <grav_lift x="272" y="640" speed="40"/>
-    <grav_lift x="272" y="592" speed="40"/>
-    <grav_lift x="272" y="528" speed="40"/>
     <E1 x="480" y="656"/>
     <E1 x="960" y="544"/>
+    <grav_lift x="272" y="640" height="160" speed="50" id="none" isOn="true"/>
   </objects>
 </level>

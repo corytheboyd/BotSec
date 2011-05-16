@@ -102,6 +102,8 @@ package
 		public static const HAZARD_TYPE:String			= 'hazard';
 		public static const GRAVLIFT_TYPE:String		= 'gravityLift';
 		public static const SWITCH_TYPE:String			= 'switch';
+		public static const TV_TYPE:String				= 'tv';
+		public static const TRIGGER_TYPE:String			= 'trigger';
 		
 		/*
 		 * MUSIC
@@ -196,6 +198,8 @@ package
 		public static const GFX_GRAVLIFT_PARTICLES:Class;
 		[Embed(source = '../assets/gfx/switch.png')]
 		public static const	GFX_SWITCH:Class;
+		[Embed(source = '../assets/gfx/tv.png')]
+		public static const GFX_TV:Class;
 		
 		/*
 		* MAP FILES

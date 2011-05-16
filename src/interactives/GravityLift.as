@@ -41,25 +41,22 @@ package interactives
 			image.play( isOn ? 'on' : 'off' );
 		}
 		
-		override public function added():void 
-		{
-			if (!isOn) disable();
-		}
-		
 		/*
-		 * Enable the lift
-		 * */
-		public function enable():void
+		 * Handle ON signal from switch 
+		 */
+		override public function sendSignalOn():void 
 		{
 			isOn = true;
+			image.play('on');
 		}
 		
 		/*
-		 * Disable the lift
-		 * */
-		public function disable():void
+		 * Handle OFF signal from switch 
+		 */
+		override public function sendSignalOff():void 
 		{
 			isOn = false;
+			image.play('off');
 		}
 		
 	}

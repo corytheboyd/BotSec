@@ -21,6 +21,8 @@ package
 		public static var WORLD_ITEMS:Object = { }; //keeps track of which items have been collected. use like a Hash: WORLD_ITEMS['door1'] = new Door
 		public static var CONTEXT_MESSAGES:Array = new Array;
 		
+		public static var VISITED_LEVELS:Dictionary = new Dictionary;
+		
 		public static var INVENTORY:Array = new Array();
 		public static var EQUIPPED_WEAPON:RangedWeapon;
 		

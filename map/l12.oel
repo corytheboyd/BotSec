@@ -84,15 +84,9 @@
     <platform x="1008" y="224" speed="100"/>
     <platform x="1008" y="320" speed="100"/>
     <platform x="1008" y="416" speed="100"/>
-    <grav_lift x="144" y="688" speed="40"/>
-    <grav_lift x="144" y="640" speed="40"/>
-    <grav_lift x="144" y="592" speed="40"/>
-    <grav_lift x="144" y="544" speed="40"/>
-    <grav_lift x="144" y="496" speed="40"/>
-    <grav_lift x="144" y="448" speed="40"/>
-    <grav_lift x="144" y="400" speed="40"/>
     <platform x="1008" y="560" speed="100"/>
     <platform x="1040" y="864" speed="100"/>
     <platform x="1040" y="944" speed="100"/>
+    <grav_lift x="144" y="464" height="256" speed="50" id="none" isOn="true"/>
   </objects>
 </level>

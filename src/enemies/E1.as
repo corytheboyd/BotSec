@@ -31,7 +31,6 @@ package enemies
 			gravity();
 			acceleration();
 			floorCollision();
-			gravLiftCollision();
 			checkBounds();
 			animate();
 			
@@ -76,15 +75,6 @@ package enemies
 			{
 				x = GV.CURRENT_LEVEL.levelWidth - width;
 				reverseDirection();
-			}
-		}
-		
-		protected function gravLiftCollision():void
-		{
-			var gl:GravityLift;
-			if ( gl = collide(GC.GRAVLIFT_TYPE, x, y) as GravityLift )
-			{
-				velocity.y -= gl.speed;
 			}
 		}
 		

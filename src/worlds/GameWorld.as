@@ -5,6 +5,8 @@ package worlds
 	import platforms.*;
 	import ui.*;
 	import interactives.*;
+	import flash.utils.getTimer;
+	import flash.utils.Dictionary;
 	import flash.events.TimerEvent;
 	import flash.geom.Vector3D;
 	import flash.ui.ContextMenu;
@@ -15,7 +17,6 @@ package worlds
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Text;
 	import net.flashpunk.graphics.Tilemap;
-	import net.flashpunk.masks.Grid;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.World;
@@ -31,7 +32,7 @@ package worlds
 		protected var paused:Boolean = false;
 		protected var pauseMenu:PauseMenu;
 		protected var respawnTimer:Timer = new Timer(1000, 0);
-		protected var playerStuckMoveDir:Vector3D = null;
+		protected var timeVar:Number = 0;
 		
 		public var PLAYER:Player;
 		
@@ -76,15 +77,25 @@ package worlds
 			}
 			//END THE DEBUG ZONE ENTRANCE.
 			
-			if ( playerStuckMoveDir ) //get the player unstuck
-			{				
-				PLAYER.x += playerStuckMoveDir.x;
-				PLAYER.y += playerStuckMoveDir.y;
+			if ( PLAYER.collide(GC.SOLID_TYPE, PLAYER.x, PLAYER.y) ) //get the player unstuck
+			{
+				var signX:int = ( Math.sin(getTimer()) > 0 ) ? 1 : -1;
+				var signY:int = ( Math.cos(getTimer()) > 0 ) ? 1 : -1;
 				
-				if ( !PLAYER.collideTypes([GC.SOLID_TYPE, GC.LEVEL_TYPE], PLAYER.x, PLAYER.y) ) playerStuckMoveDir = null;
+				var xNew:Number = PLAYER.x + 2 * Math.sin( getTimer() * 100 ) + 5 * signX;
+				var yNew:Number = PLAYER.y + 2 * Math.cos( getTimer() * 100 ) + 5 * signY;
+				
+				if ( !PLAYER.collide(GC.SOLID_TYPE, xNew, yNew) )
+				{
+					PLAYER.x = xNew;
+					PLAYER.y = yNew;
+				}
 			}
 			else 
 			{
+				//reset the timeVar used to get the player unstuck
+				timeVar = 0;
+				
 				if ( !PLAYER.world ) //player died, respawn them at the save room
 				{
 					respawnTimer.start(); //when finishes, calls respawn()
@@ -117,26 +128,30 @@ package worlds
 					//switch to left adjacent tile
 					if ( PLAYER.x + PLAYER.width/2 < 0 )
 					{
-						PLAYER.x = GV.CURRENT_LEVEL.levelWidth - PLAYER.width / 2;
+						GV.CURRENT_LEVEL.type = ''; //make current level uncollidable
 						switchLevel(GV.CURRENT_LEVEL.tileLeft);
+						PLAYER.x = GV.CURRENT_LEVEL.levelWidth - PLAYER.width / 2;
 					}
 					//switch to right adjacent tile
 					if ( PLAYER.x + PLAYER.width/2 > GV.CURRENT_LEVEL.levelWidth )
 					{
-						PLAYER.x = -PLAYER.width / 2;
+						GV.CURRENT_LEVEL.type = ''; //make current level uncollidable
 						switchLevel(GV.CURRENT_LEVEL.tileRight);
+						PLAYER.x = -PLAYER.width / 2;
 					}
 					//switch to top adjacent tile
-					if ( PLAYER.y + PLAYER.height/2 < 0 )
+					if ( PLAYER.y + PLAYER.height < 0 )
 					{
-						PLAYER.y = GV.CURRENT_LEVEL.levelHeight - PLAYER.width / 2;
+						GV.CURRENT_LEVEL.type = ''; //make current level uncollidable
 						switchLevel(GV.CURRENT_LEVEL.tileUp);
+						PLAYER.y = GV.CURRENT_LEVEL.levelHeight - PLAYER.width / 2;
 					}
 					//switch to bottom adjacent tile
 					if ( PLAYER.y - PLAYER.height/2 > GV.CURRENT_LEVEL.levelHeight )
 					{
-						PLAYER.y = -PLAYER.width / 2;
+						GV.CURRENT_LEVEL.type = ''; //make current level uncollidable
 						switchLevel(GV.CURRENT_LEVEL.tileDown);
+						PLAYER.y = -PLAYER.width / 2;
 					}
 					
 					//focus camera on player
@@ -164,6 +179,7 @@ package worlds
 			try { removeList(GV.CURRENT_LEVEL.levelHazards); } catch (e:Error) { FP.console.log('Unable to remove hazards from GameWorld'); }
 			try { removeList(GV.CURRENT_LEVEL.levelLifts); } catch (e:Error) { FP.console.log('Unable to remove gravity lifts from GameWorld'); }
 			try { removeList(GV.CURRENT_LEVEL.levelSwitches); } catch (e:Error) { FP.console.log('Unable to remove switches from GameWorld'); }
+			try { removeList(GV.CURRENT_LEVEL.levelTVs); } catch (e:Error) { FP.console.log('Unable to remove TVs from GameWorld'); }
 			
 			//clears all other entities without assigned types (basically, antyhing left over that is not the player
 			var spareObjects:Array = [];
@@ -176,22 +192,43 @@ package worlds
 				}
 			}
 			
-			try 
+			//if level is saved, load it from memory
+			if ( GV.VISITED_LEVELS[targetTile] ) 
 			{
-				GV.CURRENT_LEVEL = new Level(targetTile);
+				GV.CURRENT_LEVEL = GV.VISITED_LEVELS[targetTile];
+				if (GV.CURRENT_LEVEL.type == '') GV.CURRENT_LEVEL.type = GC.SOLID_TYPE;
 				add(GV.CURRENT_LEVEL);
-			} 
-			catch (err:Error) 
+			}
+			else //instantiate new copy of level and add it to memory
 			{
-				FP.console.log('Tried to load nonexistent room, player is now dead as shit!');
-				PLAYER.kill();
-				respawnTimer.start();
+				try 
+				{
+					GV.CURRENT_LEVEL = new Level(targetTile);
+					add(GV.CURRENT_LEVEL);
+					
+					FP.console.log('Caching level ' + GV.CURRENT_LEVEL.levelName + '...');
+					GV.VISITED_LEVELS[GV.CURRENT_LEVEL.levelName] = GV.CURRENT_LEVEL;
+				} 
+				catch (err:Error) 
+				{
+					FP.console.log('Tried to load nonexistent room, player is now dead as shit!');
+					PLAYER.kill();
+					respawnTimer.start();
+				}
 			}
 			
-			//get the player out of the level if they get stuck
-			if ( PLAYER ) 
+			//add triggers
+			for each ( var t:Trigger in GV.CURRENT_LEVEL.levelTriggers )
 			{
-				
+				t.layer = -1;
+				add(t);
+			}
+			
+			//add tvs to world
+			for each ( var tv:TV in GV.CURRENT_LEVEL.levelTVs )
+			{
+				tv.layer = 3;
+				add(tv);
 			}
 			
 			//add switches to world
@@ -276,7 +313,7 @@ package worlds
 
 			GV.CURRENT_LEVEL.layer = 2;
 			
-			FP.console.log('...' + targetTile + ' loaded!');			
+			FP.console.log('...' + targetTile + ' loaded!');
 		}
   
 	}

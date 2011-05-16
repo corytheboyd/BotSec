@@ -4,9 +4,15 @@
   <solid>
     <rect x="0" y="0" w="800" h="192"/>
     <rect x="0" y="192" w="48" h="768"/>
-    <rect x="48" y="928" w="1152" h="32"/>
+    <rect x="48" y="720" w="336" h="32"/>
+    <rect x="48" y="928" w="592" h="32"/>
+    <rect x="112" y="608" w="224" h="32"/>
+    <rect x="352" y="752" w="32" h="80"/>
     <rect x="512" y="448" w="688" h="48"/>
     <rect x="928" y="0" w="272" h="192"/>
+    <rect x="1040" y="784" w="160" h="176"/>
+    <rect x="1120" y="640" w="80" h="48"/>
+    <rect x="1136" y="496" w="64" h="144"/>
     <rect x="1152" y="192" w="48" h="256"/>
   </solid>
   <tiles>
@@ -14,19 +20,65 @@
     <tile set="tileset" tx="16" ty="16" x="784" y="176"/>
     <tile set="tileset" tx="0" ty="0" x="512" y="448"/>
     <tile set="tileset" tx="0" ty="16" x="512" y="480"/>
+    <tile set="tileset" tx="16" ty="0" x="624" y="928"/>
+    <tile set="tileset" tx="0" ty="0" x="1040" y="784"/>
+    <tile set="tileset" tx="0" ty="0" x="1120" y="640"/>
+    <tile set="tileset" tx="0" ty="16" x="1120" y="672"/>
+    <tile set="tileset" tx="32" ty="0" x="1120" y="624"/>
+    <tile set="tileset" tx="32" ty="16" x="1120" y="496"/>
+    <tile set="tileset" tx="0" ty="0" x="112" y="608"/>
+    <tile set="tileset" tx="0" ty="16" x="112" y="624"/>
+    <tile set="tileset" tx="16" ty="16" x="320" y="624"/>
+    <tile set="tileset" tx="16" ty="0" x="320" y="608"/>
+    <tile set="tileset" tx="16" ty="0" x="368" y="720"/>
+    <tile set="tileset" tx="16" ty="16" x="368" y="816"/>
+    <tile set="tileset" tx="0" ty="16" x="352" y="816"/>
+    <tile set="tileset" tx="32" ty="16" x="336" y="752"/>
+    <tile set="tileset" tx="48" ty="16" x="48" y="752"/>
+    <tile set="tileset" tx="48" ty="0" x="48" y="912"/>
     <rect set="tileset" tx="0" ty="32" x="0" y="0" w="800" h="176"/>
     <rect set="tileset" tx="0" ty="32" x="0" y="176" w="784" h="16"/>
     <rect set="tileset" tx="0" ty="32" x="0" y="192" w="48" h="768"/>
-    <rect set="tileset" tx="0" ty="32" x="48" y="928" w="1152" h="32"/>
     <rect set="tileset" tx="0" ty="32" x="528" y="448" w="672" h="48"/>
     <rect set="tileset" tx="0" ty="32" x="512" y="464" w="16" h="16"/>
     <rect set="tileset" tx="0" ty="32" x="928" y="0" w="272" h="176"/>
     <rect set="tileset" tx="0" ty="32" x="944" y="176" w="256" h="16"/>
     <rect set="tileset" tx="0" ty="32" x="1152" y="192" w="48" h="256"/>
+    <rect set="tileset" tx="0" ty="32" x="1040" y="800" w="160" h="160"/>
+    <rect set="tileset" tx="0" ty="32" x="1056" y="784" w="144" h="16"/>
+    <rect set="tileset" tx="0" ty="32" x="48" y="928" w="576" h="32"/>
+    <rect set="tileset" tx="0" ty="32" x="624" y="944" w="16" h="16"/>
+    <rect set="tileset" tx="0" ty="32" x="1120" y="656" w="16" h="16"/>
+    <rect set="tileset" tx="0" ty="32" x="1136" y="496" w="64" h="192"/>
+    <rect set="tileset" tx="0" ty="32" x="128" y="608" w="192" h="32"/>
+    <rect set="tileset" tx="0" ty="32" x="48" y="720" w="320" h="32"/>
+    <rect set="tileset" tx="0" ty="32" x="352" y="752" w="32" h="64"/>
+    <rect set="tileset" tx="0" ty="32" x="368" y="736" w="16" h="16"/>
   </tiles>
   <objects>
     <respawn x="1040" y="320"/>
     <saveBeacon x="992" y="384" initial="false"/>
     <player x="1056" y="320"/>
+    <grav_lift x="816" y="240" height="192" speed="100" id="lift1" isOn="true"/>
+    <wall_switch x="1136" y="384" isOn="true" useOnce="false" t_id="lift1"/>
+    <platform x="928" y="352" speed="100"/>
+    <electric_gate_h x="640" y="944" width="400" id="none" isOn="true"/>
+    <tv x="672" y="192" isOn="false" id="tv1"/>
+    <trigger x="608" y="192" width="240" height="256" t_id="tv1" fire_once="true"/>
+    <door x="1152" y="688" locked="false" id="door1"/>
+    <wall_switch x="1104" y="656" isOn="false" useOnce="true" t_id="lift2"/>
+    <grav_lift x="400" y="752" height="160" speed="50" id="lift2" isOn="false"/>
+    <grav_lift x="224" y="432" height="160" speed="50" id="lift2" isOn="false"/>
+    <E1 x="176" y="544"/>
+    <door x="352" y="832" locked="true" id="door2"/>
+    <platform x="672" y="832" speed="100">
+      <node x="672" y="832"/>
+      <node x="912" y="832"/>
+    </platform>
+    <tv x="560" y="176" isOn="false" id="tv1"/>
+    <tv x="448" y="144" isOn="false" id="tv1"/>
+    <tv x="336" y="176" isOn="false" id="tv1"/>
+    <tv x="224" y="160" isOn="false" id="tv1"/>
+    <tv x="112" y="192" isOn="false" id="tv1"/>
   </objects>
 </level>

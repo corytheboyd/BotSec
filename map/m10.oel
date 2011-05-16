@@ -43,13 +43,6 @@
     <rect set="tileset" tx="0" ty="80" x="0" y="720" w="32" h="240"/>
   </tiles>
   <objects>
-    <grav_lift x="400" y="848" speed="40"/>
-    <grav_lift x="400" y="816" speed="40"/>
-    <grav_lift x="400" y="784" speed="40"/>
-    <grav_lift x="400" y="752" speed="40"/>
-    <grav_lift x="400" y="720" speed="40"/>
-    <grav_lift x="400" y="688" speed="40"/>
-    <grav_lift x="400" y="656" speed="40"/>
-    <grav_lift x="400" y="624" speed="40"/>
+    <grav_lift x="400" y="0" height="640" speed="50" id="none" isOn="true"/>
   </objects>
 </level>

@@ -39,8 +39,7 @@ package interactives
 			this.isOn = isOn;
 			this.useOnce = useOnce;
 			
-			if ( isOn ) image.play('on');
-			else image.play('off');
+			image.play( isOn ? 'on' : 'off' );
 			
 			image.flipped = flipped;
 			

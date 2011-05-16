@@ -53,7 +53,7 @@ package worlds
 		
 		override public function update():void 
 		{
-			if ( isActive && Input.check('Shoot') && Input.check('Action') )
+			if ( isActive && Input.check(Key.X) && Input.check(Key.Z) )
 			{				
 				var black:Image = new Image(GC.GFX_BLACKSCREEN);
 				black.alpha = 0;

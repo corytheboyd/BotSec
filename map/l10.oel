@@ -31,6 +31,8 @@
     <E1 x="560" y="672"/>
     <E1 x="672" y="672"/>
     <E1 x="1056" y="720"/>
+    <grav_lift x="400" y="0" height="576" speed="50" id="none" isOn="true"/>
+    <grav_lift x="400" y="768" height="192" speed="50" id="none" isOn="true"/>
   </objects>
   <tiles_fg>
     <tile set="tileset" tx="0" ty="128" x="320" y="624"/>

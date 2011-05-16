@@ -93,7 +93,7 @@ package interactives
 					try 
 					{
 						type = GC.SOLID_TYPE;
-					} catch (err:Error) { trace('Weird door shit\n\t' + err); }
+					} catch (err:Error) { /*trace('Weird door shit\n\t' + err);*/ }
 					
 					image.play('close');
 					open = false;

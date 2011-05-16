@@ -3,7 +3,6 @@
  * */
 package ui 
 {
-	import flash.events.TextEvent;
 	import flash.display.MovieClip;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
