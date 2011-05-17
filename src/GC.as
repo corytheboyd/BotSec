@@ -4,6 +4,7 @@
 
 package  
 {
+	import flash.sampler.StackFrame;
 	import interactives.*;
 	import items.*;
 	import net.flashpunk.utils.Input;
@@ -41,6 +42,7 @@ package
 		 * ENEMY CONSTANTS
 		 * */
 		public static const E1_MOVE_SPEED:Number		= 100;
+		public static const E1_HP:Number				= 1;
 		
 		/*
 		 * UI CONSTANTS
@@ -200,6 +202,10 @@ package
 		public static const	GFX_SWITCH:Class;
 		[Embed(source = '../assets/gfx/tv.png')]
 		public static const GFX_TV:Class;
+		[Embed(source = '../assets/gfx/none.png')]
+		public static const GFX_NONE:Class;
+		[Embed(source = '../assets/gfx/grav_lift_platform.png')]
+		public static const GFX_GRAV_LIFT_PLATFORM:Class;
 		
 		/*
 		* MAP FILES

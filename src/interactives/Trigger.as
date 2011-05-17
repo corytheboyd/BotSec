@@ -13,7 +13,7 @@ package interactives
 		public var fireOnce:Boolean;		
 		public var targetIndexes:Array = []; //index of the target object in the Level.levelInteractives array
 		
-		protected var isActive:Boolean = false; //true if player standing in it.
+		public var isActive:Boolean = false; //true if player standing in it.
 		
 		public function Trigger( x:Number, y:Number, h:Number, w:Number, fireOnce:Boolean )
 		{

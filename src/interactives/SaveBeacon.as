@@ -12,13 +12,13 @@ package interactives
 	 */
 	public class SaveBeacon extends Entity 
 	{
-		protected var image:Spritemap = new Spritemap(GC.GFX_SAVE, 32, 64);
-		protected var isActive:Boolean = false;
+		public var image:Spritemap = new Spritemap(GC.GFX_SAVE, 32, 64);
+		public var isActive:Boolean = false;
 		
 		public var initialSpawn:Boolean = false; //true if this is the games first spawn point
 		public var contextMessage:ContextMessage = new ContextMessage('SAVE');
 		
-		public function SaveBeacon( x:Number=0, y:Number=0 ) 
+		public function SaveBeacon( x:Number, y:Number, isActive:Boolean ) 
 		{
 			image.add('off', [0], 0, false);
 			image.add('on', [1], 0, false);
@@ -28,23 +28,31 @@ package interactives
 			
 			this.x = x;
 			this.y = y;
+			this.isActive = isActive;
 		}
 		
 		override public function added():void 
 		{
-			if ( initialSpawn && GV.CURRENT_SAVE_ROOM == '' )
+			trace('BEACON ADDED. ISACTIVE?', isActive, 'CURRENT SAVE ROOM:', GV.CURRENT_SAVE_ROOM, 'IS ROOM CACHED?', GV.CURRENT_LEVEL.cached);
+			
+			if ( initialSpawn && GV.CURRENT_SAVE_ROOM == '' && !GV.CURRENT_LEVEL.cached )
 			{
 				GV.CURRENT_SAVE_ROOM = GV.CURRENT_LEVEL.levelName;
 				image.play('on');
 				isActive = true;
-			}
-			
+			}			
 			else if ( GV.CURRENT_LEVEL.levelName == GV.CURRENT_SAVE_ROOM )
 			{
 				image.play('on');
 				isActive = true;
 			}
-			else image.play('off');
+			else 
+			{
+				trace('NOT THE CURRENT SAVE, DEACTIVIATING THIS ROOMS SAVE BEACON');
+				
+				image.play('off');
+				isActive = false;
+			}
 		}
 		
 		override public function update():void 

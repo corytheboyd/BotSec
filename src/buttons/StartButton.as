@@ -11,7 +11,7 @@ package buttons
 	 */
 	public class StartButton extends Button 
 	{
-		protected var imageNormal:Image = new Image(GC.GFX_START_NORMAL);
+		public var imageNormal:Image = new Image(GC.GFX_START_NORMAL);
 		
 		public function StartButton(x:Number=0, y:Number=0) 
 		{
@@ -22,7 +22,7 @@ package buttons
 			super(x, y, width, height, startGame);
 		}
 		
-		protected function startGame():void
+		public function startGame():void
 		{
 			FP.world = new GameWorld;
 		}

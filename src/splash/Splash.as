@@ -21,10 +21,10 @@ package splash
 		/**
 		 * Embedded graphics.
 		 */
-		[Embed(source = 'splash_lines.png')] private const SPLASH_LINES:Class;
-		[Embed(source = 'splash_cog.png')] private const SPLASH_COG:Class;
-		[Embed(source = 'splash_left.png')] private const SPLASH_LEFT:Class;
-		[Embed(source = 'splash_right.png')] private const SPLASH_RIGHT:Class;
+		[Embed(source = 'splash_lines.png')] public const SPLASH_LINES:Class;
+		[Embed(source = 'splash_cog.png')] public const SPLASH_COG:Class;
+		[Embed(source = 'splash_left.png')] public const SPLASH_LEFT:Class;
+		[Embed(source = 'splash_right.png')] public const SPLASH_RIGHT:Class;
 		
 		/**
 		 * Image objects.
@@ -164,7 +164,7 @@ package splash
 		/**
 		 * When the fade tween completes.
 		 */
-		private function faderEnd():void
+		public function faderEnd():void
 		{
 			if (fader.value == 0) tween.tween(_spins, 0, _spinTime, Ease.backOut);
 			else splashEnd();
@@ -173,7 +173,7 @@ package splash
 		/**
 		 * When the tween completes.
 		 */
-		private function tweenEnd():void
+		public function tweenEnd():void
 		{
 			if (_spinPause >= 0) _spinWait = _spinPause;
 			else fadeOut();
@@ -182,7 +182,7 @@ package splash
 		/**
 		 * When the splash screen has completed.
 		 */
-		private function splashEnd():void
+		public function splashEnd():void
 		{
 			if (_onComplete == null) return;
 			else if (_onComplete is Function) _onComplete();
@@ -193,7 +193,7 @@ package splash
 		/**
 		 * Fades the splash screen in.
 		 */
-		private function fadeIn():void
+		public function fadeIn():void
 		{
 			fader.tween(1, 0, _fadeTime, Ease.cubeOut);
 		}
@@ -201,7 +201,7 @@ package splash
 		/**
 		 * Fades the splash screen out.
 		 */
-		private function fadeOut():void
+		public function fadeOut():void
 		{
 			fader.tween(0, 1, _fadeTime, Ease.cubeIn);
 		}
@@ -209,11 +209,11 @@ package splash
 		/**
 		 * Fade in/out time and logo spinning time.
 		 */
-		private var _fadeTime:Number;
-		private var _spinTime:Number;
-		private var _spins:Number;
-		private var _spinPause:Number;
-		private var _spinWait:Number = 0;
-		private var _onComplete:*;
+		public var _fadeTime:Number;
+		public var _spinTime:Number;
+		public var _spins:Number;
+		public var _spinPause:Number;
+		public var _spinWait:Number = 0;
+		public var _onComplete:*;
 	}
 }

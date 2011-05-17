@@ -15,11 +15,11 @@ package ui
 	 */
 	public class Message extends Entity 
 	{
-		protected var image:Image = new Image(GC.GFX_MESSAGE); //the background image of the message
-		protected var msg:Text = new Text('none', 0, 0, 500, 36); //the text of the message
+		public var image:Image = new Image(GC.GFX_MESSAGE); //the background image of the message
+		public var msg:Text = new Text('none', 0, 0, 500, 36); //the text of the message
 		
-		protected var timeElapsed:Number = 0; //keeps track of how long it has existed
-		protected var duration:Number = 0;
+		public var timeElapsed:Number = 0; //keeps track of how long it has existed
+		public var duration:Number = 0;
 		
 		public function Message( msgText:String, duration:Number ) 
 		{

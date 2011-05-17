@@ -22,7 +22,7 @@ package enemies
 		public var	maxVSpeed:Number;
 		public var	moveSpeed:Number;
 		
-		public var dieSound:Sfx = new Sfx(GC.SFX_EXPLOSION2, kill);
+		public var dieSound:Sfx = new Sfx(GC.SFX_EXPLOSION2);
 		
 		public function Enemy( x:Number=0, y:Number=0 ) 
 		{
@@ -44,10 +44,9 @@ package enemies
 			
 			if (hp <= 0 && type != '')
 			{
-				//call kill at end of wait, allows sound and death animation to play
 				type = ''; //make it not kill they player on touch
 				moving = false; //stop movement
-				dieSound.play(); //play sound, calls kill when done
+				kill();
 			}
 			else if (hp > 0) //react to getting hit
 			{
@@ -61,6 +60,9 @@ package enemies
 		 * */
 		public function kill():void
 		{
+			dieSound.play();
+			
+			//remove from world
 			world.remove(this);
 		}
 		
@@ -70,7 +72,7 @@ package enemies
 		 * */
 		public function hitReact():void
 		{
-			trace('ouch');
+			
 		}
 		
 	}

@@ -14,10 +14,10 @@ package splash
 	public class NGSplash extends Entity
 	{
 		public var image:Image = new Image(GC.GFX_MAIN_MENU_NG_TANK);
-		protected var fadeIn:VarTween;
-		protected var fadeOut:VarTween;
-		protected var waitTimer:Timer; //how long to wait before fading out
-		protected var onComplete:Function; //called when the splash screen finishes
+		public var fadeIn:VarTween;
+		public var fadeOut:VarTween;
+		public var waitTimer:Timer; //how long to wait before fading out
+		public var onComplete:Function; //called when the splash screen finishes
 		
 		public function NGSplash( onComplete:Function=null, waitDuration:Number=1 ) 
 		{
@@ -45,7 +45,7 @@ package splash
 		/*
 		 * Called when fade in completes
 		 * */
-		protected function fadeInFn():void
+		public function fadeInFn():void
 		{
 			waitTimer.start(); //start the wait timer, after which fadout is called
 		}		
@@ -53,7 +53,7 @@ package splash
 		/*
 		 * Called when the wait timer finishes
 		 * */
-		protected function fadeOutFn(e:TimerEvent):void
+		public function fadeOutFn(e:TimerEvent):void
 		{
 			waitTimer.stop();
 			
@@ -64,7 +64,7 @@ package splash
 		/*
 		 * Called when the splash is over
 		 * */
-		protected function splashEnd():void
+		public function splashEnd():void
 		{			
 			if (onComplete != null) onComplete(); //call the callback function if provided
 		}

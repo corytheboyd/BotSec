@@ -29,11 +29,11 @@ package worlds
 	 */
 	public class GameWorld extends World 
 	{
-		protected var levelsVisited:Array = new Array;
-		protected var paused:Boolean = false;
-		protected var pauseMenu:PauseMenu;
-		protected var respawnTimer:Alarm = new Alarm(1, respawnPlayer);
-		protected var timeVar:Number = 0;
+		public var levelsVisited:Array = new Array;
+		public var paused:Boolean = false;
+		public var pauseMenu:PauseMenu;
+		public var respawnTimer:Alarm = new Alarm(1, respawnPlayer);
+		public var timeVar:Number = 0;
 		
 		public var PLAYER:Player;
 		
@@ -55,7 +55,7 @@ package worlds
 			}
 		}
 		
-		protected function respawnPlayer():void
+		public function respawnPlayer():void
 		{		
 			if (GV.CURRENT_LEVEL.levelName != GV.CURRENT_SAVE_ROOM) switchLevel(GV.CURRENT_SAVE_ROOM);
 			
@@ -63,7 +63,6 @@ package worlds
 			PLAYER.layer = 1;
 			GV.CURRENT_LEVEL.levelRespawners[0].activate();
 			add(PLAYER);
-			
 		}
 		
 		override public function update():void 
@@ -161,7 +160,7 @@ package worlds
 			}		
 		}
 		
-		protected function switchLevel(targetTile:String):void
+		public function switchLevel(targetTile:String):void
 		{			
 			FP.console.log('Setting up tile: ' + targetTile + '...');
 			
@@ -197,12 +196,13 @@ package worlds
 			{				
 				var newLevel:Level = GV.CURRENT_LEVEL = GV.VISITED_LEVELS[targetTile];
 				GV.CURRENT_LEVEL = GV.VISITED_LEVELS[targetTile];
+				GV.CURRENT_LEVEL.cached = true;
 				add(GV.CURRENT_LEVEL);
 			}
 			else //instantiate new copy of level and add it to memory
 			{ 				
 				newLevel = new Level(targetTile);
-				GV.VISITED_LEVELS[newLevel.levelName] = GV.CURRENT_LEVEL = newLevel;					
+				GV.VISITED_LEVELS[newLevel.levelName] = GV.CURRENT_LEVEL = newLevel;
 				add(newLevel);
 			}
 			
@@ -223,7 +223,7 @@ package worlds
 			//add tvs to world
 			for each ( var tv:TV in GV.CURRENT_LEVEL.levelTVs )
 			{
-				tv.layer = 3;
+				tv.layer = 5;
 				add(tv);
 			}
 			

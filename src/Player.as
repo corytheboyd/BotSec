@@ -12,6 +12,7 @@ package
 	import net.flashpunk.utils.Key;
 	import flash.geom.Vector3D;
 	import platforms.Platform;
+	import flash.utils.getTimer;
 	
 	/**
 	 * ...
@@ -28,15 +29,15 @@ package
 		public var hitbox:Hitbox			= new Hitbox(38, 60, 13, 20); //used for masking
 		public var feetHitbox:Hitbox		= new Hitbox(38, 5, 13, 75); //used for platform hit detection
 		
-		protected var maxHSpeed:Number		= GC.MAX_H_SPEED; //the maximum horizontal speed
-		protected var maxVSpeed:Number		= GC.MAX_V_SPEED; //the maximum horizontal speed
-		protected var moveSpeed:Number		= GC.MOVE_SPEED; //the current value
+		public var maxHSpeed:Number		= GC.MAX_H_SPEED; //the maximum horizontal speed
+		public var maxVSpeed:Number		= GC.MAX_V_SPEED; //the maximum horizontal speed
+		public var moveSpeed:Number		= GC.MOVE_SPEED; //the current value
 		
-		protected var upFlag:Boolean 		= false; //true if up is pressed and held
-		protected var downFlag:Boolean		= false; //true if down is pressed and held
+		public var upFlag:Boolean 		= false; //true if up is pressed and held
+		public var downFlag:Boolean		= false; //true if down is pressed and held
 		
-		protected var jumpSound:Sfx 		= new Sfx(GC.SFX_PLAYER_JUMP);
-		protected var explodeSound:Sfx 		= new Sfx(GC.SFX_EXPLOSION1);
+		public var jumpSound:Sfx 		= new Sfx(GC.SFX_PLAYER_JUMP);
+		public var explodeSound:Sfx 		= new Sfx(GC.SFX_EXPLOSION1);
 		
 		public function Player( x:Number=0, y:Number=0, v:Vector3D=null )
 		{
@@ -72,7 +73,7 @@ package
 		}
 		
 		//player hit by enemy
-		protected function hit(e:Entity):void
+		public function hit(e:Entity):void
 		{
 			velocity.y = -100;
 			if ( x > e.x ) //on right
@@ -113,7 +114,7 @@ package
 			isFlippedPrev = isFlipped;
 		}
 		
-		protected function gravLiftCollision():void
+		public function gravLiftCollision():void
 		{
 			var gl:GravityLift;
 			if ( gl = collide(GC.GRAVLIFT_TYPE, x, y) as GravityLift )
@@ -125,7 +126,7 @@ package
 			}
 		}
 		
-		protected function hazardCollision():void
+		public function hazardCollision():void
 		{
 			if ( collide(GC.HAZARD_TYPE, x, y) )
 			{
@@ -133,7 +134,7 @@ package
 			}
 		}
 		
-		protected function shoot():void
+		public function shoot():void
 		{
 			if (!GV.EQUIPPED_WEAPON) return;
 			
@@ -150,7 +151,7 @@ package
 		 * Handle the player landing on floors,
 		 * as well as platforms (including moving platforms)
 		 * */
-		protected function floorCollision():void
+		public function floorCollision():void
 		{			
 			var e:Entity;
 			
@@ -173,7 +174,6 @@ package
 					canDblJump = false;
 					hasDblJumped = false;
 				}
-				
 				return;
 			}
 			
@@ -183,7 +183,7 @@ package
 			isOnGround = false;
 		}
 		
-		protected function enemyCollision():void
+		public function enemyCollision():void
 		{
 			var e:Enemy;
 			if ( e = collide(GC.ENEMY_TYPE, x, y) as Enemy ) 
@@ -195,7 +195,7 @@ package
 			}
 		}
 		
-		protected function gravity():void
+		public function gravity():void
 		{
 			if (isOnGround) return;
 			velocity.y += Math.round(GC.GRAVITY * FP.elapsed);
@@ -206,7 +206,7 @@ package
 			if ( velocity.y > maxVSpeed ) velocity.y = maxVSpeed;
 		}
 		
-		protected function acceleration():void
+		public function acceleration():void
 		{			
 			if ( Input.check("Right") ) 
 			{
@@ -270,7 +270,7 @@ package
 			if ( Math.abs(velocity.x) > maxHSpeed ) velocity.x = sign * maxHSpeed;
 		}
 		
-		protected function jump():void
+		public function jump():void
 		{			
 			if( isOnGround && Input.pressed("Jump") )
 			{
@@ -295,41 +295,68 @@ package
 			}
 		}
 		
-		protected function animate():void
+		public function animate():void
 		{			
 			//walk animation control
 			if ( isOnGround && velocity.x == 0 )
 			{
 				image.play('idle');
 			}
-			else
+			
+			//falling animation
+			if ( velocity.y > 0 && !isOnGround )
 			{
 				image.play('falling');
+			}
+			
+			if (isOnGround && image.currentAnim == 'falling')
+			{
+				image.play('idle');
 			}
 			
 			// control facing direction
 			if ( Input.check('Left') ) 
 			{
-				if ( !isFlipped && isOnGround ) image.play('turn');
+				if ( !isFlipped && isOnGround ) 
+				{
+					image.play('turn');
+				}
+				
 				image.flipped = true;
 				isFlipped = true;
 				
 				if ( isOnGround )
 				{
-					if (image.currentAnim == 'idle') image.play('run_start');
-					if (image.complete)	image.play('run_loop');
+					if (image.currentAnim == 'idle') 
+					{
+						image.play('run_start');
+					}
+					if (image.complete)	
+					{
+						image.play('run_loop');
+					}
 				}
 			}
 			else if ( Input.check('Right') )
 			{
-				if ( isFlipped && isOnGround ) image.play('turn');
+				if ( isFlipped && isOnGround ) 
+				{
+					image.play('turn');
+				}
+				
 				image.flipped = false;
 				isFlipped = false;
 				
 				if ( isOnGround )
 				{
-					if (image.currentAnim == 'idle') image.play('run_start');
-					if (image.complete)	image.play('run_loop');
+					if (image.currentAnim == 'idle') 
+					{
+						image.play('run_start');
+					}
+					if (image.complete)	
+					{
+						image.play('run_loop');
+					}
 				}
 			}
 			
@@ -348,17 +375,17 @@ package
 			}
 		}
 		
-		protected function sound():void
+		public function sound():void
 		{
 			
 		}
 		
-		override protected function collideX(e:Entity):void 
+		override public function collideX(e:Entity):void 
 		{
 			velocity.x = 0;
 		}
 		
-		override protected function collideY(e:Entity):void 
+		override public function collideY(e:Entity):void 
 		{
 			velocity.y = 0;
 		}

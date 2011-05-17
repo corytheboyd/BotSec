@@ -11,7 +11,7 @@ package bullets
 	 */
 	public class PistolBullet extends Bullet 
 	{	
-		protected var shootSound:Sfx = new Sfx(GC.SFX_PISTOL_SHOOT);
+		public var shootSound:Sfx = new Sfx(GC.SFX_PISTOL_SHOOT);
 		
 		public function PistolBullet(flipped:Boolean, upFlag:Boolean=false, downFlag:Boolean=false, playerVelocity:Vector3D=null) 
 		{

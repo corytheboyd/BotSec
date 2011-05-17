@@ -24,19 +24,19 @@ package buttons
 		 * This function will be called when the mouse overs the button. 
 		 */		
 		public var overCall:Function = null;
-		private var overCalled:Boolean = false;
+		public var overCalled:Boolean = false;
 			
-		private var initialized:Boolean = false;
+		public var initialized:Boolean = false;
 				
-		private var _normal:Graphic = new Graphic;
-		private var _hover:Graphic = new Graphic;
-		private var _down:Graphic = new Graphic;
-		private var _inactive:Graphic = new Graphic;
+		public var _normal:Graphic = new Graphic;
+		public var _hover:Graphic = new Graphic;
+		public var _down:Graphic = new Graphic;
+		public var _inactive:Graphic = new Graphic;
 		
-		private var _normalChanged:Boolean = false;
-		private var _hoverChanged:Boolean = false;
-		private var _downChanged:Boolean = false;
-		private var _inactiveChanged:Boolean = false;
+		public var _normalChanged:Boolean = false;
+		public var _hoverChanged:Boolean = false;
+		public var _downChanged:Boolean = false;
+		public var _inactiveChanged:Boolean = false;
 		
 		/**
 		 * This var manages if the button is inactive or not. 
@@ -64,7 +64,7 @@ package buttons
 		}
 		
 		/**
-		 * @private 
+		 * @public 
 		 */		
 		override public function update():void
 		{
@@ -117,14 +117,14 @@ package buttons
 			}
 		}
 		
-		private function onMouseUp(e:MouseEvent=null):void
+		public function onMouseUp(e:MouseEvent=null):void
 		{
 			if(!shouldCall || !Input.mouseReleased || (callback == null)) return;
 			if(collidePoint(x, y, Input.mouseX, Input.mouseY)) callback();
 		}
 		
 		/** 
-		 * @private
+		 * @public
 		 */		
 		override public function removed():void
 		{

@@ -43,5 +43,6 @@
     <respawn x="736" y="224"/>
     <saveBeacon x="688" y="288" initial="false"/>
     <player x="752" y="224"/>
+    <item x="128" y="208" Class="Pistol" id="pistol1"/>
   </objects>
 </level>

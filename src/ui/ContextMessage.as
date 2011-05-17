@@ -12,9 +12,9 @@ package ui
 	 */
 	public class ContextMessage extends Entity 
 	{
-		protected var image:Image = new Image(GC.GFX_MINI_MESSAGE);
-		protected var msg:Text = new Text('ACTION', 0, 0, 176, 24); //the text of the message
-		protected var msgGraphic:Entity = new Entity;
+		public var image:Image = new Image(GC.GFX_MINI_MESSAGE);
+		public var msg:Text = new Text('ACTION', 0, 0, 176, 24); //the text of the message
+		public var msgGraphic:Entity = new Entity;
 		
 		public var isActive:Boolean = false; //true if the message is displayed
 		
@@ -45,7 +45,7 @@ package ui
 			msgGraphic = world.addGraphic(msg);
 		}
 		
-		protected function show():void 
+		public function show():void 
 		{			
 			//puts the message + text at bottom of screen, relative to camera
 			x = FP.camera.x + FP.screen.width / 2 - width / 2;

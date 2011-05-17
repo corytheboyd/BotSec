@@ -3,13 +3,16 @@ package interactives
 	import flash.display.Sprite;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Spritemap;
+	import net.flashpunk.tweens.misc.Alarm;
 	/**
 	 * ...
 	 * @author Cory Boyd
 	 */
 	public class TV extends Interactive 
 	{
-		public var image:Spritemap = new Spritemap(GC.GFX_TV, 112, 143);	
+		public var image:Spritemap = new Spritemap(GC.GFX_TV, 112, 143);
+		
+		public var flickerAlarm:Alarm = new Alarm(0.5);
 		
 		public function TV( x:Number, y:Number, id:String, isOn:Boolean ) 
 		{
@@ -25,6 +28,29 @@ package interactives
 			this.y = y;
 			this.id = id;
 			this.isOn = isOn;
+			
+			addTween(flickerAlarm);
+		}
+		
+		override public function added():void 
+		{
+			//trace('TV ADDED');
+		}
+		
+		override public function update():void 
+		{
+			if ( flickerAlarm.active )
+			{
+				image.play( FP.rand(2) == 0 ? 'on' : 'off' );
+			}
+			else if (isOn)
+			{
+				FP.rand(2) == 0 ? image.setAnimFrame('on', 0) : image.setAnimFrame('on', 1);
+			}
+			else
+			{
+				image.play('off');
+			}
 		}
 		
 		/*
@@ -32,8 +58,8 @@ package interactives
 		 */
 		override public function sendSignalOn():void 
 		{
-			image.play('on');			
 			isOn = true;
+			flickerAlarm.start();
 		}
 		
 		/*
@@ -41,7 +67,7 @@ package interactives
 		 */
 		override public function sendSignalOff():void 
 		{
-			image.play('off');			
+			image.play('off');		
 			isOn = false;
 		}
 		

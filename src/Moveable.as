@@ -11,6 +11,12 @@ package
 		public var velocity:Vector3D = new Vector3D
 		public var isOnGround:Boolean = false; 
 		
+		/**
+		 * Helper vars used by move().
+		 */
+		public var __moveX:Number = 0;
+		public var __moveY:Number = 0;
+		
 		public function Moveable() 
 		{
 			//nuttin
@@ -22,12 +28,12 @@ package
 		public function move(moveX:Number = 0, moveY:Number = 0):void
 		{
 			// movement counters
-			_moveX += moveX;
-			_moveY += moveY;
-			moveX = Math.round(_moveX);
-			moveY = Math.round(_moveY);
-			_moveX -= moveX;
-			_moveY -= moveY;
+			__moveX += moveX;
+			__moveY += moveY;
+			moveX = Math.round(__moveX);
+			moveY = Math.round(__moveY);
+			__moveX -= moveX;
+			__moveY -= moveY;
 			
 			// movement vars
 			var sign:int, e:Entity;
@@ -69,7 +75,7 @@ package
 		/**
 		 * Horizontal collision (override for specific behaviour).
 		 */
-		protected function collideX(e:Entity):void
+		public function collideX(e:Entity):void
 		{
 			
 		}
@@ -77,16 +83,10 @@ package
 		/**
 		 * Vertical collision (override for specific behaviour).
 		 */
-		protected function collideY(e:Entity):void
+		public function collideY(e:Entity):void
 		{
 			
 		}
-		
-		/**
-		 * Helper vars used by move().
-		 */
-		private var _moveX:Number = 0;
-		private var _moveY:Number = 0;
 		
 	}
 

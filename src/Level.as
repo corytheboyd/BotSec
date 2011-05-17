@@ -5,6 +5,7 @@ package
 	import interactives.*;
 	import items.*;
 	import platforms.*;
+	import net.flashpunk.graphics.Image;
 	import flash.geom.Point;
 	import flash.net.Responder;
 	import flash.utils.getDefinitionByName;
@@ -21,17 +22,19 @@ package
 	 * @author Cory Boyd
 	 */
 	public class Level extends Entity 
-	{		
-		protected var grid:Grid;
-		protected var tiles:Tilemap;
-		protected var decalTiles:Tilemap; //on top of all other tiles
+	{	
+		public var targetTile:String;
+		public var grid:Grid;
+		public var tiles:Tilemap;
+		public var decalTiles:Tilemap; //on top of all other tiles
+		public var cached:Boolean = false; //true if the level object has been cached
 		
 		//reference to the loaded XML data of the level
 		public var data:XML;
 		
 		//objects on level
-		public var levelBeacon:SaveBeacon = null;
-		public var levelRespawner:Respawner = null;
+		public var levelBeacons:Array = [];
+		public var levelRespawners:Array = [];
 		public var levelItems:Array = [];
 		public var levelDoors:Array = [];
 		public var levelEnemies:Array = [];
@@ -41,7 +44,9 @@ package
 		public var levelSwitches:Array = [];
 		public var levelTVs:Array = [];
 		public var levelTriggers:Array = [];
+		
 		public var levelInteractives:Array = []; //store all Interactive objects
+		public var levelArtAssets:Array = []; //stores all dynamically sized art assets.
 		
 		//set to true if the player has visited the tile
 		public var visited:Boolean;
@@ -70,7 +75,7 @@ package
 			type = GC.SOLID_TYPE;
 			
 			graphic = decalTiles = tiles = new Tilemap(GC.GFX_TILESET, levelWidth, levelHeight, 16, 16);
-			mask = grid = new Grid(levelWidth, levelHeight, 16, 16, 0, 0);
+			mask = grid = new Grid(levelWidth, levelHeight, 16, 16);
 			
 			for each ( var e:XML in data.objects.grav_lift )
 			{
@@ -138,21 +143,17 @@ package
 				FP.console.log('Adding Respawner');
 				var respawner:Respawner = new Respawner( int(e.@x), int(e.@y) );
 				
-				levelRespawner = respawner;
+				levelRespawners.push(respawner);
 			}
 			
 			for each( e in data.objects.saveBeacon )
 			{
-				try
-				{
-					FP.console.log('Adding Save Beacon');
-					var saveBeacon:SaveBeacon = new SaveBeacon( int(e.@x), int(e.@y) );
-					
-					saveBeacon.initialSpawn = (e.@isActive == 'true') ? true : false;
-					
-					levelBeacon = saveBeacon;
-				}
-				catch (e:Error) { FP.console.log('Unable to add Save Beacon\n' + e); }
+				FP.console.log('Adding Save Beacon');
+				
+				var isActive:Boolean = (e.@initial == 'true') ? true : false;					
+				var saveBeacon:SaveBeacon = new SaveBeacon( int(e.@x), int(e.@y), isActive );
+				
+				levelBeacons.push(saveBeacon);
 			}
 			
 			for each( e in data.objects.E1 )
@@ -248,7 +249,7 @@ package
 				catch (err:Error) { FP.console.log('...Unable to add Flipped Switch\n\t' + err); }
 			}
 			
-			for each ( e in data.objects.trigger )
+			for each ( e in data.triggers.trigger )
 			{
 				var fireOnce:Boolean = (e.@fire_once == 'true') ? true : false;
 				var t:Trigger = new Trigger( int(e.@x), int(e.@y), int(e.@height), int(e.@width), fireOnce );
@@ -261,6 +262,21 @@ package
 					}
 				}
 				levelTriggers.push(t);
+			}
+			
+			for each ( e in data.art_assets.static_art_asset )
+			{
+				var image:Image = new Image(GC.GFX_NONE);
+				try
+				{
+					var imageFile:Class = getDefinitionByName( 'GC_' + e.@fname ) as Class;
+					image = new Image(imageFile);
+				}
+				catch (err:Error)
+				{
+					trace('Unable to load art asset\n\t' + err);
+				}
+				levelArtAssets.push( new Entity( int(e.@x), int(e.@y) - image.height + 16, image ) );
 			}
 			
 			/*
@@ -356,14 +372,21 @@ package
 			}
 		}
 		
+		override public function added():void 
+		{			
+			loadLevel(targetTile); //loads the level from file, sets this.data
+			
+			type = GC.SOLID_TYPE;
+		}
+		
 		/*
 		 * Loads level from an oel (xml) file
 		 * */
-		protected function loadLevel(targetTile:String):void
+		public function loadLevel(targetTile:String):void
 		{
 			try 
 			{
-				//tries to load the tile from GC. returns null if not present
+				//tries to load the tile from GC
 				var tileRef:Class = getDefinitionByName( 'GC_' + targetTile.toLowerCase() ) as Class;
 				data = FP.getXML(tileRef); //reads the level data into XML object
 				
@@ -379,7 +402,6 @@ package
 			catch (e:Error)
 			{
 				FP.console.log('Error loading level ' + targetTile);
-				return;
 			}
 		}
 		

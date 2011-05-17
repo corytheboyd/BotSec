@@ -26,14 +26,14 @@ package worlds
 	 */
 	public class MainMenu extends World 
 	{
-		protected var isActive:Boolean = false; //true if the game can be started by input
-		protected var bg:Image = new Image(GC.GFX_MAIN_MENU_BG);
-		protected var startPrompt:Image = new Image(GC.GFX_MAIN_MENU_START_PROMPT);
-		protected var title:Image = new Image(GC.GFX_MAIN_MENU_TITLE);
-		protected var titleTimer:Timer = new Timer(500, 0); //how long to wait after the bg fades in to show title
-		protected var startPromptTimer:Timer = new Timer(1250, 0); //how long to wait after the bg fades in to show start prompt
+		public var isActive:Boolean = false; //true if the game can be started by input
+		public var bg:Image = new Image(GC.GFX_MAIN_MENU_BG);
+		public var startPrompt:Image = new Image(GC.GFX_MAIN_MENU_START_PROMPT);
+		public var title:Image = new Image(GC.GFX_MAIN_MENU_TITLE);
+		public var titleTimer:Timer = new Timer(500, 0); //how long to wait after the bg fades in to show title
+		public var startPromptTimer:Timer = new Timer(1250, 0); //how long to wait after the bg fades in to show start prompt
 		
-		protected var musicTrack:Sfx = new Sfx(GC.SFX_TITLE_TRACK);
+		public var musicTrack:Sfx = new Sfx(GC.SFX_TITLE_TRACK);
 		
 		public function MainMenu()
 		{
@@ -74,19 +74,19 @@ package worlds
 			super.update();
 		}
 		
-		protected function gotoGameWorld():void
+		public function gotoGameWorld():void
 		{
 			removeAll();
 			FP.world = new GameWorld;
 		}
 		
-		protected function NG():void
+		public function NG():void
 		{
 			var a:NGSplash = new NGSplash(initMenu);
 			add(a);
 		}
 		
-		protected function initMenu():void
+		public function initMenu():void
 		{				
 			//to make everything fade in. super cool
 			bg.alpha = 0;
@@ -102,7 +102,7 @@ package worlds
 			addTween(bgFadeIn, true);
 		}
 		
-		protected function titleFadeIn():void
+		public function titleFadeIn():void
 		{			
 			titleTimer.addEventListener(TimerEvent.TIMER, showTitle);
 			titleTimer.start();
@@ -111,7 +111,7 @@ package worlds
 			startPromptTimer.start();
 		}
 		
-		protected function showTitle(e:TimerEvent):void
+		public function showTitle(e:TimerEvent):void
 		{
 			titleTimer.stop();
 			titleTimer.removeEventListener(TimerEvent.TIMER, showTitle);
@@ -121,7 +121,7 @@ package worlds
 			addTween(a, true);
 		}
 		
-		protected function showStartPrompt(e:TimerEvent):void
+		public function showStartPrompt(e:TimerEvent):void
 		{
 			startPromptTimer.stop();
 			startPromptTimer.removeEventListener(TimerEvent.TIMER, showStartPrompt);
@@ -134,7 +134,7 @@ package worlds
 		/*
 		 * Called when the game is ready for user to start it
 		 * */
-		protected function initUpdate():void
+		public function initUpdate():void
 		{
 			isActive = true;
 		}

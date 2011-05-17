@@ -19,14 +19,14 @@ package
 	 */
 	public class Preloader extends MovieClip 
 	{
-		//[Embed(source = 'data/loading.png')] static private var imgLoading:Class;
+		//[Embed(source = 'data/loading.png')] static public var imgLoading:Class;
 		
-		private var loading:Bitmap = new GC.GFX_BLACKSCREEN;
+		public var loading:Bitmap = new GC.GFX_BLACKSCREEN;
 		
-		private var square:Sprite = new Sprite();
-		private var border:Sprite = new Sprite();
-		private var wd:Number = (loaderInfo.bytesLoaded / loaderInfo.bytesTotal) * 240;
-		private var text:TextField = new TextField();
+		public var square:Sprite = new Sprite();
+		public var border:Sprite = new Sprite();
+		public var wd:Number = (loaderInfo.bytesLoaded / loaderInfo.bytesTotal) * 240;
+		public var text:TextField = new TextField();
 		
 		public function Preloader() 
 		{
@@ -51,7 +51,7 @@ package
 			
 		}
 		
-		private function progress(e:ProgressEvent):void 
+		public function progress(e:ProgressEvent):void 
 		{
 			// update loader
 			square.graphics.beginFill(0xF2F2F2);
@@ -66,7 +66,7 @@ package
 			
 		}
 		
-		private function checkFrame(e:Event):void 
+		public function checkFrame(e:Event):void 
 		{
 			if (currentFrame == totalFrames) 
 			{
@@ -75,7 +75,7 @@ package
 			}
 		}
 		
-		private function startup():void 
+		public function startup():void 
 		{
 			var a:Class = Main; //puts Main in the namespace
 			

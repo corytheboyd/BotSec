@@ -1,6 +1,5 @@
 package items
 {
-	import net.bloom.BloomWrapper;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
@@ -17,8 +16,8 @@ package items
 		public var respawns:Boolean = false; //true if the item respawns each time the tiles is loaded
 		public var spawn:Boolean = true; //true if the item can spawn.
 		public var animated:Boolean = true; //true if the item is animated on the world
-		protected var startY:int; //the starting position
-		protected var animOffset:Number = Math.random() * 3; //offsets the animation so that all animated things are a little different
+		public var startY:int; //the starting position
+		public var animOffset:Number = Math.random() * 3; //offsets the animation so that all animated things are a little different
 		
 		public function Item( x:int=0, y:int=0 )
 		{
@@ -53,7 +52,7 @@ package items
 			}
 		}
 		
-		protected function animate():void
+		public function animate():void
 		{			
 			y = GC.ITEM_MOVE_HEIGHT * Math.cos( getTimer() / GC.ITEM_MOVE_RATE + Math.PI + animOffset ) - GC.ITEM_MOVE_HEIGHT + startY;
 		}

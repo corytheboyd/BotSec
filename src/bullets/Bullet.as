@@ -14,10 +14,10 @@ package bullets
 	 */
 	public class Bullet extends Moveable 
 	{
-		protected var ricochet1:Sfx = new Sfx(GC.SFX_BULLET_RICOCHET1);
-		protected var ricochet2:Sfx = new Sfx(GC.SFX_BULLET_RICOCHET2);
-		protected var ricochet3:Sfx = new Sfx(GC.SFX_BULLET_RICOCHET3);
-		protected var ricochets:Array = [ricochet1, ricochet2, ricochet3];
+		public var ricochet1:Sfx = new Sfx(GC.SFX_BULLET_RICOCHET1);
+		public var ricochet2:Sfx = new Sfx(GC.SFX_BULLET_RICOCHET2);
+		public var ricochet3:Sfx = new Sfx(GC.SFX_BULLET_RICOCHET3);
+		public var ricochets:Array = [ricochet1, ricochet2, ricochet3];
 		
 		public var spread:Number = 0; //range in which bullet paths slightly fluctuate
 		public var hasGravity:Boolean = false; //true if the bullet is affected by gravity

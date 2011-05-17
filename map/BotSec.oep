@@ -63,8 +63,11 @@
 		</object>
 		
 		<folder name='art_assets'>
-			<folder name=''>
-			</folder>
+			<object name='static_art_asset' image='art_asset.png' width='16' height='16' >
+				<values>
+					<string name='fname' default='GFX_NONE' />
+				</values>
+			</object>
 		</folder>
 		
 		<folder name='switches'>
@@ -142,6 +145,8 @@
 		<tiles name='tiles_bg_2' gridSize='16' drawGridSize='16' multipleTilesets='true' />
 		<tiles name='tiles_bg_3' gridSize='16' drawGridSize='16' multipleTilesets='true' />
 		<tiles name='tiles' gridSize='16' drawGridSize='16' multipleTilesets='true' />
+		<objects name='art_assets' gridSize='16' drawGridSize='16' />
+		<objects name='triggers' gridSize='16' drawGridSize='16' />
 		<objects name='objects' gridSize='16' drawGridSize='16' />
 		<tiles name='decals' gridSize='16' drawGridSize='16' multipleTilesets='true' />
 		<tiles name='tiles_fg' gridSize='16' drawGridSize='16' multipleTilesets='true' />

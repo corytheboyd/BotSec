@@ -16,7 +16,7 @@ package ui
 	public class PauseMenu extends Entity
 	{	
 		//The tiles to populate minimap with. [0] is dark, [1] is vistied
-		protected var minimap:Tilemap = new Tilemap(GC.GFX_MINIMAP_TILESET, 28, 14, 14, 14);
+		public var minimap:Tilemap = new Tilemap(GC.GFX_MINIMAP_TILESET, 28, 14, 14, 14);
 		
 		public function PauseMenu() 
 		{
@@ -39,7 +39,7 @@ package ui
 			//super.removed();
 		}
 		
-		protected function buildMinimap():void
+		public function buildMinimap():void
 		{
 			
 		}
