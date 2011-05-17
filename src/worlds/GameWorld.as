@@ -2,6 +2,7 @@ package worlds
 {
 	import enemies.*;
 	import items.*;
+	import net.flashpunk.tweens.misc.Alarm;
 	import platforms.*;
 	import ui.*;
 	import interactives.*;
@@ -31,7 +32,7 @@ package worlds
 		protected var levelsVisited:Array = new Array;
 		protected var paused:Boolean = false;
 		protected var pauseMenu:PauseMenu;
-		protected var respawnTimer:Timer = new Timer(1000, 0);
+		protected var respawnTimer:Alarm = new Alarm(1, respawnPlayer);
 		protected var timeVar:Number = 0;
 		
 		public var PLAYER:Player;
@@ -39,31 +40,30 @@ package worlds
 		public function GameWorld() 
 		{
 			//nuthin
+			addTween(respawnTimer);
 		}
 		
 		override public function begin():void 
-		{
+		{			
 			//changes to starting tile
-			switchLevel(GC.START_TILE); 
+			switchLevel(GC.START_TILE); //sets gv.current_level		
 			
 			//creates the player based on initial position in room
-			PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y), new Vector3D(0, GC.RESPAWN_LAUNCH_SPEED) );			
-			PLAYER.layer = 1;			
-			GV.CURRENT_LEVEL.levelRespawner.activate();
-			add(PLAYER);
-			
-			respawnTimer.addEventListener(TimerEvent.TIMER, respawnPlayer);
+			if (GV.CURRENT_LEVEL)
+			{
+				respawnPlayer();
+			}
 		}
 		
-		protected function respawnPlayer(e:TimerEvent):void
-		{
-			respawnTimer.reset();
+		protected function respawnPlayer():void
+		{		
+			if (GV.CURRENT_LEVEL.levelName != GV.CURRENT_SAVE_ROOM) switchLevel(GV.CURRENT_SAVE_ROOM);
 			
-			switchLevel(GV.CURRENT_SAVE_ROOM);
 			PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y), new Vector3D(0, GC.RESPAWN_LAUNCH_SPEED) );
 			PLAYER.layer = 1;
-			GV.CURRENT_LEVEL.levelRespawner.activate();
+			GV.CURRENT_LEVEL.levelRespawners[0].activate();
 			add(PLAYER);
+			
 		}
 		
 		override public function update():void 
@@ -91,16 +91,13 @@ package worlds
 					PLAYER.y = yNew;
 				}
 			}
-			else 
+			else if ( !PLAYER.world && !respawnTimer.active ) //player died, respawn them at the save room
 			{
-				//reset the timeVar used to get the player unstuck
-				timeVar = 0;
-				
-				if ( !PLAYER.world ) //player died, respawn them at the save room
-				{
-					respawnTimer.start(); //when finishes, calls respawn()
-				}
-				
+				respawnTimer.start(); //when finishes, calls respawn()
+				return;
+			}
+			else if ( PLAYER.world && !respawnTimer.active)
+			{					
 				//pause menu
 				if ( Input.pressed("Pause") )
 				{				
@@ -172,14 +169,15 @@ package worlds
 			try { removeList(GV.CURRENT_LEVEL.levelItems); } catch (e:Error) { FP.console.log('Unable to remove items from GameWorld'); }
 			try { removeList(GV.CURRENT_LEVEL.levelDoors); } catch (e:Error) { FP.console.log('Unable to remove doors from GameWorld'); }
 			try { removeList(GV.CURRENT_LEVEL.levelEnemies); } catch (e:Error) { FP.console.log('Unable to remove enemies from GameWorld'); }
-			try { remove(GV.CURRENT_LEVEL.levelBeacon); } catch (e:Error) { FP.console.log('Unable to remove save beacon from GameWorld'); }
+			try { removeList(GV.CURRENT_LEVEL.levelBeacons); } catch (e:Error) { FP.console.log('Unable to remove save beacon from GameWorld'); }
 			try { removeList(GV.CONTEXT_MESSAGES); GV.CONTEXT_MESSAGES = []; } catch (e:Error) { FP.console.log('Unable to remove context messages from GameWorld'); }
-			try { remove(GV.CURRENT_LEVEL.levelRespawner); } catch (e:Error) { FP.console.log('Unable to remove respawner from GameWorld'); }
+			try { removeList(GV.CURRENT_LEVEL.levelRespawners); } catch (e:Error) { FP.console.log('Unable to remove respawner from GameWorld'); }
 			try { removeList(GV.CURRENT_LEVEL.levelPlatforms); } catch (e:Error) { FP.console.log('Unable to remove platforms from GameWorld'); }
 			try { removeList(GV.CURRENT_LEVEL.levelHazards); } catch (e:Error) { FP.console.log('Unable to remove hazards from GameWorld'); }
 			try { removeList(GV.CURRENT_LEVEL.levelLifts); } catch (e:Error) { FP.console.log('Unable to remove gravity lifts from GameWorld'); }
 			try { removeList(GV.CURRENT_LEVEL.levelSwitches); } catch (e:Error) { FP.console.log('Unable to remove switches from GameWorld'); }
 			try { removeList(GV.CURRENT_LEVEL.levelTVs); } catch (e:Error) { FP.console.log('Unable to remove TVs from GameWorld'); }
+            try { removeList(GV.CURRENT_LEVEL.levelTriggers); } catch (e:Error) { FP.console.log('Unable to remove triggers from GameWorld'); }
 			
 			//clears all other entities without assigned types (basically, antyhing left over that is not the player
 			var spareObjects:Array = [];
@@ -192,29 +190,27 @@ package worlds
 				}
 			}
 			
+			GV.CURRENT_LEVEL = null;
+			
 			//if level is saved, load it from memory
 			if ( GV.VISITED_LEVELS[targetTile] ) 
-			{
+			{				
+				var newLevel:Level = GV.CURRENT_LEVEL = GV.VISITED_LEVELS[targetTile];
 				GV.CURRENT_LEVEL = GV.VISITED_LEVELS[targetTile];
-				if (GV.CURRENT_LEVEL.type == '') GV.CURRENT_LEVEL.type = GC.SOLID_TYPE;
 				add(GV.CURRENT_LEVEL);
 			}
 			else //instantiate new copy of level and add it to memory
+			{ 				
+				newLevel = new Level(targetTile);
+				GV.VISITED_LEVELS[newLevel.levelName] = GV.CURRENT_LEVEL = newLevel;					
+				add(newLevel);
+			}
+			
+			//add art assets
+			for each ( var aa:Entity in GV.CURRENT_LEVEL.levelArtAssets )
 			{
-				try 
-				{
-					GV.CURRENT_LEVEL = new Level(targetTile);
-					add(GV.CURRENT_LEVEL);
-					
-					FP.console.log('Caching level ' + GV.CURRENT_LEVEL.levelName + '...');
-					GV.VISITED_LEVELS[GV.CURRENT_LEVEL.levelName] = GV.CURRENT_LEVEL;
-				} 
-				catch (err:Error) 
-				{
-					FP.console.log('Tried to load nonexistent room, player is now dead as shit!');
-					PLAYER.kill();
-					respawnTimer.start();
-				}
+				aa.layer = 4;
+				add(aa);
 			}
 			
 			//add triggers
@@ -260,17 +256,15 @@ package worlds
 				add(p);
 			}
 			
-			//add respawner to world
-			var r:Respawner = GV.CURRENT_LEVEL.levelRespawner;
-			if ( r )
+			//add respawner
+			for each ( var r:Respawner in GV.CURRENT_LEVEL.levelRespawners )
 			{
 				r.layer = 2;
 				add(r);
 			}
 			
-			//add save beacon to world
-			var sb:SaveBeacon = GV.CURRENT_LEVEL.levelBeacon;
-			if ( sb )
+			//add save beacon
+			for each( var sb:SaveBeacon in GV.CURRENT_LEVEL.levelBeacons )
 			{
 				sb.layer = 2;
 				add(sb);
@@ -311,7 +305,7 @@ package worlds
 				add(msg);
 			}
 
-			GV.CURRENT_LEVEL.layer = 2;
+			GV.CURRENT_LEVEL.layer = 4;
 			
 			FP.console.log('...' + targetTile + ' loaded!');
 		}
