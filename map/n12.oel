@@ -38,6 +38,6 @@
     <rect set="tileset" tx="0" ty="128" x="528" y="0" w="672" h="48"/>
   </tiles>
   <objects>
-    <platform x="160" y="64" speed="100"/>
+    <grav_lift x="160" y="48" height="96" speed="50" id="none" isOn="true"/>
   </objects>
 </level>

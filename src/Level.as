@@ -79,8 +79,6 @@ package
 			
 			for each ( var e:XML in data.objects.grav_lift )
 			{
-				FP.console.log('Adding Gravity Lift piece');
-				
 				var isOn:Boolean = (e.@isOn == 'true') ? true : false;
 				
 				var lift:GravityLift = new GravityLift(int(e.@x), int(e.@y), int(e.@height), int(e.@speed), e.@id, isOn);
@@ -89,9 +87,7 @@ package
 			}
 			
 			for each ( e in data.objects.tv )
-			{
-				FP.console.log('Adding TV');
-				
+			{				
 				isOn = (e.@isOn == 'true') ? true : false;
 				
 				var tv:TV = new TV( int(e.@x), int(e.@y), e.@id, isOn );
@@ -101,8 +97,6 @@ package
 			
 			for each ( e in data.objects.electric_gate_v )
 			{
-				FP.console.log('Adding Vertical Electric Gate');
-				
 				isOn = (e.@isOn == 'true') ? true : false;
 				
 				var gate:ElectricGate = new ElectricGate(int(e.@x), int(e.@y), int(e.@height), int(e.@width), e.@id, isOn);
@@ -112,8 +106,6 @@ package
 			
 			for each ( e in data.objects.electric_gate_h )
 			{
-				FP.console.log('Adding Horizontal Electric Gate piece');
-				
 				isOn = (e.@isOn == 'true') ? true : false;
 				
 				gate = new ElectricGate(int(e.@x), int(e.@y), int(e.@height), int(e.@width), e.@id, isOn);
@@ -123,8 +115,6 @@ package
 			
 			for each( e in data.objects.platform )
 			{
-				FP.console.log('Adding Platform');
-				
 				var nodes:Array = []; //0 is node 1, 1 is node2
 				for each ( var n:XML in e.node )
 				{
@@ -140,7 +130,6 @@ package
 			
 			for each( e in data.objects.respawn )
 			{
-				FP.console.log('Adding Respawner');
 				var respawner:Respawner = new Respawner( int(e.@x), int(e.@y) );
 				
 				levelRespawners.push(respawner);
@@ -148,8 +137,6 @@ package
 			
 			for each( e in data.objects.saveBeacon )
 			{
-				FP.console.log('Adding Save Beacon');
-				
 				var isActive:Boolean = (e.@initial == 'true') ? true : false;					
 				var saveBeacon:SaveBeacon = new SaveBeacon( int(e.@x), int(e.@y), isActive );
 				
@@ -158,31 +145,19 @@ package
 			
 			for each( e in data.objects.E1 )
 			{
-				try
-				{
-					FP.console.log('Adding E1');
-					var tenemy:E1 = new E1( int(e.@x), int(e.@y) );
-					
-					levelEnemies.push(tenemy);
-				}
-				catch (e:Error) { FP.console.log('Unable to add E1\n' + e); }
+				var tenemy:E1 = new E1( int(e.@x), int(e.@y) );
+				
+				levelEnemies.push(tenemy);
 			}
 			
 			for each( var item:XML in data.objects.item )
 			{
-				try
-				{
-					FP.console.log('*** Attempting to add item ' + item.@Class + '...');
-					if (item.@Class == 'none') throw new Error('Item not assigned a class name in Ogmo!');
-					
-					var itemRef:Class = getDefinitionByName('items.' + item.@Class) as Class;
-					var itemObj:Entity = new itemRef(int(item.@x), int(item.@y));
-					
-					levelItems.push(itemObj);
-					
-					FP.console.log('\t' + item.@Class + ' added!');
-				}
-				catch (e:Error) { FP.console.log('\tUnable to add ' + item.@Class + '\n\t' + e) }
+				if (item.@Class == 'none') throw new Error('Item not assigned a class name in Ogmo!');
+				
+				var itemRef:Class = getDefinitionByName('items.' + item.@Class) as Class;
+				var itemObj:Entity = new itemRef(int(item.@x), int(item.@y));
+				
+				levelItems.push(itemObj);
 			}
 			
 			for each( var door:XML in data.objects.door )
@@ -207,30 +182,22 @@ package
 			
 			for each ( e in data.objects.wall_switch )
 			{
-				FP.console.log('Adding Switch');
+				isOn = (e.@isOn == 'true') ? true : false;
+				var useOnce:Boolean = (e.@useOnce == 'true') ? true : false;					
+				var s:Switch = new Switch( int(e.@x), int(e.@y), useOnce, isOn, false );
 				
-				try 
-				{
-					isOn = (e.@isOn == 'true') ? true : false;
-					var useOnce:Boolean = (e.@useOnce == 'true') ? true : false;					
-					var s:Switch = new Switch( int(e.@x), int(e.@y), useOnce, isOn, false );
-					
-					for ( var i:uint = 0; i < levelInteractives.length; i++ )
-					{						
-						if ( levelInteractives[i].id == e.@t_id )
-						{
-							s.targetIndexes.push(i);
-						}
-					}					
-					levelSwitches.push(s);
-				} 
-				catch (err:Error) { FP.console.log('...Unable to add Flipped Switch\n\t' + err); }
+				for ( var i:uint = 0; i < levelInteractives.length; i++ )
+				{						
+					if ( levelInteractives[i].id == e.@t_id )
+					{
+						s.targetIndexes.push(i);
+					}
+				}					
+				levelSwitches.push(s);
 			}
 			
 			for each ( e in data.objects.wall_switch_flipped )
 			{
-				FP.console.log('Adding Flipped Switch');
-				
 				try 
 				{
 					isOn = (e.@isOn == 'true') ? true : false;
@@ -246,7 +213,7 @@ package
 					}					
 					levelSwitches.push(s);
 				} 
-				catch (err:Error) { FP.console.log('...Unable to add Flipped Switch\n\t' + err); }
+				catch (err:Error) {}
 			}
 			
 			for each ( e in data.triggers.trigger )
@@ -384,25 +351,21 @@ package
 		 * */
 		public function loadLevel(targetTile:String):void
 		{
-			try 
+			try
 			{
 				//tries to load the tile from GC
-				var tileRef:Class = getDefinitionByName( 'GC_' + targetTile.toLowerCase() ) as Class;
+				var tileRef:Class = getDefinitionByName( 'GC_' + targetTile ) as Class;
 				data = FP.getXML(tileRef); //reads the level data into XML object
 				
 				levelName		= data.@tile_name;
 				levelZone		= data.@zone;
- 				levelWidth 		= data.width;
+				levelWidth 		= data.width;
 				levelHeight		= data.height;
 				tileLeft 		= data.@tile_left;
 				tileRight 		= data.@tile_right;
 				tileUp			= data.@tile_up;
 				tileDown		= data.@tile_down;
-			}
-			catch (e:Error)
-			{
-				FP.console.log('Error loading level ' + targetTile);
-			}
+			} catch(e:Error) {}
 		}
 		
 	}

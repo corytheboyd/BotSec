@@ -9,6 +9,7 @@ package interactives
 	import net.flashpunk.graphics.TiledImage;
 	import net.flashpunk.graphics.TiledSpritemap;
 	import net.flashpunk.masks.Hitbox;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.tweens.misc.Alarm;
 	import net.flashpunk.utils.Input;
 	
@@ -21,9 +22,10 @@ package interactives
 		public var image:TiledSpritemap;
 		public var speed:int; //speed in px/s that the lift moves the player at
 		public var hitbox:Hitbox;
-		public var h:uint;
-		
+		public var h:uint;		
 		public var flickerAlarm:Alarm = new Alarm(1);
+		
+		public var onSound:Sfx = new Sfx(GC.SFX_GRAVLIFT_ON);
 		
 		public function GravityLift( x:Number, y:Number, h:Number, speed:int, id:String, isOn:Boolean ) 
 		{
@@ -46,6 +48,11 @@ package interactives
 			addTween(flickerAlarm); //adds alarm to world
 		}
 		
+		override public function added():void 
+		{
+			layer = 1;
+		}
+		
 		override public function update():void 
 		{
 			if ( flickerAlarm.active ) 
@@ -65,6 +72,7 @@ package interactives
 		{
 			isOn = true;
 			flickerAlarm.start();
+			onSound.play();
 		}
 		
 		/*

@@ -5,6 +5,7 @@ package interactives
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.graphics.TiledSpritemap;
 	import net.flashpunk.masks.Hitbox;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.tweens.misc.Alarm;
 	/**
 	 * ...
@@ -16,9 +17,12 @@ package interactives
 		public var horizontal:Boolean; //true if its horizontal, false if vertical
 		public var hitbox:Hitbox; //sets the hitbox of the hazard
 		public var h:int; //height of the hazard
-		public var w:int; //width of the hazard
+		public var w:int; //width of the hazard		
+		public var flickerAlarm:Alarm = new Alarm(0.75, enable);
 		
-		public var flickerAlarm:Alarm = new Alarm(1, enable);
+		public var onSound:Sfx = new Sfx(GC.SFX_ELECTRIC_GATE_ON);
+		public var offSound:Sfx = new Sfx(GC.SFX_ELECTRIC_GATE_OFF);
+		public var loopSound:Sfx = new Sfx(GC.SFX_ELECTRIC_GATE_LOOP);
 		
 		public function ElectricGate( x:Number, y:Number, h:uint, w:uint, id:String, isOn:Boolean ) 
 		{			
@@ -54,17 +58,25 @@ package interactives
 		{
 			//if it is initially disabled
 			if (!isOn) disable();
+			
+			layer = 3;
+		}
+		
+		override public function removed():void 
+		{
+			if (loopSound.playing) loopSound.stop();
 		}
 		
 		override public function update():void 
 		{
 			if ( flickerAlarm.active )
 			{
-				image.alpha = ( FP.rand(2) == 0 ? 0.25 : 1 );
+				image.alpha = ( FP.rand(2) == 0 ? 0.25 : 0.50 );
 			}
 			else if ( isOn )
 			{
 				image.play('on');
+				if (!loopSound.playing) loopSound.loop();
 				enable();
 			}
 		}
@@ -75,6 +87,7 @@ package interactives
 		override public function sendSignalOn():void 
 		{
 			flickerAlarm.start();
+			onSound.play();
 		}
 		
 		/*
@@ -90,6 +103,11 @@ package interactives
 		 * */
 		public function disable():void
 		{
+			if (loopSound.playing) 
+			{
+				loopSound.stop();
+				offSound.play();
+			}			
 			image.alpha = 0;
 			mask = null;
 			type = '';

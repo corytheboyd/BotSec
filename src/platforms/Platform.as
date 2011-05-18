@@ -45,7 +45,6 @@ package platforms
 			} 
 			catch (e:Error)
 			{
-				FP.console.log('PLATFORM.AS: Problem with movement nodes\n' + '\t' + e);
 				moving = false;
 				return;
 				
@@ -77,13 +76,18 @@ package platforms
 			this.speed = speed;
 		}
 		
+		override public function added():void 
+		{
+			layer = 1;
+		}
+		
 		override public function update():void 
 		{			
 			//player collision
 			var e:Player;
-			if ( e = collide(GC.PLAYER_TYPE, x, y - 3) as Player )
+			if ( e = collide(GC.PLAYER_TYPE, x, y - 1) as Player )
 			{
-				if ( collideRect(x, y, e.x, e.y + e.image.height - 10, e.width, 10) && (e.velocity.y >= 0) ) //player falling down
+				if ( !e.platformFallAlarm.active && collideRect(x, y, e.x, e.y + e.image.height - 15, e.width, 15) && (e.velocity.y >= 0) ) //player falling down
 				{
 					//set player on ground, on top of platform
 					e.velocity.y = 0;
@@ -91,8 +95,14 @@ package platforms
 					e.canDblJump = false;
 					e.hasDblJumped = false;
 					
+					e.y = y - e.image.height + 1;
+					
 					//move the player
 					if (moving) e.x += speed * dir * FP.elapsed;
+				}
+				else
+				{
+					e.isOnGround = false;
 				}
 			}
 			

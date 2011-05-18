@@ -29,6 +29,11 @@ package items
 			setHitbox(32, 32);
 		}
 		
+		override public function added():void 
+		{
+			layer = 1;
+		}
+		
 		override public function update():void 
 		{
 			if ( animated ) animate(); //idle animation of item

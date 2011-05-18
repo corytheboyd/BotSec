@@ -33,7 +33,7 @@ package interactives
 		
 		override public function added():void 
 		{
-			trace('BEACON ADDED. ISACTIVE?', isActive, 'CURRENT SAVE ROOM:', GV.CURRENT_SAVE_ROOM, 'IS ROOM CACHED?', GV.CURRENT_LEVEL.cached);
+			layer = 3;
 			
 			if ( initialSpawn && GV.CURRENT_SAVE_ROOM == '' && !GV.CURRENT_LEVEL.cached )
 			{
@@ -48,8 +48,6 @@ package interactives
 			}
 			else 
 			{
-				trace('NOT THE CURRENT SAVE, DEACTIVIATING THIS ROOMS SAVE BEACON');
-				
 				image.play('off');
 				isActive = false;
 			}

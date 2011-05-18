@@ -39,6 +39,20 @@
 			</values>
 		</object>
 		
+		<object name='tv_h1' image='tv_static_h1.png' width='143' height='112'>
+			<values>
+				<boolean name='isOn' default='false' />
+				<string name='id' default='none' />
+			</values>
+		</object>
+		
+		<object name='tv_h2' image='tv_static_h2.png' width='143' height='112'>
+			<values>
+				<boolean name='isOn' default='false' />
+				<string name='id' default='none' />
+			</values>
+		</object>
+		
 		<object name='grav_lift' image = 'grav_lift_static.png' width='96' height='32' resizableY='true' tile='true'>
 			<values>
 				<integer name='speed' default='50' min='1' max='300' />

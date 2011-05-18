@@ -35,6 +35,11 @@ package enemies
 			velocity.y = 0;
 		}
 		
+		override public function added():void 
+		{
+			layer = 1;
+		}
+		
 		/*
 		 * Called when the enemy is hit by a bullet
 		 * */

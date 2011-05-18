@@ -9,6 +9,7 @@ package
 	import items.RangedWeapon;
 	import net.flashpunk.Entity;
 	import net.flashpunk.World;
+	import ui.FadeScreen;
 	import worlds.*;
 	
 	/**
@@ -27,5 +28,7 @@ package
 		public static var EQUIPPED_WEAPON:RangedWeapon;
 		
 		public static var CURRENT_SAVE_ROOM:String = GC.START_TILE; //the room where the active save beacon is
+		
+		public static var FADE:FadeScreen = new FadeScreen; //used to fade in/out
 	}
 }

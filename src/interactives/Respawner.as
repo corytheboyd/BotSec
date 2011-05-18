@@ -37,7 +37,7 @@ package interactives
 		
 		override public function added():void 
 		{
-			
+			layer = 3;
 		}
 		
 		public function activate():void

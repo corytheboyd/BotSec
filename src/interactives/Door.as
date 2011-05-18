@@ -40,6 +40,11 @@ package interactives
 			mask = hitbox;
 		}
 		
+		override public function added():void 
+		{
+			layer = 1;
+		}
+		
 		/*
 		 * On signal sent from a switch
 		 * */

@@ -3,6 +3,7 @@ package interactives
 	import flash.display.Sprite;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Spritemap;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.tweens.misc.Alarm;
 	/**
 	 * ...
@@ -10,9 +11,10 @@ package interactives
 	 */
 	public class TV extends Interactive 
 	{
-		public var image:Spritemap = new Spritemap(GC.GFX_TV, 112, 143);
-		
+		public var image:Spritemap = new Spritemap(GC.GFX_TV, 112, 143);		
 		public var flickerAlarm:Alarm = new Alarm(0.5);
+		public var onSound:Sfx = new Sfx(GC.SFX_TV_ON);
+		public var offSound:Sfx = new Sfx(GC.SFX_TV_OFF);
 		
 		public function TV( x:Number, y:Number, id:String, isOn:Boolean ) 
 		{
@@ -35,6 +37,8 @@ package interactives
 		override public function added():void 
 		{
 			//trace('TV ADDED');
+			
+			layer = 5;
 		}
 		
 		override public function update():void 
@@ -60,6 +64,7 @@ package interactives
 		{
 			isOn = true;
 			flickerAlarm.start();
+			onSound.play();
 		}
 		
 		/*
@@ -69,6 +74,7 @@ package interactives
 		{
 			image.play('off');		
 			isOn = false;
+			offSound.play();
 		}
 		
 	}

@@ -43,6 +43,8 @@ package ui
 		override public function added():void 
 		{
 			msgGraphic = world.addGraphic(msg);
+			
+			layer = 0;
 		}
 		
 		public function show():void 

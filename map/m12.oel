@@ -37,7 +37,6 @@
     <platform x="352" y="288" speed="100"/>
     <platform x="112" y="352" speed="100"/>
     <platform x="160" y="880" speed="100"/>
-    <platform x="160" y="944" speed="100"/>
     <E1 x="480" y="656"/>
     <E1 x="960" y="544"/>
     <grav_lift x="272" y="640" height="160" speed="50" id="none" isOn="true"/>

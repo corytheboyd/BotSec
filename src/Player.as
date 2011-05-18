@@ -8,6 +8,7 @@ package
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.masks.Hitbox;
 	import net.flashpunk.Sfx;
+	import net.flashpunk.tweens.misc.Alarm;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import flash.geom.Vector3D;
@@ -36,8 +37,10 @@ package
 		public var upFlag:Boolean 		= false; //true if up is pressed and held
 		public var downFlag:Boolean		= false; //true if down is pressed and held
 		
+		public var platformFallAlarm:Alarm	= new Alarm(0.10); //disable collision with platfrom for a second, letting the player fall through
+		
 		public var jumpSound:Sfx 		= new Sfx(GC.SFX_PLAYER_JUMP);
-		public var explodeSound:Sfx 		= new Sfx(GC.SFX_EXPLOSION1);
+		public var explodeSound:Sfx 	= new Sfx(GC.SFX_EXPLOSION1);
 		
 		public function Player( x:Number=0, y:Number=0, v:Vector3D=null )
 		{
@@ -60,6 +63,13 @@ package
 			
 			graphic = image;
 			mask = hitbox;
+			
+			addTween(platformFallAlarm);
+		}
+		
+		override public function added():void 
+		{
+			layer = 2;
 		}
 		
 		/*
@@ -70,6 +80,8 @@ package
 			//play some explostion animation and remove the player from the world as the callback
 			explodeSound.play();
 			world.remove(this);
+			
+			GV.FADE.fadeOut();
 		}
 		
 		//player hit by enemy
@@ -90,7 +102,9 @@ package
 		 * Handles input and movement of player
 		 * */
 		override public function update():void
-		{			
+		{	
+			if ( platformFallAlarm.active ) trace('timer running');
+			
 			if (Input.pressed('Suicide')) kill();
 			
 			//check for plyer holding up or down
@@ -161,13 +175,6 @@ package
 			if ( e = collideTypes([GC.SOLID_TYPE, GC.PLATFORM_TYPE], x, y + 3) )
 			{ 
 				if (e.type == GC.SOLID_TYPE) 
-				{
-					velocity.y = 0;
-					isOnGround = true;
-					canDblJump = false;
-					hasDblJumped = false;
-				}
-				else if (e.type == GC.PLATFORM_TYPE && e.collideRect(e.x, e.y, x, y + image.height - 10, width, 10) && velocity.y > 0 )
 				{
 					velocity.y = 0;
 					isOnGround = true;
@@ -274,12 +281,20 @@ package
 		{			
 			if( isOnGround && Input.pressed("Jump") )
 			{
-				jumpSound.play();
-
-				velocity.y = GC.JUMP_SPEED;
-				isOnGround = false;
-				if (velocity.x < 0 && image.flipped) velocity.x *= GC.LEAP;
-				else if (velocity.x > 0 && !image.flipped) velocity.x *= GC.LEAP;
+				if ( downFlag ) 
+				{
+					platformFallAlarm.start(); //disable platfrom collision of a second
+					jumpSound.play();
+					velocity.y = -GC.JUMP_SPEED/2;
+				}
+				else 
+				{
+					jumpSound.play();
+					velocity.y = GC.JUMP_SPEED;
+					isOnGround = false;
+					if (velocity.x < 0 && image.flipped) velocity.x *= GC.LEAP;
+					else if (velocity.x > 0 && !image.flipped) velocity.x *= GC.LEAP;
+				}				
 			}
 			if ( Input.released("Jump") && !isOnGround )
 			{

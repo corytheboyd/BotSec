@@ -132,6 +132,18 @@ package
 		public static const SFX_EXPLOSION2:Class;
 		[Embed(source = '../assets/sfx/buzzer.mp3')]
 		public static const SFX_BUZZER:Class;
+		[Embed(source = '../assets/sfx/tv_on.mp3')]
+		public static const SFX_TV_ON:Class;
+		[Embed(source = '../assets/sfx/tv_off.mp3')]
+		public static const SFX_TV_OFF:Class;
+		[Embed(source = '../assets/sfx/electric_gate_on.mp3')]
+		public static const SFX_ELECTRIC_GATE_ON:Class;
+		[Embed(source = '../assets/sfx/electric_gate_off.mp3')]
+		public static const SFX_ELECTRIC_GATE_OFF:Class;
+		[Embed(source = '../assets/sfx/electric_gate_loop.mp3')]
+		public static const SFX_ELECTRIC_GATE_LOOP:Class;
+		[Embed(source = '../assets/sfx/gravlift_on.mp3')]
+		public static const SFX_GRAVLIFT_ON:Class;
 		
 		/*
 		 * GRAPHICS
@@ -217,7 +229,7 @@ package
 		public static const b0:Class;
 		
 		[Embed(source = '../map/k9.oel', mimeType = 'application/octet-stream')] 
-		public static const k9:Class;
+		public static const k9:Class; 
 		[Embed(source = '../map/k10.oel', mimeType = 'application/octet-stream')] 
 		public static const k10:Class;
 		[Embed(source = '../map/k11.oel', mimeType = 'application/octet-stream')]

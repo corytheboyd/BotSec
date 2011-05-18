@@ -6,7 +6,6 @@ package interactives
 	import net.flashpunk.masks.Hitbox;
 	import net.flashpunk.utils.Input;
 	import ui.ContextMessage;
-	import ui.Message;
 	
 	/**
 	 * ...
@@ -48,6 +47,11 @@ package interactives
 			type = GC.SWITCH_TYPE;
 		}
 		
+		override public function added():void 
+		{
+			layer = 2;
+		}
+		
 		override public function update():void 
 		{
 			if ( collide(GC.PLAYER_TYPE, x, y) )
@@ -74,7 +78,6 @@ package interactives
 						for each ( var i:int in targetIndexes )
 						{							
 							GV.CURRENT_LEVEL.levelInteractives[i].sendSignalOff();
-							world.add( new Message('Disabled ' + GV.CURRENT_LEVEL.levelInteractives[i], GC.MSG_DURATION) );
 						}
 					}
 					else //switch on
@@ -83,7 +86,6 @@ package interactives
 						for each ( i in targetIndexes )
 						{							
 							GV.CURRENT_LEVEL.levelInteractives[i].sendSignalOn();
-							world.add( new Message('Enabled ' + GV.CURRENT_LEVEL.levelInteractives[i], GC.MSG_DURATION) );
 						}
 					}							
 					isOn = !isOn;
