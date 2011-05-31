@@ -27,6 +27,8 @@ package
 		public var canDblJump:Boolean		= false; //true if the player can double jump
 		public var hasDblJumped:Boolean 	= false; // true if player has already double jumped
 		
+		public var enableDblJump:Boolean	= GV.ENABLE_DBL_JUMP; //enable/disable double jumping
+		
 		public var hitbox:Hitbox			= new Hitbox(38, 60, 13, 20); //used for masking
 		public var feetHitbox:Hitbox		= new Hitbox(38, 5, 13, 75); //used for platform hit detection
 		
@@ -36,6 +38,7 @@ package
 		
 		public var upFlag:Boolean 		= false; //true if up is pressed and held
 		public var downFlag:Boolean		= false; //true if down is pressed and held
+		public var disabled:Boolean		= false; //true if the player cannot move
 		
 		public var platformFallAlarm:Alarm	= new Alarm(0.10); //disable collision with platfrom for a second, letting the player fall through
 		
@@ -48,7 +51,7 @@ package
 			image.add('run_loop', [12, 13 ,14, 15, 16, 17, 18], GC.GFX_PLAYER_FPS, true);
 			image.add('idle', [0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1], 12, true);
 			image.add('jump', [3, 3, 4, 4, 4, 4, 5], GC.GFX_PLAYER_FPS, false);
-			image.add('dbl_jump', [6, 6, 7, 7, 7, 7, 7], GC.GFX_PLAYER_FPS, false);
+			image.add('dbl_jump', [6, 6, 7, 7, 21, 22, 23], GC.GFX_PLAYER_FPS, false);
 			image.add('turn', [19], GC.GFX_PLAYER_FPS, false);
 			image.add('falling', [8]);
 			image.add('ascending', [5]);
@@ -102,30 +105,37 @@ package
 		 * Handles input and movement of player
 		 * */
 		override public function update():void
-		{	
-			if ( platformFallAlarm.active ) trace('timer running');
-			
-			if (Input.pressed('Suicide')) kill();
-			
-			//check for plyer holding up or down
-			if (Input.check(Key.UP)) upFlag = true;
-			else upFlag = false;
-			if (Input.check(Key.DOWN)) downFlag = true;
-			else downFlag = false;
-			
-			hazardCollision();
-			floorCollision();
-			enemyCollision();
-			gravLiftCollision();
-			gravity();
-			acceleration();
-			jump();
-			animate();
-			sound();
-			shoot();
-			move( velocity.x * FP.elapsed, velocity.y * FP.elapsed );
-			
-			isFlippedPrev = isFlipped;
+		{
+			if ( disabled )
+			{
+				image.alpha = 0;
+			}
+			else
+			{
+				if (image.alpha != 1) image.alpha = 1; //reset alpha
+				
+				if (Input.pressed('Suicide')) kill();
+				
+				//check for plyer holding up or down
+				if (Input.check(Key.UP)) upFlag = true;
+				else upFlag = false;
+				if (Input.check(Key.DOWN)) downFlag = true;
+				else downFlag = false;
+				
+				hazardCollision();
+				floorCollision();
+				enemyCollision();
+				gravLiftCollision();
+				gravity();
+				acceleration();
+				jump();
+				animate();
+				sound();
+				shoot();
+				move( velocity.x * FP.elapsed, velocity.y * FP.elapsed );
+				
+				isFlippedPrev = isFlipped;
+			}
 		}
 		
 		public function gravLiftCollision():void
@@ -135,7 +145,8 @@ package
 			{
 				if ( gl.isOn && !isOnGround && velocity.y < 0 ) //then move that playa UP, DAWG
 				{
-					velocity.y -= gl.speed;
+					velocity.y -= gl.speed * FP.elapsed * 50;
+					if( !gl.moveSound.playing ) gl.moveSound.play();
 				}
 			}
 		}
@@ -156,7 +167,7 @@ package
 			{
 				if ( Input.pressed('Shoot') ) 
 				{
-					GV.EQUIPPED_WEAPON.fire(x, y, isFlipped, upFlag, downFlag, velocity);
+					GV.EQUIPPED_WEAPON.fire(x, y, isFlipped);
 				}
 			}
 		}
@@ -300,7 +311,7 @@ package
 			{
 				canDblJump = true;
 			}
-			if ( canDblJump && Input.pressed("Jump") && !hasDblJumped )
+			if ( canDblJump && Input.pressed("Jump") && !hasDblJumped && enableDblJump )
 			{
 				jumpSound.play();
 
@@ -382,7 +393,7 @@ package
 				{
 					image.play('jump', true);
 				}
-				else
+				else if (enableDblJump)
 				{
 					image.setAnimFrame('dbl_jump', 0);
 					image.play('dbl_jump');

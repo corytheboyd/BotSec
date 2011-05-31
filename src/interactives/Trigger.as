@@ -36,7 +36,14 @@ package interactives
 					
 					for each ( var i:int in targetIndexes )
 					{
-						GV.CURRENT_LEVEL.levelInteractives[i].sendSignalOn();
+						if ( !GV.CURRENT_LEVEL.levelInteractives[i].isOn )
+						{
+							GV.CURRENT_LEVEL.levelInteractives[i].sendSignalOn();
+						}
+						else
+						{
+							GV.CURRENT_LEVEL.levelInteractives[i].sendSignalOff();
+						}
 					}
 				}
 			}

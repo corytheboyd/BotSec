@@ -21,8 +21,8 @@ package interactives
 			
 			image.add('locked', [0], 0, true);
 			image.add('unlocked', [1], 0, true);
-			image.add('open', [2, 3, 4, 5], GC.DOOR_OPEN_SPEED, false);
-			image.add('close', [5, 4, 3, 2, 1], GC.DOOR_OPEN_SPEED, false);
+			image.add('open', [2, 3, 4, 5, 6, 7], GC.DOOR_OPEN_SPEED, false);
+			image.add('close', [7, 6, 5, 4, 3, 2, 1], GC.DOOR_OPEN_SPEED, false);
 			
 			hitboxTrigger = new Hitbox(96, 128, 0, -48);
 			hitbox = new Hitbox(96, 32, 0, 0);			

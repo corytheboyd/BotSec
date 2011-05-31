@@ -5,6 +5,7 @@ package interactives
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.masks.Hitbox;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.utils.Input;
 	import ui.ContextMessage;
 
@@ -21,13 +22,15 @@ package interactives
 		public var hitbox:Hitbox = new Hitbox(32, 96, 0, 0);
 		public var hitboxTrigger:Hitbox = new Hitbox(128, 96, -48, 0);
 		
+		public var unlockedSound:Sfx = new Sfx(GC.SFX_DOOR_UNLOCKED);
+		
 		public function Door( x:int, y:int, id:String, locked:Boolean=false ) 
 		{
 			//add animations
 			image.add('locked', [0], 0, true);
 			image.add('unlocked', [1], 0, true);
-			image.add('open', [2, 3, 4, 5], GC.DOOR_OPEN_SPEED, false);
-			image.add('close', [5, 4, 3, 2, 1], GC.DOOR_OPEN_SPEED, false);
+			image.add('open', [2, 3, 4, 5, 6, 7], GC.DOOR_OPEN_SPEED, false);
+			image.add('close', [7, 6, 5, 4, 3, 2, 1], GC.DOOR_OPEN_SPEED, false);
 			
 			graphic = image;
 			type = GC.SOLID_TYPE;
@@ -50,6 +53,7 @@ package interactives
 		 * */
 		override public function sendSignalOn():void 
 		{
+			unlockedSound.play();
 			locked = false;
 		}
 		
@@ -62,7 +66,7 @@ package interactives
 		}
 		
 		override public function update():void 
-		{			
+		{
 			if (locked && !open && image.currentAnim != 'open') 
 			{				
 				image.play('locked');

@@ -2,6 +2,7 @@ package interactives
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Spritemap;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.utils.Input;
 	import ui.ContextMessage;
 	import ui.Message;

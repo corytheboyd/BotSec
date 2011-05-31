@@ -36,20 +36,12 @@
 			<values>
 				<boolean name='isOn' default='false' />
 				<string name='id' default='none' />
-			</values>
-		</object>
-		
-		<object name='tv_h1' image='tv_static_h1.png' width='143' height='112'>
-			<values>
-				<boolean name='isOn' default='false' />
-				<string name='id' default='none' />
-			</values>
-		</object>
-		
-		<object name='tv_h2' image='tv_static_h2.png' width='143' height='112'>
-			<values>
-				<boolean name='isOn' default='false' />
-				<string name='id' default='none' />
+				<string name='msg_line1' default='' maxChars='16' />
+				<string name='msg_line2' default='' maxChars='16' />
+				<string name='msg_line3' default='' maxChars='16' />
+				<string name='msg_line4' default='' maxChars='16' />
+				<string name='msg_line5' default='' maxChars='16' />
+				<string name='msg_line6' default='' maxChars='16' />
 			</values>
 		</object>
 		
@@ -75,6 +67,10 @@
 				<string name='id' default='none' />
 			</values>
 		</object>
+		
+		<folder name='upgrades'>
+			<object name='dbl_jump' image='hud/dbl_jump.png' width='32' height='32' />
+		</folder>
 		
 		<folder name='art_assets'>
 			<object name='static_art_asset' image='art_asset.png' width='16' height='16' >
@@ -123,18 +119,20 @@
 				<values>
 					<string name='id' default='none' />
 					<boolean name='isOn' default='true' />
+					<boolean name='pulses' default='false' />
 				</values>
 			</object>
 			<object name='electric_gate_v' image='hazards/electric_gate_v_static.png' width='16' height='16' resizableY='true' tile='true'>
 				<values>
 					<string name='id' default='none' />
 					<boolean name='isOn' default='true' />
+					<boolean name='pulses' default='false' />
 				</values>
 			</object>
 		</folder>
 		
 		<folder name='enemies'>
-			<object name='E1' image='enemies/E1.png' width='32' height='64' />
+			<object name='E1' image='enemies/E1_static.png' width='48' height='80' />
 		</folder>
 		
 		<folder name='platforms'>

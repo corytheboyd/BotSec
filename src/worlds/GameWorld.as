@@ -2,7 +2,10 @@ package worlds
 {
 	import enemies.*;
 	import items.*;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.tweens.misc.Alarm;
+	import net.flashpunk.tweens.sound.SfxFader;
+	import net.flashpunk.utils.Ease;
 	import platforms.*;
 	import ui.*;
 	import interactives.*;
@@ -33,16 +36,30 @@ package worlds
 		public var paused:Boolean = false;
 		public var pauseMenu:PauseMenu;
 		public var respawnTimer:Alarm = new Alarm(1, respawnPlayer);
-		public var unstuckTimer:Alarm = new Alarm(2, respawnPlayer); //how long it tries to remove player if they get stuck, before just respawning	
+		public var playerStuck:Boolean = false;
+		public var playerStuckMoveDir:Vector3D = new Vector3D;
 		public var PLAYER:Player;
 		
-		public function GameWorld() 
+		public var ZONE1_SOUND:Sfx = new Sfx(GC.SFX_ZONE1);
+		public var ZONE2_SOUND:Sfx = new Sfx(GC.SFX_ZONE2);
+		public var ZONE3_SOUND:Sfx = new Sfx(GC.SFX_ZONE3);
+		public var ZONE4_SOUND:Sfx = new Sfx(GC.SFX_ZONE4);
+		
+		public var discoAlarm:Alarm = new Alarm(0.25, randomBgColor);
+		protected var currentColorIndex:uint = 0;
+		
+		public function GameWorld()
 		{		
 			addTween(respawnTimer);
+			addTween(discoAlarm);
 		}
 		
 		override public function begin():void 
 		{
+			//add the unlock tracker (hud element)
+			add(GV.UNLOCKS);
+			
+			//add the fader effect
 			GV.FADE.layer = 0;
 			add(GV.FADE);
 			GV.FADE.fadeIn(); //fade in on world start
@@ -51,10 +68,7 @@ package worlds
 			switchLevel(GC.START_TILE); //sets gv.current_level		
 			
 			//creates the player based on initial position in room
-			if (GV.CURRENT_LEVEL)
-			{
-				respawnPlayer();
-			}
+			respawnPlayer();
 		}
 		
 		public function respawnPlayer():void
@@ -63,48 +77,89 @@ package worlds
 			
 			if ( PLAYER )
 			{
-				if (PLAYER.world) PLAYER.kill(); //kill they player if they aren't dead yet
+				//if (PLAYER.world) PLAYER.kill(); //kill they player if they aren't dead yet
 			}
 			
-			PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y), new Vector3D(0, GC.RESPAWN_LAUNCH_SPEED) );
-			GV.CURRENT_LEVEL.levelRespawners[0].activate();
+			PLAYER = new Player( int(GV.CURRENT_LEVEL.data.objects.player.@x), int(GV.CURRENT_LEVEL.data.objects.player.@y) );
+			PLAYER.disabled = true;
 			add(PLAYER);
 			
+			GV.CURRENT_LEVEL.levelRespawners[0].activate( enablePlayer );			
 			GV.FADE.fadeIn();
-		}	
+		}
+		
+		protected function enablePlayer():void
+		{
+			PLAYER.disabled = false;
+		}
+		
+		protected function randomBgColor():void
+		{
+			var colors:Array = [
+				0xCD0074, //pink
+				0xFF4900, //orange
+				0xFFEB00, //yellow
+				0x33CCCC //blue
+			];
+			
+			FP.screen.color = colors[currentColorIndex];
+			currentColorIndex += 1;
+			if (currentColorIndex > colors.length - 1) currentColorIndex = 0;
+		}
 		
 		override public function update():void 
 		{			
-			//TAKES YOU TO THE GLORIOUS DEBUG ROOM. ALL HAIL DEBUG.
-			if ( (Input.check(Key.CONTROL) && Input.check(Key.SHIFT) && Input.pressed(Key.D)) && GV.CURRENT_LEVEL.levelName != 'a0')
+			if ( GV.CURRENT_ZONE == "ZONE4" && !discoAlarm.active )
 			{
-				remove(PLAYER);
-				GV.CURRENT_SAVE_ROOM = 'a0';
-				switchLevel('a0');
+				discoAlarm.start();
 			}
-			//END THE DEBUG ZONE ENTRANCE.
+			else if ( GV.CURRENT_ZONE != "ZONE4" && discoAlarm.active ) 
+			{
+				discoAlarm.reset(0.25);
+			}
 			
 			if ( PLAYER.collide(GC.SOLID_TYPE, PLAYER.x, PLAYER.y) ) //get the player unstuck
 			{
-				var signX:int = ( Math.sin(getTimer()) > 0 ) ? 1 : -1;
-				var signY:int = ( Math.cos(getTimer()) > 0 ) ? 1 : -1;
-				
-				var xNew:Number = PLAYER.x + 2 * Math.sin( getTimer() * 100 ) + 5 * signX;
-				var yNew:Number = PLAYER.y + 2 * Math.cos( getTimer() * 100 ) + 5 * signY;
-				
-				if ( !PLAYER.collide(GC.SOLID_TYPE, xNew, yNew) )
+				if ( !playerStuck ) //the first from of player being stuck
 				{
-					PLAYER.x = xNew;
-					PLAYER.y = yNew;
+					if ( !PLAYER.collide(GC.SOLID_TYPE, PLAYER.x, PLAYER.y - 32) ) //check up
+					{
+						playerStuckMoveDir = new Vector3D(0, -5);
+					}
+					else if ( !PLAYER.collide(GC.SOLID_TYPE, PLAYER.x - 32, PLAYER.y) ) //check left
+					{
+						playerStuckMoveDir = new Vector3D(-5, 0);
+					}
+					else if ( !PLAYER.collide(GC.SOLID_TYPE, PLAYER.x + 32, PLAYER.y) ) //check right
+					{
+						playerStuckMoveDir = new Vector3D(5, 0);
+					}
+					else if ( !PLAYER.collide(GC.SOLID_TYPE, PLAYER.x, PLAYER.y - 32) ) //check down
+					{
+						playerStuckMoveDir = new Vector3D(0, 5);
+					}
+					else
+					{
+						respawnPlayer();
+					}
 				}
+				else
+				{					
+					PLAYER.x += playerStuckMoveDir.x;
+					PLAYER.y += playerStuckMoveDir.y;
+				}
+				
+				playerStuck = true; //set player to stuck now
 			}
 			else if ( !PLAYER.world && !respawnTimer.active ) //player died, respawn them at the save room
 			{
 				respawnTimer.start(); //when finishes, calls respawn()
 				return;
 			}
-			else if ( PLAYER.world && !respawnTimer.active)
-			{					
+			else if ( PLAYER.world && !respawnTimer.active )
+			{
+				if(playerStuck) playerStuck = false; //reset playerStuck
+				
 				//pause menu
 				if ( Input.pressed("Pause") )
 				{				
@@ -195,9 +250,10 @@ package worlds
 				{
 					remove(spareObject);
 				}
-			}
+			}			
 			
-			GV.CURRENT_LEVEL = null;
+			//store previous level zone
+			if (GV.CURRENT_LEVEL) var prevZone:String = GV.CURRENT_LEVEL.levelZone;
 			
 			//if level is saved, load it from memory
 			if ( GV.VISITED_LEVELS[targetTile] ) 
@@ -213,6 +269,47 @@ package worlds
 				GV.VISITED_LEVELS[newLevel.levelName] = GV.CURRENT_LEVEL = newLevel;
 				add(newLevel);
 			}
+			
+			//get all loose tweens and remove them
+			var sfxFaders:Array = [];
+			getClass(SfxFader, sfxFaders);
+			for each ( var tempFader:SfxFader in sfxFaders )
+			{
+				removeTween(tempFader);
+			}
+			
+			//if no zone is found, copy the previous zone over
+			if (GV.CURRENT_LEVEL.levelZone == '') GV.CURRENT_LEVEL.levelZone = prevZone;
+			
+			//add the screen fader effect again
+			GV.FADE.layer = 0;
+			add(GV.FADE);
+			
+			//loading the first level
+			if (GV.CURRENT_ZONE == '')
+			{
+				GV.CURRENT_ZONE = GV.CURRENT_LEVEL.levelZone;
+				this[GV.CURRENT_ZONE + "_SOUND"].loop();
+			}
+			
+			//if the level zone changes, change the music
+			if ( (GV.CURRENT_LEVEL.levelZone != GV.CURRENT_ZONE) )
+			{
+				//sound
+				var oldTrack:Sfx	= this[GV.CURRENT_ZONE + "_SOUND"];
+				var newTrack:Sfx	= this[GV.CURRENT_LEVEL.levelZone + "_SOUND"];
+				
+				var fadeToNew:SfxFader	= new SfxFader(oldTrack);
+				fadeToNew.crossFade(newTrack, true, 0.5, 1, Ease.cubeIn);
+				addTween(fadeToNew);
+				
+				fadeToNew.start();
+			}
+			
+			GV.CURRENT_ZONE = GV.CURRENT_LEVEL.levelZone;
+			
+			//CHANGE SCREEN COLOR
+			FP.screen.color = GC[GV.CURRENT_ZONE + "_COLOR"];
 			
 			//add art assets
 			for each ( var aa:Entity in GV.CURRENT_LEVEL.levelArtAssets )

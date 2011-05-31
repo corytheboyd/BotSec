@@ -1,4 +1,26 @@
-<level tile_name="i10" zone="" tile_left="i9" tile_right="i11" tile_up="h10" tile_down="j10">
+<level tile_name="i10" zone="ZONE1" tile_left="i9" tile_right="i11" tile_up="h10" tile_down="j10">
   <width>1200</width>
   <height>960</height>
+  <solid>
+    <rect x="320" y="0" w="32" h="960"/>
+    <rect x="560" y="0" w="32" h="960"/>
+  </solid>
+  <tiles>
+    <rect set="tileset" tx="592" ty="16" x="320" y="0" w="16" h="960"/>
+    <rect set="tileset" tx="592" ty="16" x="560" y="0" w="16" h="960"/>
+    <rect set="tileset" tx="640" ty="16" x="336" y="0" w="16" h="960"/>
+    <rect set="tileset" tx="640" ty="16" x="576" y="0" w="16" h="960"/>
+    <rect set="tileset" tx="176" ty="448" x="0" y="0" w="320" h="960"/>
+    <rect set="tileset" tx="176" ty="448" x="592" y="0" w="608" h="960"/>
+  </tiles>
+  <objects>
+    <platform x="352" y="304" speed="100"/>
+    <platform x="464" y="304" speed="100"/>
+    <platform x="352" y="176" speed="100"/>
+    <platform x="464" y="176" speed="100"/>
+    <platform x="464" y="48" speed="100"/>
+    <platform x="352" y="48" speed="100"/>
+    <grav_lift x="352" y="592" height="320" speed="50" id="none" isOn="true"/>
+    <grav_lift x="464" y="592" height="320" speed="70" id="none" isOn="true"/>
+  </objects>
 </level>

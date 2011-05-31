@@ -49,7 +49,7 @@ package interactives
 		
 		override public function added():void 
 		{
-			layer = 2;
+			layer = 3;
 		}
 		
 		override public function update():void 

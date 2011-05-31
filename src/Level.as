@@ -15,7 +15,7 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Tilemap;
-	import net.flashpunk.masks.Grid;	
+	import net.flashpunk.masks.Grid;
 
 	/**
 	 * ...
@@ -86,11 +86,23 @@ package
 				levelInteractives.push(lift);
 			}
 			
+			for each ( e in data.objects.dbl_jump )
+			{
+				levelItems.push( new DoubleJump( int(e.@x), int(e.@y) ) );
+			}
+			
 			for each ( e in data.objects.tv )
 			{				
 				isOn = (e.@isOn == 'true') ? true : false;
+				var msgs:Array = [];
+				if ( e.@msg_line1 != '' ) msgs.push(e.@msg_line1);
+				if ( e.@msg_line2 != '' ) msgs.push(e.@msg_line2);
+				if ( e.@msg_line3 != '' ) msgs.push(e.@msg_line3);
+				if ( e.@msg_line4 != '' ) msgs.push(e.@msg_line4);
+				if ( e.@msg_line5 != '' ) msgs.push(e.@msg_line5);
+				if ( e.@msg_line6 != '' ) msgs.push(e.@msg_line6);
 				
-				var tv:TV = new TV( int(e.@x), int(e.@y), e.@id, isOn );
+				var tv:TV = new TV( int(e.@x), int(e.@y), msgs, e.@id, isOn );
 				levelTVs.push(tv);
 				levelInteractives.push(tv);
 			}
@@ -98,8 +110,9 @@ package
 			for each ( e in data.objects.electric_gate_v )
 			{
 				isOn = (e.@isOn == 'true') ? true : false;
+				var pulses:Boolean = (e.@pulses == 'true') ? true : false;
 				
-				var gate:ElectricGate = new ElectricGate(int(e.@x), int(e.@y), int(e.@height), int(e.@width), e.@id, isOn);
+				var gate:ElectricGate = new ElectricGate(int(e.@x), int(e.@y), int(e.@height), int(e.@width), pulses, e.@id, isOn);
 				levelHazards.push(gate);
 				levelInteractives.push(gate);
 			}
@@ -107,8 +120,9 @@ package
 			for each ( e in data.objects.electric_gate_h )
 			{
 				isOn = (e.@isOn == 'true') ? true : false;
+				pulses = (e.@pulses == 'true') ? true : false;
 				
-				gate = new ElectricGate(int(e.@x), int(e.@y), int(e.@height), int(e.@width), e.@id, isOn);
+				gate = new ElectricGate(int(e.@x), int(e.@y), int(e.@height), int(e.@width), pulses, e.@id, isOn);
 				levelHazards.push(gate);
 				levelInteractives.push(gate)
 			}
@@ -365,6 +379,9 @@ package
 				tileRight 		= data.@tile_right;
 				tileUp			= data.@tile_up;
 				tileDown		= data.@tile_down;
+				
+				if (levelZone == '') trace('NO ZONE IN:', levelName );
+				
 			} catch(e:Error) {}
 		}
 		

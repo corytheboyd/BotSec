@@ -8,6 +8,7 @@ package ui
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Text;
+	import net.flashpunk.Sfx;
 	
 	/**
 	 * ...
@@ -20,6 +21,8 @@ package ui
 		
 		public var timeElapsed:Number = 0; //keeps track of how long it has existed
 		public var duration:Number = 0;
+		
+		public var showSound:Sfx = new Sfx(GC.SFX_MESSAGE_SHOW);
 		
 		public function Message( msgText:String, duration:Number ) 
 		{
@@ -37,6 +40,7 @@ package ui
 		override public function added():void 
 		{
 			world.addGraphic(msg);
+			showSound.play();
 		}
 		
 		override public function update():void 

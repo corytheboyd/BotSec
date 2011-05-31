@@ -1,44 +1,293 @@
-<level tile_name="m12" zone="" tile_left="m11" tile_right="m13" tile_up="l12" tile_down="n12">
+<level tile_name="m12" zone="ZONE3" tile_left="m11" tile_right="m13" tile_up="l12" tile_down="n12">
   <width>1200</width>
   <height>960</height>
   <solid>
-    <rect x="0" y="0" w="1040" h="96"/>
-    <rect x="0" y="96" w="112" h="528"/>
-    <rect x="0" y="880" w="160" h="80"/>
+    <rect x="0" y="0" w="1008" h="96"/>
+    <rect x="0" y="96" w="112" h="640"/>
+    <rect x="0" y="880" w="128" h="80"/>
+    <rect x="112" y="432" w="32" h="32"/>
+    <rect x="112" y="464" w="16" h="48"/>
+    <rect x="128" y="480" w="16" h="32"/>
+    <rect x="144" y="624" w="32" h="64"/>
     <rect x="256" y="816" w="944" h="144"/>
-    <rect x="384" y="768" w="272" h="48"/>
-    <rect x="432" y="720" w="224" h="48"/>
-    <rect x="512" y="224" w="144" h="32"/>
-    <rect x="656" y="784" w="544" h="32"/>
-    <rect x="768" y="288" w="144" h="48"/>
+    <rect x="320" y="784" w="880" h="32"/>
+    <rect x="352" y="432" w="80" h="32"/>
+    <rect x="352" y="480" w="80" h="32"/>
+    <rect x="352" y="752" w="304" h="32"/>
+    <rect x="368" y="464" w="64" h="16"/>
+    <rect x="384" y="224" w="816" h="64"/>
+    <rect x="384" y="288" w="144" h="64"/>
+    <rect x="384" y="352" w="64" h="64"/>
+    <rect x="384" y="416" w="48" h="16"/>
+    <rect x="384" y="512" w="48" h="240"/>
+    <rect x="432" y="528" w="16" h="224"/>
+    <rect x="448" y="720" w="208" h="32"/>
+    <rect x="512" y="416" w="384" h="16"/>
     <rect x="800" y="704" w="400" h="80"/>
     <rect x="880" y="608" w="320" h="96"/>
-    <rect x="1136" y="0" w="64" h="256"/>
+    <rect x="1136" y="0" w="64" h="128"/>
   </solid>
+  <tiles_bg_1>
+    <tile set="tileset" tx="688" ty="192" x="1152" y="128"/>
+    <tile set="tileset" tx="672" ty="192" x="1184" y="128"/>
+    <tile set="tileset" tx="704" ty="192" x="1152" y="160"/>
+    <tile set="tileset" tx="704" ty="192" x="1184" y="160"/>
+    <tile set="tileset" tx="688" ty="192" x="1152" y="176"/>
+    <tile set="tileset" tx="672" ty="192" x="1184" y="176"/>
+    <tile set="tileset" tx="704" ty="192" x="1152" y="208"/>
+    <tile set="tileset" tx="704" ty="192" x="1184" y="208"/>
+    <rect set="tileset" tx="656" ty="192" x="1168" y="128" w="16" h="16"/>
+    <rect set="tileset" tx="672" ty="208" x="1152" y="144" w="16" h="16"/>
+    <rect set="tileset" tx="672" ty="160" x="1168" y="144" w="16" h="16"/>
+    <rect set="tileset" tx="688" ty="208" x="1184" y="144" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="192" x="1168" y="160" w="16" h="16"/>
+    <rect set="tileset" tx="656" ty="192" x="1168" y="176" w="16" h="16"/>
+    <rect set="tileset" tx="672" ty="208" x="1152" y="192" w="16" h="16"/>
+    <rect set="tileset" tx="672" ty="160" x="1168" y="192" w="16" h="16"/>
+    <rect set="tileset" tx="688" ty="208" x="1184" y="192" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="192" x="1168" y="208" w="16" h="16"/>
+    <rect set="tileset" tx="656" ty="240" x="1136" y="224" w="16" h="16"/>
+    <rect set="tileset" tx="656" ty="128" x="1136" y="112" w="16" h="16"/>
+    <rect set="tileset" tx="656" ty="144" x="1136" y="128" w="16" h="96"/>
+  </tiles_bg_1>
+  <tiles_bg_2>
+    <tile set="tileset" tx="736" ty="336" x="112" y="624"/>
+    <tile set="tileset" tx="752" ty="336" x="128" y="624"/>
+    <tile set="tileset" tx="736" ty="352" x="112" y="640"/>
+    <tile set="tileset" tx="752" ty="352" x="128" y="640"/>
+    <rect set="tileset" tx="0" ty="0" x="1024" y="304" w="16" h="16"/>
+    <rect set="tileset" tx="656" ty="208" x="448" y="272" w="208" h="112"/>
+    <rect set="tileset" tx="656" ty="208" x="656" y="304" w="64" h="64"/>
+    <rect set="tileset" tx="656" ty="208" x="720" y="304" w="96" h="208"/>
+    <rect set="tileset" tx="656" ty="208" x="816" y="416" w="304" h="96"/>
+    <rect set="tileset" tx="656" ty="208" x="1056" y="288" w="64" h="128"/>
+    <rect set="tileset" tx="656" ty="208" x="1008" y="352" w="48" h="64"/>
+    <rect set="tileset" tx="656" ty="208" x="944" y="288" w="64" h="128"/>
+    <rect set="tileset" tx="656" ty="208" x="656" y="432" w="64" h="80"/>
+    <rect set="tileset" tx="656" ty="208" x="416" y="384" w="96" h="96"/>
+    <rect set="tileset" tx="704" ty="240" x="512" y="480" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="240" x="656" y="384" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="240" x="1120" y="512" w="16" h="16"/>
+    <rect set="tileset" tx="656" ty="240" x="640" y="512" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="128" x="816" y="288" w="16" h="16"/>
+    <rect set="tileset" tx="672" ty="128" x="672" y="288" w="144" h="16"/>
+    <rect set="tileset" tx="672" ty="128" x="656" y="416" w="48" h="16"/>
+    <rect set="tileset" tx="656" ty="128" x="640" y="416" w="16" h="16"/>
+    <rect set="tileset" tx="672" ty="128" x="832" y="400" w="96" h="16"/>
+    <rect set="tileset" tx="672" ty="128" x="1024" y="336" w="16" h="16"/>
+    <rect set="tileset" tx="688" ty="240" x="656" y="512" w="464" h="16"/>
+    <rect set="tileset" tx="688" ty="240" x="416" y="480" w="96" h="16"/>
+    <rect set="tileset" tx="688" ty="240" x="528" y="384" w="128" h="16"/>
+    <rect set="tileset" tx="688" ty="240" x="672" y="368" w="32" h="16"/>
+    <rect set="tileset" tx="688" ty="224" x="816" y="400" w="16" h="16"/>
+    <rect set="tileset" tx="672" ty="224" x="928" y="400" w="16" h="16"/>
+    <rect set="tileset" tx="672" ty="224" x="1040" y="336" w="16" h="16"/>
+    <rect set="tileset" tx="688" ty="224" x="1008" y="336" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="144" x="1008" y="288" w="16" h="48"/>
+    <rect set="tileset" tx="656" ty="144" x="1040" y="288" w="16" h="48"/>
+    <rect set="tileset" tx="656" ty="144" x="928" y="288" w="16" h="112"/>
+    <rect set="tileset" tx="704" ty="144" x="816" y="304" w="16" h="96"/>
+    <rect set="tileset" tx="656" ty="144" x="704" y="384" w="16" h="32"/>
+    <rect set="tileset" tx="656" ty="224" x="704" y="368" w="16" h="16"/>
+    <rect set="tileset" tx="672" ty="224" x="704" y="416" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="224" x="656" y="368" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="224" x="512" y="384" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="144" x="512" y="400" w="16" h="80"/>
+    <rect set="tileset" tx="656" ty="144" x="640" y="432" w="16" h="80"/>
+    <rect set="tileset" tx="704" ty="144" x="1120" y="288" w="16" h="224"/>
+    <rect set="tileset" tx="688" ty="224" x="656" y="288" w="16" h="16"/>
+    <rect set="tileset" tx="656" ty="208" x="320" y="256" w="112" h="80"/>
+    <rect set="tileset" tx="656" ty="208" x="544" y="192" w="288" h="48"/>
+    <rect set="tileset" tx="656" ty="208" x="352" y="160" w="192" h="80"/>
+    <rect set="tileset" tx="656" ty="208" x="352" y="240" w="32" h="16"/>
+    <rect set="tileset" tx="656" ty="240" x="304" y="336" w="16" h="16"/>
+    <rect set="tileset" tx="656" ty="128" x="336" y="144" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="128" x="832" y="176" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="128" x="544" y="144" w="16" h="16"/>
+    <rect set="tileset" tx="672" ty="128" x="352" y="144" w="192" h="16"/>
+    <rect set="tileset" tx="672" ty="128" x="560" y="176" w="272" h="16"/>
+    <rect set="tileset" tx="672" ty="128" x="320" y="240" w="16" h="16"/>
+    <rect set="tileset" tx="656" ty="144" x="304" y="256" w="16" h="80"/>
+    <rect set="tileset" tx="656" ty="144" x="336" y="160" w="16" h="80"/>
+    <rect set="tileset" tx="704" ty="144" x="544" y="160" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="144" x="832" y="192" w="16" h="48"/>
+    <rect set="tileset" tx="656" ty="128" x="304" y="240" w="16" h="16"/>
+    <rect set="tileset" tx="672" ty="224" x="336" y="240" w="16" h="16"/>
+    <rect set="tileset" tx="688" ty="224" x="544" y="176" w="16" h="16"/>
+    <rect set="tileset" tx="688" ty="240" x="320" y="336" w="80" h="16"/>
+    <rect set="tileset" tx="800" ty="336" x="480" y="496" w="16" h="64"/>
+    <rect set="tileset" tx="800" ty="336" x="656" y="528" w="16" h="32"/>
+    <rect set="tileset" tx="784" ty="304" x="480" y="560" w="192" h="16"/>
+    <rect set="tileset" tx="800" ty="304" x="672" y="560" w="16" h="16"/>
+    <rect set="tileset" tx="768" ty="304" x="464" y="560" w="16" h="16"/>
+    <tile set="tileset" tx="736" ty="336" x="144" y="688"/>
+    <tile set="tileset" tx="752" ty="336" x="160" y="688"/>
+    <tile set="tileset" tx="736" ty="352" x="144" y="704"/>
+    <tile set="tileset" tx="752" ty="352" x="160" y="704"/>
+    <tile set="tileset" tx="736" ty="336" x="176" y="688"/>
+    <tile set="tileset" tx="752" ty="336" x="192" y="688"/>
+    <tile set="tileset" tx="736" ty="352" x="176" y="704"/>
+    <tile set="tileset" tx="752" ty="352" x="192" y="704"/>
+    <tile set="tileset" tx="736" ty="336" x="208" y="688"/>
+    <tile set="tileset" tx="752" ty="336" x="224" y="688"/>
+    <tile set="tileset" tx="736" ty="352" x="208" y="704"/>
+    <tile set="tileset" tx="752" ty="352" x="224" y="704"/>
+    <tile set="tileset" tx="736" ty="336" x="240" y="688"/>
+    <tile set="tileset" tx="752" ty="336" x="256" y="688"/>
+    <tile set="tileset" tx="736" ty="352" x="240" y="704"/>
+    <tile set="tileset" tx="752" ty="352" x="256" y="704"/>
+    <tile set="tileset" tx="736" ty="336" x="176" y="720"/>
+    <tile set="tileset" tx="752" ty="336" x="192" y="720"/>
+    <tile set="tileset" tx="736" ty="352" x="176" y="736"/>
+    <tile set="tileset" tx="752" ty="352" x="192" y="736"/>
+    <tile set="tileset" tx="736" ty="336" x="176" y="752"/>
+    <tile set="tileset" tx="752" ty="336" x="192" y="752"/>
+    <tile set="tileset" tx="736" ty="352" x="176" y="768"/>
+    <tile set="tileset" tx="752" ty="352" x="192" y="768"/>
+    <tile set="tileset" tx="736" ty="336" x="176" y="784"/>
+    <tile set="tileset" tx="752" ty="336" x="192" y="784"/>
+    <tile set="tileset" tx="736" ty="352" x="176" y="800"/>
+    <tile set="tileset" tx="752" ty="352" x="192" y="800"/>
+    <tile set="tileset" tx="736" ty="336" x="176" y="816"/>
+    <tile set="tileset" tx="752" ty="336" x="192" y="816"/>
+    <tile set="tileset" tx="736" ty="352" x="176" y="832"/>
+    <tile set="tileset" tx="752" ty="352" x="192" y="832"/>
+    <tile set="tileset" tx="736" ty="336" x="176" y="848"/>
+    <tile set="tileset" tx="752" ty="336" x="192" y="848"/>
+    <tile set="tileset" tx="736" ty="352" x="176" y="864"/>
+    <tile set="tileset" tx="752" ty="352" x="192" y="864"/>
+    <tile set="tileset" tx="736" ty="336" x="176" y="880"/>
+    <tile set="tileset" tx="752" ty="336" x="192" y="880"/>
+    <tile set="tileset" tx="736" ty="352" x="176" y="896"/>
+    <tile set="tileset" tx="752" ty="352" x="192" y="896"/>
+    <tile set="tileset" tx="736" ty="336" x="176" y="912"/>
+    <tile set="tileset" tx="752" ty="336" x="192" y="912"/>
+    <tile set="tileset" tx="736" ty="352" x="176" y="928"/>
+    <tile set="tileset" tx="752" ty="352" x="192" y="928"/>
+  </tiles_bg_2>
+  <tiles_bg_3>
+    <tile set="tileset" tx="656" ty="208" x="368" y="464"/>
+    <tile set="tileset" tx="656" ty="208" x="112" y="464"/>
+    <tile set="tileset" tx="752" ty="256" x="176" y="640"/>
+    <tile set="tileset" tx="752" ty="288" x="176" y="672"/>
+    <rect set="tileset" tx="752" ty="272" x="176" y="656" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="272" x="512" y="416" w="16" h="16"/>
+    <rect set="tileset" tx="736" ty="272" x="880" y="416" w="16" h="16"/>
+    <rect set="tileset" tx="800" ty="336" x="848" y="288" w="16" h="128"/>
+    <rect set="tileset" tx="800" ty="336" x="560" y="272" w="16" h="144"/>
+  </tiles_bg_3>
   <tiles>
-    <rect set="tileset" tx="0" ty="80" x="0" y="0" w="112" h="624"/>
-    <rect set="tileset" tx="0" ty="80" x="112" y="0" w="928" h="96"/>
-    <rect set="tileset" tx="0" ty="80" x="1136" y="0" w="64" h="256"/>
-    <rect set="tileset" tx="0" ty="80" x="768" y="288" w="144" h="48"/>
-    <rect set="tileset" tx="0" ty="80" x="512" y="224" w="144" h="32"/>
-    <rect set="tileset" tx="0" ty="80" x="256" y="816" w="944" h="144"/>
-    <rect set="tileset" tx="0" ty="80" x="384" y="768" w="272" h="48"/>
-    <rect set="tileset" tx="0" ty="80" x="432" y="720" w="224" h="48"/>
-    <rect set="tileset" tx="0" ty="80" x="656" y="784" w="544" h="32"/>
-    <rect set="tileset" tx="0" ty="80" x="800" y="704" w="400" h="80"/>
-    <rect set="tileset" tx="0" ty="80" x="880" y="608" w="320" h="96"/>
-    <rect set="tileset" tx="0" ty="80" x="0" y="880" w="144" h="80"/>
-    <rect set="tileset" tx="0" ty="80" x="144" y="880" w="16" h="80"/>
+    <tile set="tileset" tx="704" ty="128" x="128" y="432"/>
+    <tile set="tileset" tx="704" ty="240" x="128" y="448"/>
+    <tile set="tileset" tx="704" ty="240" x="128" y="496"/>
+    <tile set="tileset" tx="704" ty="128" x="128" y="480"/>
+    <tile set="tileset" tx="688" ty="240" x="112" y="496"/>
+    <tile set="tileset" tx="688" ty="240" x="112" y="448"/>
+    <tile set="tileset" tx="672" ty="128" x="112" y="432"/>
+    <tile set="tileset" tx="672" ty="128" x="112" y="480"/>
+    <tile set="tileset" tx="672" ty="128" x="368" y="480"/>
+    <tile set="tileset" tx="672" ty="128" x="368" y="432"/>
+    <tile set="tileset" tx="688" ty="240" x="368" y="448"/>
+    <tile set="tileset" tx="688" ty="240" x="368" y="496"/>
+    <tile set="tileset" tx="656" ty="240" x="352" y="496"/>
+    <tile set="tileset" tx="656" ty="240" x="352" y="448"/>
+    <tile set="tileset" tx="656" ty="128" x="352" y="432"/>
+    <tile set="tileset" tx="656" ty="128" x="352" y="480"/>
+    <tile set="tileset" tx="128" ty="0" x="352" y="752"/>
+    <tile set="tileset" tx="144" ty="0" x="368" y="752"/>
+    <tile set="tileset" tx="128" ty="16" x="352" y="768"/>
+    <tile set="tileset" tx="144" ty="16" x="368" y="768"/>
+    <tile set="tileset" tx="128" ty="0" x="352" y="784"/>
+    <tile set="tileset" tx="144" ty="0" x="368" y="784"/>
+    <tile set="tileset" tx="128" ty="16" x="352" y="800"/>
+    <tile set="tileset" tx="144" ty="16" x="368" y="800"/>
+    <tile set="tileset" tx="128" ty="0" x="320" y="784"/>
+    <tile set="tileset" tx="144" ty="0" x="336" y="784"/>
+    <tile set="tileset" tx="128" ty="16" x="320" y="800"/>
+    <tile set="tileset" tx="144" ty="16" x="336" y="800"/>
+    <tile set="tileset" tx="736" ty="304" x="144" y="624"/>
+    <tile set="tileset" tx="752" ty="304" x="160" y="624"/>
+    <tile set="tileset" tx="736" ty="320" x="144" y="640"/>
+    <tile set="tileset" tx="752" ty="320" x="160" y="640"/>
+    <tile set="tileset" tx="736" ty="304" x="144" y="656"/>
+    <tile set="tileset" tx="752" ty="304" x="160" y="656"/>
+    <tile set="tileset" tx="736" ty="320" x="144" y="672"/>
+    <tile set="tileset" tx="752" ty="320" x="160" y="672"/>
+    <rect set="tileset" tx="704" ty="112" x="96" y="720" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="112" x="512" y="336" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="112" x="432" y="400" w="16" h="16"/>
+    <rect set="tileset" tx="656" ty="0" x="384" y="224" w="16" h="16"/>
+    <rect set="tileset" tx="656" ty="0" x="256" y="816" w="16" h="16"/>
+    <rect set="tileset" tx="656" ty="0" x="800" y="704" w="16" h="16"/>
+    <rect set="tileset" tx="656" ty="0" x="880" y="608" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="0" x="640" y="720" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="0" x="112" y="880" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="0" x="432" y="528" w="16" h="16"/>
+    <rect set="tileset" tx="672" ty="0" x="448" y="720" w="192" h="16"/>
+    <rect set="tileset" tx="672" ty="0" x="656" y="784" w="144" h="16"/>
+    <rect set="tileset" tx="672" ty="0" x="816" y="704" w="64" h="16"/>
+    <rect set="tileset" tx="672" ty="0" x="896" y="608" w="304" h="16"/>
+    <rect set="tileset" tx="672" ty="0" x="0" y="880" w="112" h="16"/>
+    <rect set="tileset" tx="672" ty="0" x="272" y="816" w="112" h="16"/>
+    <rect set="tileset" tx="704" ty="16" x="432" y="352" w="16" h="48"/>
+    <rect set="tileset" tx="704" ty="16" x="416" y="416" w="16" h="112"/>
+    <rect set="tileset" tx="704" ty="16" x="432" y="544" w="16" h="176"/>
+    <rect set="tileset" tx="704" ty="16" x="640" y="736" w="16" h="48"/>
+    <rect set="tileset" tx="704" ty="16" x="96" y="96" w="16" h="624"/>
+    <rect set="tileset" tx="656" ty="16" x="384" y="240" w="16" h="576"/>
+    <rect set="tileset" tx="656" ty="16" x="256" y="832" w="16" h="128"/>
+    <rect set="tileset" tx="656" ty="16" x="880" y="624" w="16" h="80"/>
+    <rect set="tileset" tx="656" ty="16" x="800" y="720" w="16" h="64"/>
+    <rect set="tileset" tx="704" ty="16" x="112" y="896" w="16" h="64"/>
+    <rect set="tileset" tx="688" ty="112" x="0" y="720" w="96" h="16"/>
+    <rect set="tileset" tx="688" ty="112" x="448" y="336" w="64" h="16"/>
+    <rect set="tileset" tx="704" ty="96" x="96" y="80" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="96" x="432" y="336" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="96" x="416" y="400" w="16" h="16"/>
+    <rect set="tileset" tx="672" ty="96" x="384" y="816" w="16" h="16"/>
+    <rect set="tileset" tx="672" ty="96" x="800" y="784" w="16" h="16"/>
+    <rect set="tileset" tx="672" ty="96" x="880" y="704" w="16" h="16"/>
+    <rect set="tileset" tx="688" ty="96" x="640" y="784" w="16" h="16"/>
+    <rect set="tileset" tx="688" ty="96" x="432" y="720" w="16" h="16"/>
+    <rect set="tileset" tx="688" ty="96" x="416" y="528" w="16" h="16"/>
+    <rect set="tileset" tx="656" ty="80" x="400" y="240" w="112" h="96"/>
+    <rect set="tileset" tx="656" ty="80" x="400" y="336" w="32" h="64"/>
+    <rect set="tileset" tx="656" ty="80" x="400" y="400" w="16" h="144"/>
+    <rect set="tileset" tx="656" ty="80" x="400" y="544" w="32" h="192"/>
+    <rect set="tileset" tx="656" ty="80" x="400" y="736" w="240" h="224"/>
+    <rect set="tileset" tx="656" ty="80" x="272" y="832" w="128" h="128"/>
+    <rect set="tileset" tx="656" ty="80" x="640" y="800" w="176" h="160"/>
+    <rect set="tileset" tx="656" ty="80" x="816" y="720" w="80" h="240"/>
+    <rect set="tileset" tx="656" ty="80" x="896" y="624" w="304" h="336"/>
+    <rect set="tileset" tx="656" ty="80" x="0" y="896" w="112" h="64"/>
+    <rect set="tileset" tx="656" ty="80" x="0" y="80" w="96" h="640"/>
+    <rect set="tileset" tx="704" ty="112" x="992" y="80" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="16" x="992" y="0" w="16" h="80"/>
+    <rect set="tileset" tx="688" ty="112" x="112" y="80" w="880" h="16"/>
+    <rect set="tileset" tx="656" ty="80" x="0" y="0" w="992" h="80"/>
+    <rect set="tileset" tx="656" ty="80" x="512" y="240" w="688" h="32"/>
+    <rect set="tileset" tx="704" ty="96" x="512" y="272" w="16" h="16"/>
+    <rect set="tileset" tx="704" ty="16" x="512" y="288" w="16" h="48"/>
+    <rect set="tileset" tx="688" ty="112" x="528" y="272" w="672" h="16"/>
+    <rect set="tileset" tx="672" ty="0" x="400" y="224" w="800" h="16"/>
+    <rect set="tileset" tx="656" ty="112" x="1136" y="112" w="16" h="16"/>
+    <rect set="tileset" tx="656" ty="16" x="1136" y="0" w="16" h="112"/>
+    <rect set="tileset" tx="688" ty="112" x="1152" y="112" w="48" h="16"/>
+    <rect set="tileset" tx="656" ty="80" x="1152" y="0" w="48" h="112"/>
+    <rect set="tileset" tx="720" ty="272" x="528" y="416" w="352" h="16"/>
   </tiles>
   <objects>
-    <platform x="1040" y="48" speed="100"/>
-    <platform x="1040" y="144" speed="100"/>
-    <platform x="1040" y="240" speed="100"/>
-    <platform x="352" y="288" speed="100"/>
-    <platform x="112" y="352" speed="100"/>
-    <platform x="160" y="880" speed="100"/>
-    <E1 x="480" y="656"/>
-    <E1 x="960" y="544"/>
-    <grav_lift x="272" y="640" height="160" speed="50" id="none" isOn="true"/>
+    <platform x="192" y="352" speed="100"/>
+    <platform x="144" y="896" speed="100"/>
+    <E1 x="480" y="640"/>
+    <grav_lift x="192" y="544" height="128" speed="60" id="lift1" isOn="true"/>
+    <platform x="192" y="256" speed="100"/>
+    <wall_switch_flipped x="448" y="656" isOn="true" useOnce="true" t_id="gate1"/>
+    <electric_gate_h x="112" y="464" width="272" id="gate1" isOn="true" pulses="false"/>
+    <platform x="192" y="688" speed="100"/>
+    <grav_lift x="1024" y="0" height="96" speed="70" id="lift2" isOn="true"/>
+    <platform x="1024" y="112" speed="100"/>
+    <E1 x="576" y="336"/>
+    <E1 x="784" y="336"/>
   </objects>
 </level>

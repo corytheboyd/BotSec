@@ -17,13 +17,13 @@ package
 		public function Main()
 		{
 			super(960, 480, 60);
-			FP.screen.color = 0x00000000;
+			FP.screen.color = 0x42494C;
 			
 			//Mouse.hide();
-			FP.console.enable();
+			//FP.console.enable();
 			
-			FP.world = new GameWorld;
-			//FP.world = new MainMenu;
+			//FP.world = new GameWorld;
+			FP.world = new MainMenu;
 		}
 	}
 

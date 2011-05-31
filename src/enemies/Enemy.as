@@ -15,7 +15,6 @@ package enemies
 		public var hp:int = 1; //how many hits the enemy takes before it dies
 		public var moving:Boolean = true; //set to false if you want it to stop moving
 		
-		public var image:Image;
 		public var isFlipped:Boolean = false;
 		
 		public var	maxHSpeed:Number;

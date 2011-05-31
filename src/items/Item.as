@@ -16,12 +16,13 @@ package items
 		public var respawns:Boolean = false; //true if the item respawns each time the tiles is loaded
 		public var spawn:Boolean = true; //true if the item can spawn.
 		public var animated:Boolean = true; //true if the item is animated on the world
-		public var startY:int; //the starting position
-		public var animOffset:Number = Math.random() * 3; //offsets the animation so that all animated things are a little different
+		protected var startY:int; //the starting position
+		protected var animOffset:Number = Math.random() * 3; //offsets the animation so that all animated things are a little different
 		
-		public function Item( x:int=0, y:int=0 )
+		public function Item( x:int, y:int )
 		{
 			graphic = image;
+			type = GC.ITEM_TYPE;
 			
 			this.x = x;
 			this.y = startY = y;
@@ -40,9 +41,8 @@ package items
 			
 			if ( collide(GC.PLAYER_TYPE, x, y) ) 
 			{
-				world.add( new Message(this + ' added to inventory!', GC.MSG_DURATION) );
+				world.add( new Message(this + ' GET!', GC.MSG_DURATION) );
 				
-				FP.console.log('COLLECTED ITEM:', this);
 				GV.INVENTORY.push(this); //add to players inventory
 				world.remove(this);
 				
@@ -50,7 +50,6 @@ package items
 				{
 					for each(var item:Entity in GV.CURRENT_LEVEL.levelItems)
 					{
-						if ( item == this ) FP.console.log(item + ' removed from level!');
 						spawn = false;
 					}
 				}

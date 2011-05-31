@@ -6,6 +6,8 @@ package enemies
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	import flash.utils.getTimer;
+	import net.flashpunk.graphics.Spritemap;
+	import net.flashpunk.masks.Hitbox;
 
 	/**
 	 * ...
@@ -13,16 +15,22 @@ package enemies
 	 */
 	public class E1 extends Enemy 
 	{
-		public var dir:int = 1; //the direction of enemies movement, defaults to right
+		public var image:Spritemap = new Spritemap(GC.GFX_E1, 48, 80);
+		public var hitbox:Hitbox;
+		//public var dir:int = 1; //the direction of enemies movement, defaults to right
 		
 		public function E1( x:Number, y:Number ) 
 		{
+			image.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], GC.E1_FPS, true);
+			
 			super(x, y);
-			
 			lethal = true;
+			velocity.x = GC.E1_MOVE_SPEED;
 			
-			graphic = image = new Image(GC.GFX_E1);
-			setHitbox(16, 48, -8, -16);
+			graphic = image;
+			mask = hitbox = new Hitbox(32, 50, 8, 30); //change this later
+			
+			image.play('walk');
 		}
 		
 		override public function added():void 
@@ -30,12 +38,13 @@ package enemies
 			hp = GC.E1_HP;
 			moving = true;
 			type = GC.ENEMY_TYPE;
+			
+			layer = 2;
 		}
 		
 		override public function update():void 
 		{
-			gravity();
-			acceleration();
+			//gravity();
 			floorCollision();
 			checkBounds();
 			animate();
@@ -49,7 +58,6 @@ package enemies
 		{
 			isFlipped = !isFlipped;
 			velocity.x *= -1;
-			dir *= -1;
 		}
 		
 		/*
@@ -61,11 +69,11 @@ package enemies
 			//make sure it doesnt fall of ledges
 			if ( isOnGround ) //facing left
 			{
-				if ( isFlipped && ( !collide(GC.SOLID_TYPE, x - width, y + 3 ) ) ) //facing left
+				if ( !isFlipped && !collide(GC.SOLID_TYPE, x + width, y + 3 ) ) //facing right
 				{
 					reverseDirection();
 				}
-				if ( !isFlipped && !collide(GC.SOLID_TYPE, x + (2*width), y + 3 ) ) //facing right
+				else if ( isFlipped && !collide(GC.SOLID_TYPE, x - width, y + 3 ) ) //facing left
 				{
 					reverseDirection();
 				}
@@ -91,11 +99,6 @@ package enemies
 			
 			var sign:int = velocity.y > 0 ? 1 : -1;
 			if ( Math.abs(velocity.y) > maxVSpeed ) velocity.y = sign * maxVSpeed;
-		}
-		
-		public function acceleration():void
-		{
-			velocity.x = dir * GC.E1_MOVE_SPEED;
 		}
 		
 		public function floorCollision():void

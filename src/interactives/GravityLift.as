@@ -26,6 +26,8 @@ package interactives
 		public var flickerAlarm:Alarm = new Alarm(1);
 		
 		public var onSound:Sfx = new Sfx(GC.SFX_GRAVLIFT_ON);
+		public var offSound:Sfx = new Sfx(GC.SFX_GRAVLIFT_OFF);
+		public var moveSound:Sfx = new Sfx(GC.SFX_GRAVLIFT_MOVE);
 		
 		public function GravityLift( x:Number, y:Number, h:Number, speed:int, id:String, isOn:Boolean ) 
 		{
@@ -81,6 +83,8 @@ package interactives
 		override public function sendSignalOff():void 
 		{
 			isOn = false;
+			flickerAlarm.start();
+			offSound.play();
 		}
 		
 	}

@@ -34,46 +34,31 @@ package platforms
 			type = GC.PLATFORM_TYPE;
 			mask = hitbox;
 			
-			//determine if platform moves
-			try 
+			moving = (node1pos && node2pos && node1pos.y == node2pos.y) ? true : false;
+			
+			if ( moving )
 			{
-				this.node1pos = node1pos;
-				this.node2pos = node2pos;
+				this.speed = speed;
 				
-				//set to moving if it is setup only for horizontal movement
-				moving = (node1pos && node2pos && node1pos.y == node2pos.y) ? true : false;
-			} 
-			catch (e:Error)
-			{
-				moving = false;
-				return;
-				
-				if (node1pos) //if a node is present, copy its location
+				if ( node2pos.x < node1pos.x )
 				{
-					this.x = node1pos.x;
-					this.y = node1pos.y;
+					this.node1pos = node2pos;
+					this.node2pos = node1pos;
 				}
 				else
 				{
-					this.x = x;
-					this.y = y;
+					this.node1pos = node1pos;
+					this.node2pos = node2pos;
 				}
-			}
-			
-			//make the first node the starting location
-			if ( node1pos )
-			{
+				
 				this.x = node1pos.x;
 				this.y = node1pos.y;
 			}
-			else
+			else //not moving
 			{
-				this.x = x;
+				this.x = x; 
 				this.y = y;
 			}
-			
-			//set platform speed
-			this.speed = speed;
 		}
 		
 		override public function added():void 

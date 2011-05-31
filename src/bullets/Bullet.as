@@ -26,22 +26,12 @@ package bullets
 		public var flipped:Boolean;
 		public var spawnRoom:String; //the room that the bullet was spawned in
 		
-		public var upFlag:Boolean;
-		public var downFlag:Boolean;
-		public var playerVelocity:Vector3D;
-		
-		public function Bullet(flipped:Boolean, upFlag:Boolean=false, downFlag:Boolean=false, playerVelocity:Vector3D=null )
+		public function Bullet( flipped:Boolean )
 		{
 			type = GC.BULLET_TYPE;
 			this.flipped = flipped;
 			spawnRoom = GV.CURRENT_LEVEL.levelName;
-			
-			this.upFlag = upFlag;
-			this.downFlag = downFlag;
-			
-			if (playerVelocity) this.playerVelocity = playerVelocity;
-			else playerVelocity = new Vector3D;
-			
+		
 			setHitbox(6, 6);
 			
 			layer = 1;

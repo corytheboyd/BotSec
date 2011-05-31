@@ -15,7 +15,7 @@ package bullets
 		
 		public function PistolBullet(flipped:Boolean, upFlag:Boolean=false, downFlag:Boolean=false, playerVelocity:Vector3D=null) 
 		{
-			super(flipped, upFlag, downFlag, playerVelocity);
+			super(flipped);
 			
 			shootSound.play();
 			
@@ -32,9 +32,6 @@ package bullets
 				var dir:int = flipped ? -1 : 1;
 				velocity = new Vector3D(dir * GC.PISTOL_BULLET_SPEED, 0);
 			}
-			
-			//make bullets follow player along if they are moving, elimainate lag
-			if(upFlag || downFlag) velocity.x += this.playerVelocity.x;
 			
 			hasGravity = false;
 			damage = GC.PISTOL_BULLET_DAMAGE;			

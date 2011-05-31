@@ -17,14 +17,16 @@ package interactives
 		public var horizontal:Boolean; //true if its horizontal, false if vertical
 		public var hitbox:Hitbox; //sets the hitbox of the hazard
 		public var h:int; //height of the hazard
-		public var w:int; //width of the hazard		
+		public var w:int; //width of the hazard	
+		public var pulses:Boolean; //true if it pulses on/off
 		public var flickerAlarm:Alarm = new Alarm(0.75, enable);
+		public var pulseAlarm:Alarm = new Alarm(1, toggle);
 		
 		public var onSound:Sfx = new Sfx(GC.SFX_ELECTRIC_GATE_ON);
 		public var offSound:Sfx = new Sfx(GC.SFX_ELECTRIC_GATE_OFF);
 		public var loopSound:Sfx = new Sfx(GC.SFX_ELECTRIC_GATE_LOOP);
 		
-		public function ElectricGate( x:Number, y:Number, h:uint, w:uint, id:String, isOn:Boolean ) 
+		public function ElectricGate( x:Number, y:Number, h:uint, w:uint, pulses:Boolean, id:String, isOn:Boolean ) 
 		{			
 			type = GC.HAZARD_TYPE;
 			
@@ -34,6 +36,7 @@ package interactives
 			this.w = w;
 			this.isOn = isOn;
 			this.id = id;
+			this.pulses = pulses;
 			
 			if ( w == 0 ) //its vertical
 			{
@@ -52,12 +55,15 @@ package interactives
 			image.play('on');
 			
 			addTween(flickerAlarm);
+			addTween(pulseAlarm);
 		}
 		
 		override public function added():void 
 		{
 			//if it is initially disabled
 			if (!isOn) disable();
+			
+			if (pulses) pulseAlarm.start();
 			
 			layer = 3;
 		}
@@ -68,7 +74,7 @@ package interactives
 		}
 		
 		override public function update():void 
-		{
+		{			
 			if ( flickerAlarm.active )
 			{
 				image.alpha = ( FP.rand(2) == 0 ? 0.25 : 0.50 );
@@ -88,6 +94,8 @@ package interactives
 		{
 			flickerAlarm.start();
 			onSound.play();
+			
+			if (pulses) pulseAlarm.start();
 		}
 		
 		/*
@@ -96,6 +104,17 @@ package interactives
 		override public function sendSignalOff():void 
 		{
 			disable();
+			
+			if (pulses) pulseAlarm.reset(0);
+		}
+		
+		/*
+		 * Switches the state to its opposite
+		 * */
+		protected function toggle():void
+		{
+			isOn ? disable() : enable();
+			pulseAlarm.reset(1);
 		}
 		
 		/*
@@ -106,7 +125,7 @@ package interactives
 			if (loopSound.playing) 
 			{
 				loopSound.stop();
-				offSound.play();
+				if (!pulses) offSound.play();
 			}			
 			image.alpha = 0;
 			mask = null;

@@ -27,7 +27,7 @@ package
 		/*
 		 * PLAYER CONSTANTS
 		 * */
-		public static const	START_TILE:String 			= 'k9';
+		public static const	START_TILE:String 			= 'k9'; //k9
 		public static const	MAX_H_SPEED:Number			= 300;
 		public static const	MAX_V_SPEED:Number			= 700;
 		public static const	MOVE_SPEED:Number			= 2000;
@@ -41,8 +41,9 @@ package
 		/*
 		 * ENEMY CONSTANTS
 		 * */
-		public static const E1_MOVE_SPEED:Number		= 100;
-		public static const E1_HP:Number				= 1;
+		public static const E1_MOVE_SPEED:Number	= 100;
+		public static const E1_HP:Number			= 1;
+		public static const E1_FPS:uint				= 30;
 		
 		/*
 		 * UI CONSTANTS
@@ -51,7 +52,7 @@ package
 		public static const CURSOR_HEIGHT:Number		= 24;
 		public static const CURSOR_WIDTH:Number			= 24;
 		public static const MSG_FADE_RATE:Number		= 0.1;
-		public static const MSG_DURATION:Number			= 1.5;
+		public static const MSG_DURATION:Number			= 1;
 		
 		/*
 		 * INPUT CONSTANTS
@@ -106,12 +107,29 @@ package
 		public static const SWITCH_TYPE:String			= 'switch';
 		public static const TV_TYPE:String				= 'tv';
 		public static const TRIGGER_TYPE:String			= 'trigger';
+		public static const HUD_TYPE:String				= 'hud';
+		
+		/*
+		 * ZONE COLORS
+		 * */
+		public static const ZONE1_COLOR:int = 0x42494C;
+		public static const ZONE2_COLOR:int = 0x070E13;
+		public static const ZONE3_COLOR:int = 0x859476;
+		public static const ZONE4_COLOR:int = 0xCD0074;
 		
 		/*
 		 * MUSIC
 		 * */
 		[Embed(source = '../assets/music/title_song.mp3')]
 		public static const SFX_TITLE_TRACK:Class;
+		[Embed(source = '../assets/music/zone1.mp3')]
+		public static const SFX_ZONE1:Class;
+		[Embed(source = '../assets/music/zone2.mp3')]
+		public static const SFX_ZONE2:Class;
+		[Embed(source = '../assets/music/zone3.mp3')]
+		public static const SFX_ZONE3:Class;
+		[Embed(source = '../assets/music/zone4.mp3')]
+		public static const SFX_ZONE4:Class;
 		
 		/*
 		 * SFX
@@ -144,6 +162,14 @@ package
 		public static const SFX_ELECTRIC_GATE_LOOP:Class;
 		[Embed(source = '../assets/sfx/gravlift_on.mp3')]
 		public static const SFX_GRAVLIFT_ON:Class;
+		[Embed(source = '../assets/sfx/gravlift_off.mp3')]
+		public static const SFX_GRAVLIFT_OFF:Class;
+		[Embed(source = '../assets/sfx/gravlift_move.mp3')]
+		public static const SFX_GRAVLIFT_MOVE:Class;
+		[Embed(source = '../assets/sfx/message.mp3')]
+		public static const SFX_MESSAGE_SHOW:Class;
+		[Embed(source = '../assets/sfx/door_unlocked.mp3')]
+		public static const SFX_DOOR_UNLOCKED:Class;
 		
 		/*
 		 * GRAPHICS
@@ -218,15 +244,22 @@ package
 		public static const GFX_NONE:Class;
 		[Embed(source = '../assets/gfx/grav_lift_platform.png')]
 		public static const GFX_GRAV_LIFT_PLATFORM:Class;
+		[Embed(source = '../assets/gfx/hud/unlocks.png')]
+		public static const GFX_UNLOCKS_HUD:Class;
+		[Embed(source = '../assets/gfx/hud/none.png')]
+		public static const GFX_UNLOCKS_NONE:Class;
+		[Embed(source = '../assets/gfx/hud/dbl_jump.png')]
+		public static const GFX_UNLOCKS_DBL_JUMP:Class;
+		[Embed(source = '../assets/gfx/hud/pistol.png')]
+		public static const GFX_UNLOCKS_PISTOL:Class;
 		
 		/*
 		* MAP FILES
-		* */
-		[Embed(source = '../map/a0.oel', mimeType = 'application/octet-stream')] 
-		public static const a0:Class;
-		
-		[Embed(source = '../map/b0.oel', mimeType = 'application/octet-stream')] 
-		public static const b0:Class;
+		* */		
+		[Embed(source = '../map/j10.oel', mimeType = 'application/octet-stream')] 
+		public static const j10:Class;
+		[Embed(source = '../map/j11.oel', mimeType = 'application/octet-stream')] 
+		public static const j11:Class;
 		
 		[Embed(source = '../map/k9.oel', mimeType = 'application/octet-stream')] 
 		public static const k9:Class; 
@@ -241,6 +274,8 @@ package
 		[Embed(source = '../map/k14.oel', mimeType = 'application/octet-stream')]
 		public static const k14:Class;
 		
+		[Embed(source = '../map/l9.oel', mimeType = 'application/octet-stream')]
+		public static const l9:Class;
 		[Embed(source = '../map/l10.oel', mimeType = 'application/octet-stream')]
 		public static const l10:Class;
 		[Embed(source = '../map/l11.oel', mimeType = 'application/octet-stream')]
@@ -251,7 +286,13 @@ package
 		public static const l13:Class;
 		[Embed(source = '../map/l14.oel', mimeType = 'application/octet-stream')]
 		public static const l14:Class;
+		[Embed(source = '../map/l15.oel', mimeType = 'application/octet-stream')]
+		public static const l15:Class;
 		
+		[Embed(source = '../map/m8.oel', mimeType = 'application/octet-stream')]
+		public static const m8:Class;
+		[Embed(source = '../map/m9.oel', mimeType = 'application/octet-stream')]
+		public static const m9:Class;
 		[Embed(source = '../map/m10.oel', mimeType = 'application/octet-stream')]
 		public static const m10:Class;
 		[Embed(source = '../map/m11.oel', mimeType = 'application/octet-stream')]
@@ -269,6 +310,12 @@ package
 		public static const n13:Class;
 		[Embed(source = '../map/n14.oel', mimeType = 'application/octet-stream')]
 		public static const n14:Class;
+		
+		[Embed(source = '../map/h10.oel', mimeType = 'application/octet-stream')]
+		public static const h10:Class;
+		
+		[Embed(source = '../map/i10.oel', mimeType = 'application/octet-stream')]
+		public static const i10:Class;
 	}
 	
 }
